@@ -1,0 +1,1138 @@
+<!DOCTYPE html>
+<html lang="en" class="light scroll-smooth" dir="ltr">
+
+
+<head>
+    <meta charset="UTF-8">
+    <title>Surya Holidays | Home</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <meta content="Tour & Travels Agency" name="description">
+    <meta
+        content="Tour, Travels, agency, business, corporate, tour packages, journey, trip, tailwind css, Admin, Landing"
+        name="keywords">
+    <meta name="author" content="HarshCreators">
+    <meta name="website" content="">
+    <meta name="version" content="1.5.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <!-- favicon -->
+    <link rel="shortcut icon" href="/images/surya-logo.png">
+
+    <!-- Css -->
+    <link href="/libs/tobii/css/tobii.min.css" rel="stylesheet">
+    <link href="/libs/tiny-slider/tiny-slider.css" rel="stylesheet">
+    <link href="/libs/js-datepicker/datepicker.min.css" rel="stylesheet">
+    <link href="/css/style.css" rel="stylesheet">
+    <!-- Main Css -->
+    <link href="/libs/%40mdi/font/css/materialdesignicons.min.css" rel="stylesheet" type="text/css">
+    <link href="/css/tailwind.min.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css"/>
+
+    <style>
+        .package-item {
+            transition: all 0.3s ease;
+        }
+
+        .category-btn {
+            transition: all 0.2s ease;
+        }
+
+        /* Add these styles to your existing CSS */
+        .has-submenu {
+            position: relative;
+        }
+
+        .submenu {
+            display: none;
+            position: absolute;
+            min-width: 200px;
+            background: white;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+        }
+
+        .has-submenu:hover .submenu {
+            display: block;
+        }
+
+        .sub-submenu {
+            display: none;
+            position: absolute;
+            left: 100%;
+            top: 0;
+            min-width: 200px;
+            background: white;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .parent-menu-item:hover .sub-submenu {
+            display: block;
+        }
+
+        .menu-arrow,
+        .submenu-arrow {
+            display: inline-block;
+            margin-left: 5px;
+            transition: transform 0.3s;
+        }
+
+        .has-submenu:hover .menu-arrow,
+        .parent-menu-item:hover .submenu-arrow {
+            transform: rotate(180deg);
+        }
+
+        /* Hide dropdowns on mobile */
+        @media (max-width: 767px) {
+
+            .menu-arrow,
+            .submenu-arrow,
+            .submenu,
+            .sub-submenu {
+                display: none !important;
+            }
+
+            #packageLink {
+                pointer-events: auto !important;
+            }
+        }
+
+        /* Animation */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        .animate-fade-in {
+            animation: fadeIn 0.3s ease-out;
+        }
+    </style>
+    <style>
+        .banner-slider {
+            margin: 0 auto;
+        }
+        .banner-slide {
+            padding: 0 10px;
+        }
+        .banner-image img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+        }
+        /* Custom arrow styles */
+        .slick-prev, .slick-next {
+            width: 40px;
+            height: 40px;
+            z-index: 1;
+        }
+        .slick-prev {
+            left: 15px;
+        }
+        .slick-next {
+            right: 15px;
+        }
+        .slick-prev:before, .slick-next:before {
+            font-size: 40px;
+            color: #fff;
+            opacity: 0.7;
+        }
+        .slick-prev:hover:before, .slick-next:hover:before {
+            opacity: 1;
+        }
+        /* Dots styling */
+        .slick-dots {
+            bottom: 20px;
+        }
+        .slick-dots li button:before {
+            font-size: 12px;
+            color: #fff;
+        }
+    </style>
+</head>
+
+<body class="dark:bg-slate-900">
+    <!-- Loader Start -->
+    <div id="preloader">
+        <div id="status">
+            <div class="spinner">
+                <div class="double-bounce1"></div>
+                <div class="double-bounce2"></div>
+            </div>
+        </div>
+    </div>
+    <!-- Loader End -->
+    <!-- TAGLINE START-->
+    <div class="h-auto topbar tagline bg-slate-900 ">
+        <div class="container relative">
+            <div class="">
+                <div class="flex items-center justify-between">
+                    <ul class="list-none w-[50%] top-info">
+                        <li class="inline-flex items-center">
+                            <i data-feather="clock" class="text-red-500 icons size-4"></i>
+                            <span class="ms-2 text-slate-300 ">Mon-Sat: 9am to 6pm</span>
+                        </li>
+                        <li class="inline-flex items-center ms-2">
+                            <i data-feather="map-pin" class="text-red-500 icons size-4"></i>
+                            <span class="ms-2 text-slate-300">Calicut </span>
+                        </li>
+                    </ul>
+
+                    <ul class="list-none w-[50%] top-info">
+                        <li class="inline-flex items-center">
+                            <i data-feather="mail" class="text-red-500 icons size-4"></i>
+                            <a href="mailto:suryaholidays.com" class="ms-2 text-slate-300 hover:text-slate-200">
+                                suryaholidays.com</a>
+                        </li>
+                        <li class="inline-flex items-center ms-2">
+                            <ul class="list-none">
+                                <li class="inline-flex mb-0"><a href="https://www.facebook.com/share/1AcZeG4cVA/"
+                                        class="text-slate-300 hover:text-red-500"><i data-feather="facebook"
+                                            class="size-4 social-icon align-middle" title="facebook"></i></a></li>
+                                <li class="inline-flex ms-2 mb-0"><a
+                                        href="https://www.instagram.com/suryaholidays_official?igsh=eGp0cHZxZ3Q0am5m"
+                                        class="text-slate-300 hover:text-red-500"><i data-feather="instagram"
+                                            class="size-4 social-icon  align-middle" title="instagram"></i></a></li>
+                                <li class="inline-flex ms-2 mb-0"><a href="https://wa.me/+919048002234"
+                                        class="text-slate-300 hover:text-red-500"><i data-feather="message-circle"
+                                            class="size-4 social-icon  align-middle" title="whatsapp"></i></a></li>
+                                <li class="inline-flex ms-2 mb-0"><a href="tel:
+                                        +919048002234" class="text-slate-300 hover:text-red-500"><i
+                                            data-feather="phone" class="size-4 social-icon  align-middle" title="phone"></i></a></li>
+                            </ul><!--end icon-->
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div><!--end container-->
+    </div><!--end tagline-->
+    <!-- TAGLINE END-->
+    <!-- Start Navbar -->
+    <nav id="topnav" class="defaultscroll is-sticky tagline-height">
+        <div class="container relative">
+            <!-- Logo container-->
+            <a class="logo" href="/">
+                <span class="inline-block dark:hidden">
+                    <img src="/images/surya-logo.png" class="h-[50px] l-dark" alt="">
+                    <img src="/images/surya-logo.png" class="h-[50px] l-light" alt="">
+                </span>
+                <img src="/images/surya-logo.png" class="hidden h-[50px] dark:inline-block" alt="">
+            </a>
+            <!-- End Logo container-->
+
+            <!-- Start Mobile Toggle -->
+            <div class="menu-extras">
+                <div class="menu-item">
+                    <a class="navbar-toggle" id="isToggle" onclick="toggleMenu()">
+                        <div class="lines">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <!-- End Mobile Toggle -->
+
+            <!--Login button Start-->
+
+            <!--Login button End-->
+
+            <div id="navigation">
+                <!-- Navigation Menu-->
+                <ul class="navigation-menu nav-right !justify-end nav-light">
+                    <li class=" parent-menu-item">
+                        <a  href="/">Home</a><span class="menu-arrow"></span>
+
+                    </li>
+
+                    <li class="has-submenu parent-parent-menu-item">
+                        <a href="/packages" id="packageLink">Packages</a>
+                        <!-- Hide dropdown arrows on mobile -->
+                        <span class="menu-arrow hidden md:inline-block"></span>
+                        <!-- Hide submenu completely on mobile -->
+                        <ul class="submenu hidden md:block">
+                            <% categories.forEach(category => { 
+                              const hasSubCategories = category.subCategories && category.subCategories.length > 0;
+                              const hasDirectPackages = category.directPackages && category.directPackages.length > 0;
+                            %>
+                          
+                              <% if (hasSubCategories || hasDirectPackages) { %>
+                                <li class="parent-menu-item has-submenu">
+                                  <a href="/packages?category=<%= category._id %>">
+                                    <%= category.name %>
+                                  </a>
+                                  <span class="submenu-arrow hidden md:inline-block"></span>
+                                  <ul class="sub-submenu hidden md:block">
+                                    <% category.subCategories.forEach(subCategory => { %>
+                                      <li>
+                                        <a href="/package-details?subCategory=<%= subCategory._id %>">
+                                          <%= subCategory.name %>
+                                        </a>
+                                      </li>
+                                    <% }) %>
+                          
+                                    <% category.directPackages.forEach(pkg => { %>
+                                      <li class="side-sub">
+                                        <a href="/package/<%= pkg._id %>">
+                                          <%= pkg.destination %>
+                                        </a>
+                                      </li>
+                                    <% }) %>
+                                  </ul>
+                                </li>
+                              <% } else { %>
+                                <li>
+                                  <a href="/packages?category=<%= category._id %>">
+                                    <%= category.name %>
+                                  </a>
+                                </li>
+                              <% } %>
+                          
+                            <% }) %>
+                          </ul>
+                          
+                    </li>
+
+                    <li class=" parent-parent-menu-item">
+                        <a href="/about">About Us</a><span class="menu-arrow"></span>
+
+                    </li>
+
+                    <li class=" parent-menu-item">
+                        <a href="/blogs">Blogs</a>
+
+                    </li>
+                    <li class=" parent-menu-item">
+                        <a href="/gallery">Gallery</a>
+
+                    </li>
+
+                    <li><a href="/contact" class="sub-menu-item">Contact Us</a></li>
+                </ul><!--end navigation menu-->
+            </div><!--end navigation-->
+        </div><!--end container-->
+    </nav><!--end header-->
+    <!-- End Navbar -->
+
+    <!-- Hero Start -->
+    <section style="background-image: url('/images/bg/banner.jpg'); " class="relative py-36  bg-cover jarallax"
+        data-jarallax data-speed="0.5">
+        <div  class="absolute inset-0 bg-slate-900/40"></div>
+        <div class="container  relative">
+            <div class="grid lg:grid-cols-12 md:grid-cols-2 mt-10 items-center gap-6">
+                <div class="lg:col-span-7">
+                    <h5 class="text-3xl !font-dancing text-white">Find Your Ideal Stay</h5>
+                    <h4 class="font-bold text-white lg:leading-normal leading-normal text-4xl lg:text-6xl mb-6 mt-5">
+                       Ready for  <br> Takeoff?</h4>
+                    <p class="text-white/70 text-xl max-w-xl">Ready to travel? We plan unforgettable trips to the best places, all tailored to your budget and preferences!</p>
+
+                    <div class="mt-6">
+                        <a href="/packages"
+                            class="py-2 px-5 main-btn inline-block tracking-wide align-middle duration-500 text-base text-center bg-red-500 text-white rounded-md">View
+                            Packages</a>
+
+                    </div>
+                </div>
+
+                <div class="lg:col-span-5">
+                    <div
+                        class="bg-white dark:bg-slate-900 rounded-xl shadow-sm dark:shadow-gray-800 p-6 z-10 relative lg:ms-10">
+                        <h4 class="mb-5 text-2xl font-semibold">Search Your Destinations</h4>
+
+                        <form action="/packages" method="GET"
+                            class="bg-white dark:bg-slate-800 p-6 rounded-lg shadow-md">
+                            <div class="grid grid-cols-1 gap-4">
+                                <!-- Dummy Date Field -->
+                                <div>
+                                    <label
+                                        class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Select
+                                        Date</label>
+                                    <div class="relative">
+                                        <input type="date" name="date"
+                                            class="w-full rounded-md border border-slate-300 dark:border-slate-700 py-2 px-3 bg-white dark:bg-slate-900 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent cursor-pointer">
+                                    </div>
+                                </div>
+
+                                <!-- Category Dropdown -->
+                                <div>
+                                    <label
+                                        class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Locations</label>
+                                    <div class="relative">
+                                        <select name="category" id="search-category"
+                                            class="w-full rounded-md border border-slate-300 dark:border-slate-700 py-2 px-3 bg-white dark:bg-slate-900 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent appearance-none cursor-pointer">
+                                            <option value="">All Locations</option>
+                                            <% categories.forEach(category=> { %>
+                                                <option value="<%= category._id %>" <%=(query &&
+                                                    query.category===category._id.toString()) ? 'selected' : '' %>>
+                                                    <%= category.name %>
+                                                </option>
+                                                <% }); %>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <!-- Subcategory Dropdown -->
+                                <div>
+                                    <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Sub
+                                        Locations</label>
+                                    <div class="relative">
+                                        <select name="subCategory" id="search-subcategory"
+                                            class="w-full rounded-md border border-slate-300 dark:border-slate-700 py-2 px-3 bg-white dark:bg-slate-900 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent appearance-none cursor-pointer"
+                                            <%=!(query && query.category) ? 'disabled' : '' %>>
+                                            <option value="">Select a Location</option>
+                                            <% if (query && query.category) { %>
+                                                <% const selectedCat=categories.find(c=> c._id.toString() ===
+                                                    query.category); %>
+                                                    <% if (selectedCat && selectedCat.subCategories) { %>
+                                                        <% selectedCat.subCategories.forEach(subCat=> { %>
+                                                            <option value="<%= subCat._id %>"
+                                                                <%=query.subCategory===subCat._id.toString()
+                                                                ? 'selected' : '' %>>
+                                                                <%= subCat.name %>
+                                                            </option>
+                                                            <% }); %>
+                                                                <% } %>
+                                                                    <% } %>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <!-- Submit Button -->
+                                <div>
+                                    <button type="submit"
+                                        class="w-full main-btn bg-red-500 hover:bg-red-600 text-white font-medium py-2 px-4 rounded-md transition duration-200 cursor-pointer">
+                                        Search Packages
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                        <!-- end form -->
+                    </div>
+                </div>
+            </div><!--end grid-->
+        </div><!--end container-->
+    </section><!--end section-->
+    <div class="relative">
+        <div class="absolute block w-full h-auto bottom-[25px] start-0">
+            <a href="#about"><i
+                    class="mdi mdi-arrow-down arrow-btn absolute top-0 start-0 end-0 text-center inline-flex items-center justify-center rounded-full bg-white dark:bg-slate-900 h-12 w-12 mx-auto shadow-md dark:shadow-gray-800"></i></a>
+        </div>
+
+        <div
+            class="shape absolute sm:-bottom-px -bottom-[2px] start-0 end-0 overflow-hidden text-white dark:text-slate-900">
+            <svg class="w-full h-auto scale-[2.0] origin-top" viewBox="0 0 2880 48" fill="none"
+                xmlns="http://www.w3.org/2000/svg">
+                <path d="M0 48H1437.5H2880V0H2160C1442.5 52 720 0 720 0H0V48Z" fill="black"></path>
+            </svg>
+        </div>
+    </div>
+    <!-- Hero End -->
+
+    <!-- Start -->
+    <section class="relative md:py-24 py-16">
+        <div class="container relative">
+            <div class="grid grid-cols-1 pb-8 text-center">
+                <h3 class="mb-6 md:text-3xl text-2xl md:leading-normal leading-normal titles font-semibold">Top Destinations
+                </h3>
+
+                <p class="text-slate-400 max-w-xl disc mx-auto">Planning a trip? We'll organize it with the best destinations  all within your budget!</p>
+            </div><!--end grid-->
+
+            <div class="grid grid-cols-1 relative mt-4">
+                <div class="tiny-six-item">
+                    <% categories.forEach(category=> { %>
+                        <div class="tiny-slide">
+                            <div class="group text-center m-2">
+                                <div class="relative overflow-hidden rounded-full">
+                                    <a href="/packages?category=<%= category._id %>">
+                                        <img src="<%= category.imageUrl %>"
+                                            class="w-full md:h-32 h-36 object-cover scale-125 group-hover:scale-100 duration-500 shadow-sm dark:shadow-gray-800"
+                                            alt="<%= category.name %>">
+                                    </a>
+                                </div>
+
+                                <div class="mt-2">
+                                    <a href="/packages?category=<%= category._id %>"
+                                        class="text-lg font-medium text-color hover:text-red-500 duration-500 ease-in-out">
+                                        <%= category.name %>
+                                    </a>
+                                    <p class="text-sm disc text-gray-500">
+                                        <% if (category.locationCount > 0) { %>
+                                          <%= category.locationCount %> Locations Available
+                                        <% } else { %>
+                                          Currently Unavailable
+                                        <% } %>
+                                      </p>
+                                      
+                                </div>
+                            </div>
+                        </div><!--end slide-->
+                        <% }) %>
+                </div>
+            </div>
+        </div><!--end container-->
+       
+
+                <div class="container relative md:mt-16 mt-16">
+                    <div class="grid grid-cols-1 pb-8 text-center">
+                        <h3 class="mb-6 md:text-3xl text-2xl titles md:leading-normal leading-normal font-semibold">Tours
+                            Packages</h3>
+                        <p class="text-slate-400 disc max-w-xl mx-auto">Experience unforgettable journeys with tour packages designed just for you!
+
+</p>
+
+                        <!-- Add category tabs here -->
+                        <div class="flex flex-wrap justify-center gap-2 mt-6">
+                            <button onclick="filterPackages('all')"
+                                class="px-4 py-2 rounded-full main-btn text-color text-white font-medium transition-all duration-300 hover:bg-red-600 active:bg-red-700 focus:outline-none focus:ring focus:ring-red-300 category-btn cursor-pointer"
+                                data-category="all">
+                                All Packages
+                            </button>
+                            <% categories.forEach(category=> { %>
+                                <button onclick="filterPackages('<%= category._id %>')"
+                                    class="px-4 py-2 rounded-full main-btn text-white font-medium transition-all duration-300 hover:bg-gray-300 text-color active:bg-gray-400 focus:outline-none focus:ring focus:ring-gray-300 category-btn cursor-pointer"
+                                    data-category="<%= category._id %>">
+                                    <%= category.name %>
+                                </button>
+                                <% }) %>
+                        </div>
+                    </div>
+
+                    <div class="grid lg:grid-cols-4 md:grid-cols-2 grid-cols-2 mt-6 gap-6" id="packages-container">
+                        <% packages.slice(0, 12).forEach(pkg=> { %>
+                            <div class="group rounded-md shadow-sm dark:shadow-gray-700 package-item"
+                                data-category="<%= pkg.category?._id || 'uncategorized' %>">
+                                <div
+                                    class="relative overflow-hidden rounded-md shadow-sm dark:shadow-gray-700 mx-2 mt-2">
+                                    <img src="<%= pkg.images[0] || '/images/listing/default.jpg' %>"
+                                        class="scale-125 group-hover:scale-100 duration-500 h-48 w-full object-cover"
+                                        alt="<%= pkg.title %>">
+
+                                    <% if (pkg.discount> 0) { %>
+                                        <div class="absolute top-0 start-0 p-4">
+                                            <span
+                                                class="main-btn text-white text-[12px] px-2.5 py-1 font-medium rounded-md">
+                                                <%= pkg.discount %>% Off
+                                            </span>
+                                        </div>
+                                        <% } %>
+                                </div>
+
+                                <div class="p-3">
+                                    <p class="flex items-center titles font-medium mb-2">
+                                        <i data-feather="map-pin" class="titles size-4 me-1"></i>
+                                        <%= pkg.destination %>
+                                    </p>
+
+                                    <a href="/package/<%= pkg._id %>"
+                                        class="text-lg font-medium titles hover:text-gold-600 duration-500 ease-in-out">
+                                        <%= pkg.title %>
+                                    </a>
+
+                                    <p class="text-sm disc mt-1">
+                                        <i class="mdi mdi-clock-outline icons me-1"></i>
+                                        <%= pkg.duration %>
+                                    </p>
+
+                                    <div
+                                        class="mt-3 pt-3 flex justify-between items-center border-t border-slate-100 dark:border-gray-800">
+                                        <div>
+                                            <h5 class="text-lg font-medium icons">
+                                                ₹<%= pkg.packagePrice.toLocaleString() %>
+                                            </h5>
+                                            <% if (pkg.discount> 0) { %>
+                                                <span class="text-sm line-through icons">
+                                                    ₹<%= Math.round(pkg.packagePrice *
+                                                        100/(100-pkg.discount)).toLocaleString() %>
+                                                </span>
+                                                <% } %>
+                                        </div>
+                                        <a href="/package/<%= pkg._id %>" class="titles hover:text-gold-600">
+                                            Explore Now <i class="mdi titles mdi-arrow-right"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <% }) %>
+                    </div>
+                    <div id="no-packages-message" class="hidden col-span-full text-center py-12">
+                        <div class="mx-auto max-w-md">
+                            <i data-feather="package" class="size-12 icons mx-auto"></i>
+                            <h4 class="text-xl titles font-semibold mt-4">Currently Unavailable</h4>
+                            <p class="disc mt-2">We don't have any packages in this location at the moment.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="flex justify-center mt-4">
+                        <a href="/packages"
+                            class="px-4 py-2 rounded-full main-btn text-white font-medium transition-all duration-300 hover:bg-yellow-600 active:bg-red-700 focus:outline-none focus:ring focus:ring-red-300">
+                            See More Packages
+                        </a>
+                    </div>
+                </div>
+                <% if (banners && banners.length > 0) { %>
+      
+                    <div class="container mt-16">
+                        <div class="banner-slider">
+                            <% banners.forEach((banner) => { %>
+                                <% banner.images.forEach((image) => { %>
+                                    <div class="banner-slide">
+                                        <div class="banner-image">
+                                            <img src="<%= image.url %>" class="w-full h-auto rounded-lg shadow-md" alt="<%= banner.title %>">
+                                        </div>
+                                    </div>
+                                <% }) %>
+                            <% }) %>
+                        </div>
+                    </div>
+                <% } %>
+                <div class="container relative md:mt-24 mt-16">
+                    <div class="grid grid-cols-1 pb-6 text-center">
+                        <h3 class="mb-6 md:text-3xl text-2xl md:leading-normal leading-normal titles font-semibold">Hear From
+                            Our Happy
+                            Travelers 🌍✈️</h3>
+
+                        <p class="text-slate-400 max-w-xl disc mx-auto">Discover what our happy travelers have to say about
+                            their
+                            unforgettable journeys with us!</p>
+                    </div><!--end grid-->
+
+                    <div class="grid grid-cols-1 mt-6">
+                        <div class="tiny-three-item">
+                            <% testimonials.forEach(testimonial=> { %>
+                                <div class="tiny-slide text-center">
+                                    <div class="cursor-e-resize testi">
+                                        <div
+                                            class="content relative rounded shadow-sm dark:shadow-gray-700 m-2 p-6 bg-white dark:bg-slate-900 before:content-[''] before:absolute before:start-1/2 before:-bottom-[4px] before:box-border before:border-8 before:rotate-[45deg] before:border-t-transparent before:border-e-white dark:before:border-e-slate-900 before:border-b-white dark:before:border-b-slate-900 before:border-s-transparent before:shadow-testi dark:before:shadow-gray-700 before:origin-top-left">
+                                            <div class="flex justify-center items-center">
+                                                <img class="testi-logo h-10" src="/images/google-logo.png" alt="">
+                                            </div>
+
+                                            <p class="text-slate-400 line-clamp-3">"<%= testimonial.content %>"</p>
+                                            <ul class="list-none mb-0 text-amber-400 mt-3">
+                                                <% for (let i=0; i < testimonial.rating; i++) { %>
+                                                    <li class="inline"><i class="mdi mdi-star"></i></li>
+                                                    <% } %>
+                                                        <% for (let i=testimonial.rating; i < 5; i++) { %>
+                                                            <li class="inline"><i class="mdi mdi-star-outline"></i></li>
+                                                            <% } %>
+                                            </ul>
+                                        </div>
+
+                                        <div class="text-center mt-5">
+                                            <img src="<%= testimonial.imageUrl %>"
+                                                class="size-14 rounded-full shadow-md dark:shadow-gray-700 mx-auto"
+                                                alt="profile pic" style="width: 40px; object-fit: cover;">
+                                            <h6 class="mt-2 font-semibold">
+                                                <%= testimonial.name %>
+                                            </h6>
+                                            <p class="text-slate-400">
+                                                <%= testimonial.designation %>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <% }); %>
+                        </div>
+                    </div><!--end grid-->
+                </div><!--end container-->
+                <div class="container relative md:mt-24 mt-16">
+                    <div class="grid md:grid-cols-12 grid-cols-1 items-center gap-6 relative">
+                        <div class="md:col-span-5">
+                            <div class="relative">
+                                <img src="/images/bg/about.jpg"
+                                    class="mx-auto rounded-3xl shadow-sm dark:shadow-gray-700 w-[100%]" alt="">
+                                <div
+                                    class="absolute flex items-center bottom-16 md:-start-10 -start-5 p-4 rounded-lg shadow-md dark:shadow-gray-800 bg-white dark:bg-slate-900 w-56 m-3">
+                                    <div
+                                        class="flex items-center justify-center h-[65px] min-w-[65px] bg-red-500/5 text-red-500 text-center rounded-xl me-3">
+                                        <i data-feather="users" class="size-6 icons"></i>
+                                    </div>
+                                    <div class="flex-1">
+                                        <span class="text-slate-400">Visitor</span>
+                                        <p class="text-xl font-bold"><span class="counter-value"
+                                                data-target="4589">2100</span>
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <div
+                                    class="absolute flex items-center top-16 md:-end-10 -end-5 p-4 rounded-lg shadow-md dark:shadow-gray-800 bg-white dark:bg-slate-900 w-60 m-3 hidden md:flex">
+                                    <div
+                                        class="flex items-center justify-center h-[65px] min-w-[65px] bg-red-500/5 text-red-500 text-center rounded-xl me-3">
+                                        <i data-feather="globe" class="size-6 icons"></i>
+                                    </div>
+                                    <div class="flex-1">
+                                        <span class="text-slate-400">Travel Packages</span>
+                                        <p class="text-xl font-bold"><span class="counter-value"
+                                                data-target="80">1</span>+</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="md:col-span-7">
+                            <div class="lg:ms-8">
+                                <h3 class="mb-6 md:text-3xl text-2xl titles md:leading-normal leading-normal font-semibold">
+                                    <br> About
+                                    Us :</h3>
+
+                                <p class="disc max-w-xl text-justify mb-6">Surya Holidays is an eminent & expert tour operator in Kerala having more than 15 years of experience  in tours & allied services. We focus on providing quality services to our clients ensuring their full hearted satisfaction and happiness .As your best travel partners , we guarantee  cent percent utility of time and money for all your tours and travels with us. Our services comprise of Local and International Tours. Leisure Tours, Corporate Tours, Incentive Tours , House Boats Hotel Booking ,Honeymoon ,Student Tour & Pilgrimages</p>
+
+                                <a href="/about"
+                                    class="py-2 px-5 inline-block main-btn tracking-wide align-middle duration-500 text-base text-center bg-red-500 text-white rounded-md">Read
+                                    More <i class="mdi mdi-chevron-right align-middle ms-0.5"></i></a>
+                            </div>
+                        </div>
+
+                        <div class="absolute bottom-0 start-1/3 -z-1">
+                            <img src="/images/map-plane-big.png" class="lg:w-[600px] w-96" alt="">
+                        </div>
+                    </div>
+                </div><!--end container-->
+               
+                <div class="container relative md:mt-24 mt-16">
+                    <div class="grid grid-cols-1 pb-6 text-center">
+                        <h3 class="mb-6 md:text-3xl titles text-2xl md:leading-normal leading-normal font-semibold">Travel
+                            Blogs</h3>
+
+                        <p class="text-slate-400 disc max-w-xl mx-auto">Discover Expert Travel Tips, Inspiring Stories, and Destination Guides to Plan Your Perfect Journey.</p>
+                    </div><!--end grid-->
+
+                    <div class="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 mt-6 gap-6">
+                        <% blogs.slice(0, 3).forEach(blog=> { %>
+                            <div class="group relative overflow-hidden">
+                                <div class="relative overflow-hidden rounded-md shadow-sm dark:shadow-gray-800">
+                                    <img id="blog-image" src="<%= blog.imageUrl %>"
+                                        class="group-hover:scale-110 group-hover:rotate-3 duration-500 w-full md:w-[300px]"
+                                        alt="imageblogs" style="height: 300px; object-fit: cover;">
+                                    <div
+                                        class="absolute top-0 start-0 p-4 opacity-0 group-hover:opacity-100 duration-500">
+                                        <span
+                                            class="bg-red-500 text-white text-[12px] px-2.5 py-1 font-medium rounded-md h-5">Travel</span>
+                                    </div>
+                                </div>
+
+                                <div class="mt-6">
+                                    <div class="flex mb-4">
+                                        <span class="flex items-center titles text-sm"><i data-feather="clock"
+                                                class="size-4 icons dark:text-white me-1.5"></i>5 min
+                                            read</span>
+                                        <span class="text-slate-400 titles text-sm ms-3">by <a href="#"
+                                                class="text-slate-900 icons dark:text-white hover:text-yellow-600 dark:hover:text-red-500 font-medium">
+                                                <%= blog.author %>
+                                            </a></span>
+                                    </div>
+
+                                    <a href="/blogdetails?id=<%= blog._id %>"
+                                        class="text-lg font-medium hover:text-red-500 titles duration-500 ease-in-out">
+                                        <%= blog.title %>
+                                    </a>
+                                    <p class="text-slate-400 titles mt-2">
+                                        <%= blog.metaDescription.split(' ').slice(0, 2).join(' ') %>...</p>
+
+                        <div class="mt-3">
+                            <a href="/blogdetails?id=<%= blog._id %>" class="hover:text-yellow-600 titles inline-flex items-center">Read More <i
+                                    data-feather="chevron-right" class="size-4 ms-1"></i></a>
+                        </div>
+                    </div>
+                </div><!--end content-->
+                <% }); %>
+            </div><!--end grid-->
+
+            <% if (blogs.length > 3) { %>
+            <div class="text-center mt-6">
+                <a href="/blogs" class="bg-red-500 text-white py-2 px-4 rounded-md main-btn hover:bg-yellow-600">See More Blogs</a>
+            </div>
+            <% } %>
+        </div><!--end container-->
+
+
+
+    </section><!--end section-->
+    <!-- End -->
+
+    <!-- Footer Start -->
+     <hr >
+    <footer class="footer bg-black-900 dark:bg-slate-800 relative text-gray-200 dark:text-gray-200">
+        <div class="container relative">
+            <div class="grid grid-cols-12">
+                <div class="col-span-12">
+                    <div class="py-[60px] px-0">
+                        <div class="grid md:grid-cols-12 grid-cols-1 gap-6">
+                            <div class="lg:col-span-3 md:col-span-12">
+                                <a href="#" class="text-[22px] ft-logo focus:outline-none">
+                                    <img class="" src="/images/surya-logo.png" alt="">
+                                </a>
+                                <p class="mt-6 text-gray-300">Planning for a trip? We will organize your trip with the
+                                    best places and within best budget!</p>
+                                <ul class="list-none mt-6">
+                                    <li class="inline "><a href="https://www.facebook.com/share/1AcZeG4cVA/"
+                                            target="_blank"
+                                            class="size-8 inline-flex fticons items-center justify-center tracking-wide align-middle text-base border border-gray-800 dark:border-gray-700 rounded-md hover:bg-red-500 hover:text-white text-slate-300"><i
+                                                data-feather="facebook" class="size-4 align-middle"
+                                                title="facebook"></i></a></li>
+                                    <li class="inline"><a href="https://www.facebook.com/share/1AcZeG4cVA/"
+                                            target="_blank"
+                                            class="size-8 inline-flex items-center fticons justify-center tracking-wide align-middle text-base border border-gray-800 dark:border-gray-700 rounded-md hover:bg-red-500 hover:text-white text-slate-300"><i
+                                                data-feather="instagram" class="size-4 align-middle"
+                                                title="instagram"></i></a></li>
+                                    <li class="inline"><a href="https://wa.me/+919048002234" target="_blank"
+                                            class="size-8 inline-flex items-center fticons justify-center tracking-wide align-middle text-base border border-gray-800 dark:border-gray-700 rounded-md hover:bg-red-500 hover:text-white text-slate-300"><i
+                                                data-feather="message-circle" class="size-4 align-middle"
+                                                title="whatsapp"></i></a></li>
+                                    <li class="inline"><a href="mailto:suryaholidays.com"
+                                            class="size-8 inline-flex items-center fticons justify-center tracking-wide align-middle text-base border border-gray-800 dark:border-gray-700 rounded-md hover:bg-red-500 hover:text-white text-slate-300"><i
+                                                data-feather="mail" class="size-4 align-middle" title="email"></i></a>
+                                    </li>
+                                </ul><!--end icon-->
+                            </div><!--end col-->
+
+                            <div class="lg:col-span-3 md:col-span-4">
+                                <div class="lg:ms-8">
+                                    <h5 class="tracking-[1px] text-gray-100 font-semibold">Office</h5>
+                                    <h5 class="tracking-[1px] text-gray-100 mt-6">Surya Holidays</h5>
+
+                                    <div class="flex mt-4">
+                                        <i data-feather="map-pin" class="size-4 icons text-red-500 me-2 mt-1"></i>
+                                        <div class="">
+                                            <h6 class="text-gray-300">
+                                               Ground Floor, Viva Plaza, <br>  Ram Mohan Road
+                                                Calicut</h6>
+                                        </div>
+                                    </div>
+
+                                    <div class="flex mt-4">
+                                        <i data-feather="mail" class="size-4 icons text-red-500 me-2 mt-1"></i>
+                                        <div class="">
+                                            <a href="mailto: suryaholidays.com"
+                                                class="text-slate-300 hover:text-slate-400 duration-500 ease-in-out">
+                                                suryaholidays.com</a>
+                                        </div>
+                                    </div>
+
+                                    <div class="flex mt-4">
+                                        <i data-feather="phone" class="size-4 icons text-red-500 me-2 mt-1"></i>
+                                        <div class="">
+                                            <a href="tel:
+                                                +919048002234"
+                                                class="text-slate-300 hover:text-slate-400 duration-500 ease-in-out">
+                                                +91 9048002234</a>
+                                        </div>
+                                    </div>
+                                                                       <div class="flex mt-4">
+                                        <i data-feather="phone" class="size-4 icons text-red-500 me-2 mt-1"></i>
+                                        <div class="">
+                                            <a href="tel:
+                                                +919778159130"
+                                                class="text-slate-300 hover:text-slate-400 duration-500 ease-in-out">
+                                                +91 9778159130</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div><!--end col-->
+
+                            <div class="lg:col-span-3 md:col-span-4">
+                                <div class="lg:ms-8">
+                                    <h5 class="tracking-[1px] text-gray-100 font-semibold">Company</h5>
+                                    <ul class="list-none footer-list mt-6">
+                                        <li><a href="/"
+                                                class="text-gray-300 hover:text-gray-400 duration-500 ease-in-out"><i
+                                                    class="mdi mdi-chevron-right"></i> Home</a></li>
+                                        <li class="mt-[10px]"><a href="/about"
+                                                class="text-gray-300 hover:text-gray-400 duration-500 ease-in-out"><i
+                                                    class="mdi mdi-chevron-right"></i> About Us</a></li>
+
+                                        <li class="mt-[10px]"><a href="/packages"
+                                                class="text-gray-300 hover:text-gray-400 duration-500 ease-in-out"><i
+                                                    class="mdi mdi-chevron-right"></i> Packages</a></li>
+                                        <li class="mt-[10px]"><a href="/blogs"
+                                                class="text-gray-300 hover:text-gray-400 duration-500 ease-in-out"><i
+                                                    class="mdi mdi-chevron-right"></i> Blog</a></li>
+                                        <li class="mt-[10px]"><a href="/contact"
+                                                class="text-gray-300 hover:text-gray-400 duration-500 ease-in-out"><i
+                                                    class="mdi mdi-chevron-right"></i> Contact Us</a></li>
+
+                                    </ul>
+                                </div>
+                            </div><!--end col-->
+
+                            <div class="lg:col-span-3 md:col-span-4">
+                                <h5 class="tracking-[1px] text-gray-100 font-semibold">Enquiry</h5>
+                                <p class="mt-6">Stay connected with Joanna Holidays for booking Or enquiries reach out
+                                    to us anytime</p>
+                                <form onsubmit="event.preventDefault(); sendToWhatsApp();">
+                                    <div class="grid grid-cols-1">
+                                        <div class="my-3">
+                                            <div class="form-icon relative mt-2">
+                                                <i data-feather="mail" class="size-4 icons absolute top-3 start-4"></i>
+                                                <input type="text" id="enquiryMessage"
+                                                    class="ps-12 rounded w-full py-2 px-3 h-10 bg-white dark:bg-gray-700 border-0 text-black enq-input titles focus:shadow-none focus:ring-0 placeholder:text-black outline-none"
+                                                    placeholder="Type your enquiry message" required>
+                                            </div>
+                                        </div>
+
+                                        <button type="submit"
+                                            class="py-2 px-5 inline-block font-semibold tracking-wide align-middle duration-500 text-base text-center bg-red-500 main-btn text-white rounded-md cursor-pointer">SEND
+                                            ENQUIRY</button>
+                                    </div>
+                                </form>
+
+                                <script>
+                                    function sendToWhatsApp() {
+                                        const message = document.getElementById('enquiryMessage').value;
+                                        const whatsappNumber = '+919048002234';
+                                        const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
+                                        window.open(whatsappUrl, '_blank');
+                                    }
+                                </script>
+                            </div><!--end col-->
+                        </div><!--end grid-->
+                    </div><!--end col-->
+                </div>
+            </div><!--end grid-->
+        </div><!--end container-->
+
+        <div class="py-5 px-0  border-t border-gray-800 dark:border-gray-700">
+            <div class="container">
+                <div class="flex flex-wrap items-center justify-between gap-4">
+                    <!-- Copyright text -->
+                    <div class="text-gray-400 dark:text-gray-300 footer-copyright-text  text-sm">
+                        © <span id="currentYear"></span> <span style="color:#efc465;">Surya Holidays</span>. All rights
+                        reserved. | Designed and developed by <span style="color: #efc465;">Trivlogic Private Limited</span>
+                    </div>
+
+                    <!-- Legal links -->
+                    <div class="flex items-center gap-4">
+                        <a href="#"
+                            class="text-gray-400 dark:text-gray-300 hover:text-gray-500 dark:hover:text-gray-400 text-sm transition-colors duration-300 flex items-center">
+                            <i class="mdi mdi-chevron-right text-xs mr-1"></i> Privacy Policy
+                        </a>
+                        <a href="#"
+                            class="text-gray-400 dark:text-gray-300 hover:text-gray-500 dark:hover:text-gray-400 text-sm transition-colors duration-300 flex items-center">
+                            <i class="mdi mdi-chevron-right text-xs mr-1"></i> Terms & Conditions
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <script>
+                document.getElementById(' currentYear').textContent = new Date().getFullYear(); </script>
+                                </div>
+                                </footer><!--end footer-->
+                                <!-- Footer End -->
+
+
+
+
+                                <!-- Back to top -->
+                                <a href="#" onclick="topFunction()" id="back-to-top"
+                                    class="back-to-top fixed hidden text-lg rounded-md z-10 bottom-5 end-5 size-8 text-center bg-red-500/10 hover:bg-red-500 text-red-500 hover:text-white justify-center items-center"><i
+                                        class="mdi mdi-arrow-up"></i></a>
+                                <!-- Back to top -->
+                                <a href="https://wa.me/+919048002234" class="whatsapp-float" target="_blank">
+                                    <img src="/images/whatsapp-gif.gif" alt="WhatsApp">
+                                </a>
+                                <!-- mobile navbar -->
+                                <nav class="custom-nav__bottom-bar">
+                                    <!-- Home -->
+                                    <a href="/" class="custom-nav__menu-item custom-nav__active " id="homeNavItem">
+                                        <svg class="custom-nav__icon" viewBox="0 0 24 24">
+                                            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                                            <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                                        </svg>
+                                        <span class="custom-nav__label">Home</span>
+                                    </a>
+
+                                    <!-- About Us -->
+                                    <a href="/about" class="custom-nav__menu-item" id="aboutNavItem">
+                                        <svg class="custom-nav__icon" viewBox="0 0 24 24">
+                                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                                            <circle cx="12" cy="7" r="4"></circle>
+                                        </svg>
+                                        <span class="custom-nav__label">About Us</span>
+                                    </a>
+
+                                    <!-- Services -->
+                                    <a href="/packages" class="custom-nav__menu-item" id="servicesNavItem">
+                                        <svg class="custom-nav__icon" viewBox="0 0 24 24">
+                                            <rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect>
+                                            <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
+                                        </svg>
+                                        <span class="custom-nav__label">Packages</span>
+                                    </a>
+
+                                    <!-- Blog -->
+                                    <a href="/blogs" class="custom-nav__menu-item" id="blogNavItem">
+                                        <svg class="custom-nav__icon" viewBox="0 0 24 24">
+                                            <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+                                            <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z">
+                                            </path>
+                                        </svg>
+                                        <span class="custom-nav__label">Blog</span>
+                                    </a>
+
+                                    <!-- Gallery -->
+                                    <a href="/gallery" class="custom-nav__menu-item " id="galleryNavItem">
+                                        <svg class="custom-nav__icon" viewBox="0 0 24 24">
+                                            <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                                            <circle cx="8.5" cy="8.5" r="1.5"></circle>
+                                            <polyline points="21 15 16 10 5 21"></polyline>
+                                        </svg>
+                                        <span class="custom-nav__label">Gallery</span>
+                                    </a>
+
+                                    <!-- Contact -->
+                                    <a href="/contact" class="custom-nav__menu-item" id="contactNavItem">
+                                        <svg class="custom-nav__icon" viewBox="0 0 24 24">
+                                            <path
+                                                d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z">
+                                            </path>
+                                        </svg>
+                                        <span class="custom-nav__label">Contact</span>
+                                    </a>
+                                </nav>
+
+                                <script>
+                                    function filterPackages(categoryId) {
+                                        // Update active button styling
+                                        document.querySelectorAll('.category-btn').forEach(btn => {
+                                            if (btn.dataset.category === categoryId) {
+                                                btn.classList.remove('bg-gray-200', 'text-gray-800');
+                                                btn.classList.add('bg-red-500', 'text-white');
+                                            } else {
+                                                btn.classList.remove('bg-red-500', 'text-white');
+                                                btn.classList.add('bg-gray-200', 'text-gray-800');
+                                            }
+                                        });
+
+                                        // Filter packages
+                                        const packageItems = document.querySelectorAll('.package-item');
+                                        let visibleCount = 0;
+
+                                        packageItems.forEach(item => {
+                                            if (categoryId === 'all' || item.dataset.category === categoryId) {
+                                                item.style.display = 'block';
+                                                visibleCount++;
+                                            } else {
+                                                item.style.display = 'none';
+                                            }
+                                        });
+
+                                        // Show/hide no packages message
+                                        const noPackagesMessage = document.getElementById('no-packages-message');
+                                        const packagesContainer = document.getElementById('packages-container');
+
+                                        if (visibleCount === 0) {
+                                            noPackagesMessage.classList.remove('hidden');
+                                            packagesContainer.classList.add('hidden');
+                                        } else {
+                                            noPackagesMessage.classList.add('hidden');
+                                            packagesContainer.classList.remove('hidden');
+                                        }
+                                    }
+
+                                    // Initialize with 'all' category selected
+                                    document.addEventListener('DOMContentLoaded', function () {
+                                        filterPackages('all');
+                                        feather.replace(); // Initialize feather icons
+                                    });
+                                </script>
+                                <script>
+                                    // Add this if you need mobile-friendly dropdowns
+                                    document.addEventListener('DOMContentLoaded', function () {
+                                        const menuItems = document.querySelectorAll('.has-submenu > a, .parent-menu-item > a');
+
+                                        menuItems.forEach(item => {
+                                            item.addEventListener('click', function (e) {
+                                                if (window.innerWidth <= 768) { // Mobile view
+                                                    e.preventDefault();
+                                                    const submenu = this.nextElementSibling.nextElementSibling;
+                                                    submenu.style.display = submenu.style.display === 'block' ? 'none' : 'block';
+                                                }
+                                            });
+                                        });
+                                    });
+                                </script>
+
+
+                                <script>
+                                    document.addEventListener('DOMContentLoaded', function () {
+                                        const categorySelect = document.getElementById('search-category');
+                                        const subcategorySelect = document.getElementById('search-subcategory');
+
+                                        // Create a mapping of categories to their subcategories
+                                        const categoryMap = {};
+                                        <% categories.forEach(category => { %>
+                                            categoryMap['<%= category._id %>'] =[];
+                                            <% if (category.subCategories && category.subCategories.length > 0) { %>
+                                                <% category.subCategories.forEach(subCategory => { %>
+                                                    <% if (subCategory.isActive) { %>
+                                                    categoryMap['<%= category._id %>'].push({
+                                                        id: '<%= subCategory._id %>',
+                                                        name: '<%= subCategory.name.replace(/\'/g, "\\'") %>'
+                                                        });
+                                                    <% } %>
+                                                <% }); %>
+                                            <% } %>
+                                        <% }); %>
+
+                                            // When category changes, update subcategories
+                                            categorySelect.addEventListener('change', function () {
+                                                const categoryId = this.value;
+                                                subcategorySelect.innerHTML = '<option value="">All Subcategories</option>';
+
+                                                if (categoryId && categoryMap[categoryId] && categoryMap[categoryId].length > 0) {
+                                                    subcategorySelect.disabled = false;
+                                                    categoryMap[categoryId].forEach(subCat => {
+                                                        const option = new Option(subCat.name, subCat.id);
+                                                        subcategorySelect.add(option);
+                                                    });
+                                                } else {
+                                                    subcategorySelect.disabled = true;
+                                                    subcategorySelect.innerHTML = '<option value="">No subcategories available</option>';
+                                                }
+                                            });
+
+                                        // Initialize with current category if present
+                                        if (categorySelect.value) {
+                                            categorySelect.dispatchEvent(new Event('change'));
+                                        }
+                                    });
+                                </script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        $('.banner-slider').slick({
+            dots: true,
+            infinite: true,
+            speed: 500,
+            slidesToShow: 1,
+            slidesToScroll: 1,
+            autoplay: true,
+            autoplaySpeed: 3000,
+            arrows: true,
+            pauseOnHover: true,
+            adaptiveHeight: true
+        });
+    });
+</script>
+                                <!-- JAVASCRIPTS -->
+                                <script src="/libs/tobii/js/tobii.min.js"></script>
+                                <script src="/libs/tiny-slider/min/tiny-slider.js"></script>
+                                <script src="/libs/jarallax/jarallax.min.js"></script>
+                                <script src="/libs/js-datepicker/datepicker.min.js"></script>
+                                <script src="/libs/feather-icons/feather.min.js"></script>
+                                <script src="/js/plugins.init.js"></script>
+                                <script src="/js/app.js"></script>
+                                <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+                                <script src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+                            
+                                <!-- JAVASCRIPTS -->
+</body>
+
+</html>

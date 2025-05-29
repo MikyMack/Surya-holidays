@@ -1,0 +1,1670 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-US" lang="en-US">
+
+<head>
+    <!-- Basic Page Needs -->
+    <meta charset="utf-8">
+    <title>Surya Holidays - Admin Packages</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <!-- Theme Style -->
+    <link rel="stylesheet" type="text/css" href="admin-css/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="admin-css/animation.css">
+    <link rel="stylesheet" type="text/css" href="admin-css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="admin-css/bootstrap-select.min.css">
+    <link rel="stylesheet" type="text/css" href="admin-css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
+    <!-- Font -->
+    <link rel="stylesheet" href="admin-font/fonts.css">
+
+    <!-- Icon -->
+    <link rel="stylesheet" href="admin-icon/style.css">
+
+    <!-- Favicon and Touch Icons  -->
+    <link rel="shortcut icon" href="images/surya-logo.png">
+    <link rel="apple-touch-icon-precomposed" href="images/surya-logo.png">
+    <style>
+        /* Status badges */
+        .status-badge {
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .status-badge.active {
+            background-color: #e6f7ee;
+            color: #10b759;
+        }
+
+        .status-badge.inactive {
+            background-color: #ffebeb;
+            color: #ff4d4f;
+        }
+
+        /* Modal styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+
+        .modal-content {
+            background-color: #fff;
+            margin: 5% auto;
+            padding: 20px;
+            border-radius: 8px;
+            width: 80%;
+            max-width: 600px;
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .close:hover {
+            color: black;
+        }
+
+        /* Form styles */
+        .form-row {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 15px;
+        }
+
+        .form-row .form-group {
+            flex: 1;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #333;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 500;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        /* Package image preview */
+        .image-preview {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .image-preview img {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: 4px;
+        }
+
+        .current-images {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .current-image {
+            position: relative;
+            width: 100px;
+            height: 100px;
+        }
+
+        .current-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 4px;
+        }
+
+        .current-image .remove-img {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            background: rgba(255, 0, 0, 0.7);
+            color: white;
+            border: none;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+
+        /* Switch Toggle */
+        .switch-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 50px;
+            height: 24px;
+        }
+
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .wg-pagination {
+            display: flex;
+            gap: 8px;
+            list-style: none;
+            padding: 0;
+        }
+
+        .wg-pagination li {
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 4px;
+            background-color: #f5f5f5;
+        }
+
+        .wg-pagination li.active {
+            background-color: #3a86ff;
+        }
+
+        .wg-pagination li.active a {
+            color: white;
+        }
+
+        .wg-pagination li a {
+            text-decoration: none;
+            color: #333;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .wg-pagination li:hover:not(.active) {
+            background-color: #e0e0e0;
+        }
+
+        /* Add this to your styles */
+        select {
+            padding: 8px 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            background-color: white;
+            transition: border-color 0.3s;
+        }
+
+        select:focus {
+            outline: none;
+            border-color: #3a86ff;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .travel-day {
+            background: #f9f9f9;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            border: 1px solid #eee;
+        }
+
+        .travel-day .form-row {
+            align-items: flex-end;
+        }
+
+        .remove-day-btn {
+            background: #ffebee;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            color: #f44336;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-left: 10px;
+        }
+
+        .remove-day-btn:hover {
+            background: #ffcdd2;
+        }
+
+        .day-number {
+            min-width: 100px;
+        }
+
+        .day-description {
+            min-height: 80px;
+        }
+
+        #add-day-btn,
+        #edit-add-day-btn {
+            margin-top: 10px;
+            padding: 8px 15px;
+            font-size: 14px;
+        }
+
+
+
+        .image {
+            width: 40px;
+            height: 40px;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .packages-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            padding: 20px;
+        }
+
+        .package-card {
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .package-card:hover {
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .card-header {
+            padding: 16px;
+            background: #f8f9fa;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .card-images {
+            display: flex;
+            gap: 8px;
+            padding: 8px;
+            overflow-x: auto;
+        }
+
+        .card-images img {
+            width: 60px;
+            height: 60px;
+            object-fit: cover;
+            border-radius: 4px;
+        }
+
+        .card-body {
+            padding: 16px;
+        }
+
+        .card-footer {
+            padding: 12px 16px;
+            border-top: 1px solid #e0e0e0;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .details-btn {
+            background: none;
+            border: none;
+            color: #007bff;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .expanded-details {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+
+        .expanded-details.active {
+            max-height: 1000px;
+            /* Adjust based on content */
+            padding: 16px;
+            background: #f9f9f9;
+        }
+
+        .detail-row {
+            display: flex;
+            margin-bottom: 8px;
+        }
+
+        .detail-label {
+            font-weight: bold;
+            min-width: 120px;
+            color: #666;
+        }
+
+        .detail-value {
+            flex: 1;
+        }
+
+        .details-toggle {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: #fff;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            padding: 4px 8px;
+            cursor: pointer;
+            z-index: 2;
+        }
+    </style>
+</head>
+
+<body class="body">
+
+    <!-- #wrapper -->
+    <div id="wrapper">
+        <!-- #page -->
+        <div id="page" class="">
+            <!-- layout-wrap -->
+            <div class="layout-wrap loader-off">
+                <!-- preload -->
+                <div id="preload" class="preload-container">
+                    <div class="preloading">
+                        <span></span>
+                    </div>
+                </div>
+                <!-- /preload -->
+                <!-- section-menu-left -->
+                <div class="section-menu-left">
+                    <div class="box-logo">
+                        <a href="/dashboard" id="site-logo-inner">
+                            <img style="width:60px;" id="logo_header" alt="logo" src="images/surya-logo.png"
+                                data-light="images/surya-logo.png" data-dark="images/surya-logo.png">
+                        </a>
+                        <div class="button-show-hide">
+                            <i class="icon-chevron-left"></i>
+                        </div>
+                    </div>
+                    <div class="section-menu-left-wrap">
+                        <div class="center">
+                            <div class="center-item">
+                                <ul>
+                                    <li class="menu-item">
+                                        <a href="/dashboard">
+                                            <div class="icon">
+                                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                                    xmlns="http://www.w3.org/2000/svg">
+                                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                                        d="M12.2652 3.57566C12.1187 3.42921 11.8813 3.42921 11.7348 3.57566L5.25 10.0605V19.8748C5.25 20.0819 5.41789 20.2498 5.625 20.2498H9V16.1248C9 15.0893 9.83947 14.2498 10.875 14.2498H13.125C14.1605 14.2498 15 15.0893 15 16.1248V20.2498H18.375C18.5821 20.2498 18.75 20.0819 18.75 19.8748V10.0605L12.2652 3.57566ZM20.25 11.5605L21.2197 12.5302C21.5126 12.8231 21.9874 12.8231 22.2803 12.5302C22.5732 12.2373 22.5732 11.7624 22.2803 11.4695L13.3258 2.51499C12.5936 1.78276 11.4064 1.78276 10.6742 2.515L1.71967 11.4695C1.42678 11.7624 1.42678 12.2373 1.71967 12.5302C2.01256 12.8231 2.48744 12.8231 2.78033 12.5302L3.75 11.5605V19.8748C3.75 20.9104 4.58947 21.7498 5.625 21.7498H18.375C19.4105 21.7498 20.25 20.9104 20.25 19.8748V11.5605ZM13.5 20.2498H10.5V16.1248C10.5 15.9177 10.6679 15.7498 10.875 15.7498H13.125C13.3321 15.7498 13.5 15.9177 13.5 16.1248V20.2498Z"
+                                                        fill="#111111" />
+                                                </svg>
+                                            </div>
+                                            <div class="text">Admin Dashboard</div>
+                                        </a>
+                                    </li>
+                                    <li class="menu-item active">
+                                        <a href="/admin-packages" class="menu-item-button">
+                                            <div class="icon"><i class="icon-file-plus"></i></div>
+                                            <div class="text">Package Management</div>
+                                        </a>
+                                    
+                                    </li>
+                                    <li class="menu-item">
+                                        <a href="/admin-category" class="menu-item-button">
+                                            <div class="icon"><i class="icon-layers"></i></div>
+                                            <div class="text">Category Management</div>
+                                        </a>
+                                    
+                                    </li>
+                                    <li class="menu-item">
+                                        <a href="/admin-banner" class="menu-item-button">
+                                            <div class="icon">
+                                                <svg width="24" height="22" viewBox="0 0 22 18" fill="none"
+                                                    xmlns="http://www.w3.org/2000/svg">
+                                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                                        d="M0.5 1.875C0.5 0.839466 1.33947 0 2.375 0H19.625C20.6605 0 21.5 0.839466 21.5 1.875V3.375C21.5 4.29657 20.8351 5.06285 19.9589 5.22035L19.3733 15.1762C19.28 16.7619 17.9669 18 16.3785 18H5.62154C4.03311 18 2.71999 16.7619 2.62671 15.1762L2.04108 5.22035C1.16485 5.06285 0.5 4.29657 0.5 3.375V1.875ZM2.75659 3.75C2.75266 3.74997 2.74873 3.74997 2.74479 3.75H2.375C2.16789 3.75 2 3.58211 2 3.375V1.875C2 1.66789 2.16789 1.5 2.375 1.5H19.625C19.8321 1.5 20 1.66789 20 1.875V3.375C20 3.58211 19.8321 3.75 19.625 3.75H19.2552C19.2513 3.74997 19.2473 3.74997 19.2434 3.75H2.75659ZM3.54541 5.25L4.12412 15.0881C4.17076 15.8809 4.82732 16.5 5.62154 16.5H16.3785C17.1727 16.5 17.8292 15.8809 17.8759 15.0881L18.4546 5.25H3.54541ZM8.24976 8.25C8.24976 7.83579 8.58554 7.5 8.99976 7.5H12.9998C13.414 7.5 13.7498 7.83579 13.7498 8.25C13.7498 8.66421 13.414 9 12.9998 9H8.99976C8.58554 9 8.24976 8.66421 8.24976 8.25Z"
+                                                        fill="#111111" />
+                                                </svg>
+                                            </div>
+                                            <div class="text">Banner Management</div>
+                                        </a>
+                                    </li>
+                                    <li class="menu-item">
+                                        <a href="/admin-testimonials" class="menu-item-button">
+                                            <div class="icon"><i class="fa fa-star-o"></i></div>
+                                            <div class="text">Testimonials Management</div>
+                                        </a>
+                                    </li>
+                                    <li class="menu-item">
+                                        <a href="/admin-gallery" class="menu-item-button">
+                                            <div class="icon"><i class="icon-image"></i></div>
+                                            <div class="text">Gallery Management</div>
+                                        </a>
+                                    
+                                    </li>
+                                    <li class="menu-item">
+                                        <a href="/admin-blogs" class="menu-item-button">
+                                            <div class="icon"><i class="icon-book-open"></i></div>
+                                            <div class="text">Blogs Management</div>
+                                        </a>
+                                    </li>
+                                    <li class="menu-item">
+                                        <a href="/logout">
+                                            <div class="icon">
+                                                <svg width="24" height="22" viewBox="0 0 20 20" fill="none"
+                                                    xmlns="http://www.w3.org/2000/svg">
+                                                    <path
+                                                        d="M8.125 18.6875C8.125 18.903 8.0394 19.1097 7.88702 19.262C7.73465 19.4144 7.52799 19.5 7.3125 19.5H1.625C1.19402 19.5 0.780698 19.3288 0.475951 19.024C0.171205 18.7193 0 18.306 0 17.875V1.625C0 1.19402 0.171205 0.780698 0.475951 0.475951C0.780698 0.171205 1.19402 0 1.625 0H7.3125C7.52799 0 7.73465 0.0856026 7.88702 0.237976C8.0394 0.390349 8.125 0.597012 8.125 0.8125C8.125 1.02799 8.0394 1.23465 7.88702 1.38702C7.73465 1.5394 7.52799 1.625 7.3125 1.625H1.625V17.875H7.3125C7.52799 17.875 7.73465 17.9606 7.88702 18.113C8.0394 18.2653 8.125 18.472 8.125 18.6875ZM19.2623 9.17516L15.1998 5.11266C15.0474 4.9602 14.8406 4.87455 14.625 4.87455C14.4094 4.87455 14.2026 4.9602 14.0502 5.11266C13.8977 5.26511 13.812 5.47189 13.812 5.6875C13.812 5.90311 13.8977 6.10989 14.0502 6.26234L16.7263 8.9375H7.3125C7.09701 8.9375 6.89035 9.0231 6.73798 9.17548C6.5856 9.32785 6.5 9.53451 6.5 9.75C6.5 9.96549 6.5856 10.1722 6.73798 10.3245C6.89035 10.4769 7.09701 10.5625 7.3125 10.5625H16.7263L14.0502 13.2377C13.8977 13.3901 13.812 13.5969 13.812 13.8125C13.812 14.0281 13.8977 14.2349 14.0502 14.3873C14.2026 14.5398 14.4094 14.6255 14.625 14.6255C14.8406 14.6255 15.0474 14.5398 15.1998 14.3873L19.2623 10.3248C19.3379 10.2494 19.3978 10.1598 19.4387 10.0611C19.4796 9.9625 19.5006 9.85678 19.5006 9.75C19.5006 9.64322 19.4796 9.5375 19.4387 9.43886C19.3978 9.34023 19.3379 9.25062 19.2623 9.17516Z"
+                                                        fill="#111111" />
+                                                </svg>
+                                            </div>
+                                            <div class="text">Log out</div>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /section-menu-left -->
+                <!-- section-content-right -->
+                <div class="section-content-right">
+                    <!-- header-dashboard -->
+                    <div class="header-dashboard">
+                        <div class="wrap">
+                            <div class="header-left">
+                                <a href="/dashboard">
+                                    <img style="width: 50px;" id="logo_header_mobile" alt=""
+                                        src="images/surya-logo.png" data-light="images/surya-logo.png"
+                                        data-dark="images/surya-logo.png">
+                                </a>
+                                <div class="button-show-hide">
+                                    <i class="icon-chevron-left"></i>
+                                </div>
+
+                            </div>
+                            <div class="header-grid">
+                                <div class="header-item button-dark-light">
+                                    <i class="icon-moon"></i>
+                                </div>
+
+
+                                <div class="header-item button-zoom-maximize">
+                                    <div class="">
+                                        <i class="icon-maximize"></i>
+                                    </div>
+                                </div>
+                                <div class="popup-wrap user type-header">
+                                    <div class="dropdown">
+                                        <button class="btn btn-secondary dropdown-toggle" type="button"
+                                            id="dropdownMenuButton3" data-bs-toggle="dropdown" aria-expanded="false">
+                                            <span class="header-user wg-user">
+                                                <span class="image">
+                                                    <img src="admin-images/avatar/user-1.png" alt="">
+                                                </span>
+                                                <span class="flex flex-column">
+                                                    <span class="body-text text-main-dark">Surya Holidays</span>
+                                                    <span class="text-tiny">Admin</span>
+                                                </span>
+                                            </span>
+                                        </button>
+                                        <ul class="dropdown-menu dropdown-menu-end has-content"
+                                            aria-labelledby="dropdownMenuButton3">
+
+                                            <li>
+                                                <a href="#" class="user-item">
+                                                    <div class="icon">
+                                                        <i class="icon-headphones"></i>
+                                                    </div>
+                                                    <div class="body-title-2">Support</div>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="/logout" class="user-item">
+                                                    <div class="icon">
+                                                        <i class="icon-log-out"></i>
+                                                    </div>
+                                                    <div class="body-title-2">Log out</div>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /header-dashboard -->
+                    <!-- main-content -->
+                    <div class="main-content">
+                        <!-- main-content-wrap -->
+                        <div class="main-content-inner">
+                            <!-- main-content-wrap -->
+                            <div class="main-content-wrap">
+                                <div class="flex items-center flex-wrap justify-between gap20 mb-30">
+                                    <h3>All Packages</h3>
+                                    <ul class="breadcrumbs flex items-center flex-wrap justify-start gap10">
+                                        <li>
+                                            <a href="/dashboard">
+                                                <div class="text-tiny">Dashboard</div>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <i class="icon-chevron-right"></i>
+                                        </li>
+                                        <li>
+                                            <a href="#">
+                                                <div class="text-tiny">Package</div>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <i class="icon-chevron-right"></i>
+                                        </li>
+                                        <li>
+                                            <div class="text-tiny">All Packages</div>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <!-- package-list -->
+                                <div class="wg-box">
+                                    <div class="title-box">
+                                        <i class="icon-coffee"></i>
+                                        <div class="body-text">Tip search by Package ID: Each package is provided with a
+                                            unique ID, which you can rely on to find the exact package you need.</div>
+                                    </div>
+
+                                    <div class="flex items-center justify-between gap10 flex-wrap">
+                                        <div class="wg-filter flex-grow">
+                                            <div class="show">
+                                                <div class="text-tiny">Showing</div>
+                                                <div class="select">
+                                                    <select id="limit-select">
+                                                        <option value="10">10</option>
+                                                        <option value="20">20</option>
+                                                        <option value="30">30</option>
+                                                    </select>
+                                                </div>
+                                                <div class="text-tiny">entries</div>
+                                            </div>
+                                            <div class="form-search">
+                                                <input type="text" id="search-input"
+                                                    placeholder="Search by packages or category names...">
+                                                <button id="search-btn"><i class="icon-search"></i></button>
+                                            </div>
+                                        </div>
+                                        <a class="tf-button style-1 w208" href="#" id="add-package-btn">
+                                            <i class="icon-plus"></i>Add new
+                                        </a>
+                                    </div>
+
+                                    <div class="packages-container" id="packages-list">
+                                        <!-- Cards will be dynamically inserted here -->
+                                    </div>
+
+                                    <div class="divider"></div>
+                                    <div class="flex items-center justify-between flex-wrap gap10">
+                                        <div class="text-tiny" id="showing-entries">Showing 0 entries</div>
+                                        <ul class="wg-pagination" id="pagination">
+                                            <!-- Pagination will be loaded here dynamically -->
+                                        </ul>
+                                    </div>
+                                </div>
+
+                                <!-- Add Package Modal -->
+                                <div id="add-package-modal" class="modal">
+                                    <div class="modal-content">
+                                        <span class="close" onclick="closeModal('add-package-modal')">&times;</span>
+                                        <h4>Add New Package</h4>
+                                        <form id="add-package-form" enctype="multipart/form-data">
+                                            <div class="form-row">
+                                                <div class="form-group">
+                                                    <label for="package-title">Title*</label>
+                                                    <input type="text" id="package-title" name="title" required>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="package-destination">Destination*</label>
+                                                    <input type="text" id="package-destination" name="destination"
+                                                        required>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-row">
+                                                <div class="form-group">
+                                                    <label for="package-category">Category*</label>
+                                                    <select id="package-category" name="category" required>
+                                                        <option value="">Select Category</option>
+                                                        <!-- Categories will be populated dynamically -->
+                                                    </select>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="package-subcategory">Subcategory</label>
+                                                    <select id="package-subcategory" name="subCategory">
+                                                        <option value="">Select Subcategory</option>
+                                                        <!-- Subcategories will be populated dynamically -->
+                                                    </select>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-row">
+                                                <div class="form-group">
+                                                    <label for="package-duration">Duration*</label>
+                                                    <input type="text" id="package-duration" name="duration"
+                                                        placeholder="e.g., 5 Days 4 Nights" required>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="package-tour-type">Tour Type*</label>
+                                                    <select id="package-tour-type" name="tourType" required>
+                                                        <option value="">Select Type</option>
+                                                        <option value="Adventure">Adventure</option>
+                                                        <option value="Honeymoon">Honeymoon</option>
+                                                        <option value="Family">Family</option>
+                                                        <option value="Solo">Solo</option>
+                                                        <option value="Group">Group</option>
+                                                        <option value="Luxury">Luxury</option>
+                                                        <option value="Budget">Budget</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-row">
+                                                <div class="form-group">
+                                                    <label for="package-group-size">Group Size*</label>
+                                                    <input type="number" id="package-group-size" name="groupSize"
+                                                        min="1" required>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="package-price">Price (₹)*</label>
+                                                    <input type="number" id="package-price" name="packagePrice" min="0"
+                                                        step="0.01" required>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="package-tour-guide">Tour Guide*</label>
+                                                <input type="text" id="package-tour-guide" name="tourGuide" required>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="package-description">Package Description*</label>
+                                                <textarea id="package-description" name="packageDescription" rows="4"
+                                                    required></textarea>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="package-included">What's Included (comma separated)*</label>
+                                                <textarea id="package-included" name="included" rows="3"
+                                                    placeholder="Meals, Accommodation, Transportation, etc."
+                                                    required></textarea>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label>Travel Plan*</label>
+                                                <div id="travel-plan-container">
+                                                    <!-- Days will be added here dynamically -->
+                                                </div>
+                                                <button type="button" class="tf-button style-3" id="add-day-btn">
+                                                    <i class="icon-plus"></i> Add Day
+                                                </button>
+                                                <input type="hidden" id="package-travel-plan" name="travelPlan"
+                                                    required>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="package-location">Location Link (Google Maps)*</label>
+                                                <input type="url" id="package-location" name="locationHref"
+                                                    placeholder="https://goo.gl/maps/..." required>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="package-images">Images (2-5 required)*</label>
+                                                <input type="file" id="package-images" name="images" multiple
+                                                    accept="image/*" required>
+                                                <small>Select 2 to 5 images for the package</small>
+                                                <div class="image-preview" id="image-preview"></div>
+                                            </div>
+
+                                            <div class="form-actions">
+                                                <button type="button" class="tf-button style-2"
+                                                    onclick="closeModal('add-package-modal')">Cancel</button>
+                                                <button type="submit" class="tf-button style-1">Create Package</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+
+                                <!-- Edit Package Modal -->
+                                <div id="edit-package-modal" class="modal">
+                                    <div class="modal-content">
+                                        <span class="close" onclick="closeModal('edit-package-modal')">&times;</span>
+                                        <h4>Edit Package</h4>
+                                        <form id="edit-package-form" enctype="multipart/form-data">
+                                            <input type="hidden" id="edit-package-id" name="id">
+
+                                            <div class="form-row">
+                                                <div class="form-group">
+                                                    <label for="edit-package-title">Title*</label>
+                                                    <input type="text" id="edit-package-title" name="title" required>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="edit-package-destination">Destination*</label>
+                                                    <input type="text" id="edit-package-destination" name="destination"
+                                                        required>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-row">
+                                                <div class="form-group">
+                                                    <label for="edit-package-category">Category*</label>
+                                                    <select id="edit-package-category" name="category" required>
+                                                        <option value="">Select Category</option>
+                                                        <!-- Categories will be populated dynamically -->
+                                                    </select>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="edit-package-subcategory">Subcategory</label>
+                                                    <select id="edit-package-subcategory" name="subCategory">
+                                                        <option value="">Select Subcategory</option>
+                                                        <!-- Subcategories will be populated dynamically -->
+                                                    </select>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-row">
+                                                <div class="form-group">
+                                                    <label for="edit-package-duration">Duration*</label>
+                                                    <input type="text" id="edit-package-duration" name="duration"
+                                                        placeholder="e.g., 5 Days 4 Nights" required>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="edit-package-tour-type">Tour Type*</label>
+                                                    <select id="edit-package-tour-type" name="tourType" required>
+                                                        <option value="">Select Type</option>
+                                                        <option value="Adventure">Adventure</option>
+                                                        <option value="Honeymoon">Honeymoon</option>
+                                                        <option value="Family">Family</option>
+                                                        <option value="Solo">Solo</option>
+                                                        <option value="Group">Group</option>
+                                                        <option value="Luxury">Luxury</option>
+                                                        <option value="Budget">Budget</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-row">
+                                                <div class="form-group">
+                                                    <label for="edit-package-group-size">Group Size*</label>
+                                                    <input type="number" id="edit-package-group-size" name="groupSize"
+                                                        min="1" required>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="edit-package-price">Price (₹)*</label>
+                                                    <input type="number" id="edit-package-price" name="packagePrice"
+                                                        min="0" step="0.01" required>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="edit-package-tour-guide">Tour Guide*</label>
+                                                <input type="text" id="edit-package-tour-guide" name="tourGuide"
+                                                    required>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="edit-package-description">Package Description*</label>
+                                                <textarea id="edit-package-description" name="packageDescription"
+                                                    rows="4" required></textarea>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="edit-package-included">What's Included (comma
+                                                    separated)*</label>
+                                                <textarea id="edit-package-included" name="included" rows="3"
+                                                    placeholder="Meals, Accommodation, Transportation, etc."
+                                                    required></textarea>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label>Travel Plan*</label>
+                                                <div id="edit-travel-plan-container">
+                                                    <!-- Days will be added here dynamically -->
+                                                </div>
+                                                <button type="button" class="tf-button style-3" id="edit-add-day-btn">
+                                                    <i class="icon-plus"></i> Add Day
+                                                </button>
+                                                <input type="hidden" id="edit-package-travel-plan" name="travelPlan"
+                                                    required>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="edit-package-location">Location Link (Google Maps)*</label>
+                                                <input type="url" id="edit-package-location" name="locationHref"
+                                                    placeholder="https://goo.gl/maps/..." required>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label>Current Images</label>
+                                                <div class="current-images" id="edit-current-images"></div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="edit-package-images">Add/Replace Images</label>
+                                                <input type="file" id="edit-package-images" name="images" multiple
+                                                    accept="image/*">
+                                                <small>Select 2 to 5 images for the package</small>
+                                                <div class="image-preview" id="edit-image-preview"></div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="edit-package-status">Status</label>
+                                                <div class="switch-container">
+                                                    <label class="switch">
+                                                        <input type="checkbox" id="edit-package-status" name="isActive">
+                                                        <span class="slider round"></span>
+                                                    </label>
+                                                    <span class="switch-label" id="status-label">Active</span>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-actions">
+                                                <button type="button" class="tf-button style-2"
+                                                    onclick="closeModal('edit-package-modal')">Cancel</button>
+                                                <button type="submit" class="tf-button style-1">Update Package</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+
+                                <!-- View Package Details Modal -->
+                                <div id="view-package-modal" class="modal">
+                                    <div class="modal-content wide-modal">
+                                        <span class="close" onclick="closeModal('view-package-modal')">&times;</span>
+                                        <h4>Package Details</h4>
+                                        <div class="package-details-container" id="package-details-content">
+                                            <!-- Package details will be loaded here -->
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Delete Confirmation Modal -->
+                                <div id="delete-confirm-modal" class="modal small-modal">
+                                    <div class="modal-content">
+                                        <h4>Confirm Deletion</h4>
+                                        <p>Are you sure you want to delete this package? This action cannot be undone.
+                                        </p>
+                                        <div class="form-actions">
+                                            <button type="button" class="tf-button style-2"
+                                                onclick="closeModal('delete-confirm-modal')">Cancel</button>
+                                            <button type="button" class="tf-button style-1"
+                                                id="confirm-delete-btn">Delete</button>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <script>
+                                    // Global variables
+                                    let currentPage = 1;
+                                    let limit = 10;
+                                    let searchQuery = '';
+                                    let allCategories = [];
+                                    let travelPlanDays = [];
+
+                                    // DOM Content Loaded
+                                    document.addEventListener('DOMContentLoaded', function () {
+                                        // Initialize
+                                        fetchCategories();
+                                        fetchPackages();
+
+                                        // Event listeners
+                                        document.getElementById('limit-select').addEventListener('change', function () {
+                                            limit = parseInt(this.value);
+                                            currentPage = 1;
+                                            fetchPackages();
+                                        });
+
+                                        document.getElementById('search-btn').addEventListener('click', function () {
+                                            searchQuery = document.getElementById('search-input').value;
+                                            currentPage = 1;
+                                            fetchPackages();
+                                        });
+
+                                        document.getElementById('add-package-btn').addEventListener('click', function () {
+                                            showAddPackageModal();
+                                        });
+
+                                        document.getElementById('add-package-form').addEventListener('submit', function (e) {
+                                            e.preventDefault();
+                                            createPackage();
+                                        });
+
+                                        document.getElementById('edit-package-form').addEventListener('submit', function (e) {
+                                            e.preventDefault();
+                                            updatePackage();
+                                        });
+
+                                        // Travel Plan Builder
+                                        document.getElementById('add-day-btn').addEventListener('click', addDayInput);
+                                        document.getElementById('edit-add-day-btn').addEventListener('click', addEditDayInput);
+
+                                        // Category change listeners
+                                        document.getElementById('package-category').addEventListener('change', function () {
+                                            populateSubcategoryDropdown(this.value);
+                                        });
+
+                                        document.getElementById('edit-package-category').addEventListener('change', function () {
+                                            populateEditSubcategoryDropdown(this.value);
+                                        });
+                                    });
+
+                                    // ======================
+                                    // TRAVEL PLAN FUNCTIONS
+                                    // ======================
+
+                                    function addDayInput(dayData = { day: '', description: '' }) {
+                                        const container = document.getElementById('travel-plan-container');
+                                        const dayId = Date.now();
+
+                                        const dayElement = document.createElement('div');
+                                        dayElement.className = 'travel-day';
+                                        dayElement.dataset.id = dayId;
+
+                                        dayElement.innerHTML = `
+        <div class="form-row">
+            <div class="form-group">
+                <label>Day</label>
+                <input type="text" class="day-number" value="${dayData.day || ''}" 
+                       placeholder="Day 1" required>
+            </div>
+            <div class="form-group">
+                <label>Description</label>
+                <textarea class="day-description" rows="3" required>${dayData.description || ''}</textarea>
+            </div>
+            <button type="button" class="remove-day-btn" title="Remove day">
+                <i class="icon-trash-2"></i>
+            </button>
+        </div>
+    `;
+
+                                        container.appendChild(dayElement);
+
+                                        dayElement.querySelector('.remove-day-btn').addEventListener('click', () => {
+                                            dayElement.remove();
+                                            updateTravelPlanInput();
+                                        });
+
+                                        const inputs = dayElement.querySelectorAll('input, textarea');
+                                        inputs.forEach(input => {
+                                            input.addEventListener('input', updateTravelPlanInput);
+                                        });
+
+                                        if (container.children.length === 0) {
+                                            addDayInput();
+                                        }
+                                    }
+
+                                    function addEditDayInput(dayData = { day: '', description: '' }) {
+                                        const container = document.getElementById('edit-travel-plan-container');
+                                        const dayId = Date.now();
+
+                                        const dayElement = document.createElement('div');
+                                        dayElement.className = 'travel-day';
+                                        dayElement.dataset.id = dayId;
+
+                                        dayElement.innerHTML = `
+        <div class="form-row">
+            <div class="form-group">
+                <label>Day</label>
+                <input type="text" class="day-number" value="${dayData.day || ''}" 
+                       placeholder="Day 1" required>
+            </div>
+            <div class="form-group">
+                <label>Description</label>
+                <textarea class="day-description" rows="3" required>${dayData.description || ''}</textarea>
+            </div>
+            <button type="button" class="remove-day-btn" title="Remove day">
+                <i class="icon-trash-2"></i>
+            </button>
+        </div>
+    `;
+
+                                        container.appendChild(dayElement);
+
+                                        dayElement.querySelector('.remove-day-btn').addEventListener('click', () => {
+                                            dayElement.remove();
+                                            updateEditTravelPlanInput();
+                                        });
+
+                                        const inputs = dayElement.querySelectorAll('input, textarea');
+                                        inputs.forEach(input => {
+                                            input.addEventListener('input', updateEditTravelPlanInput);
+                                        });
+
+                                        if (container.children.length === 0) {
+                                            addEditDayInput();
+                                        }
+                                    }
+
+                                    function updateTravelPlanInput() {
+                                        const days = [];
+                                        const dayElements = document.querySelectorAll('.travel-day');
+
+                                        dayElements.forEach(dayEl => {
+                                            const day = dayEl.querySelector('.day-number').value;
+                                            const description = dayEl.querySelector('.day-description').value;
+
+                                            if (day && description) {
+                                                days.push({ day, description });
+                                            }
+                                        });
+
+                                        travelPlanDays = days;
+                                        document.getElementById('package-travel-plan').value = JSON.stringify(days);
+                                    }
+
+                                    function updateEditTravelPlanInput() {
+                                        const days = [];
+                                        const dayElements = document.querySelectorAll('#edit-travel-plan-container .travel-day');
+
+                                        dayElements.forEach(dayEl => {
+                                            const day = dayEl.querySelector('.day-number').value;
+                                            const description = dayEl.querySelector('.day-description').value;
+
+                                            if (day && description) {
+                                                days.push({ day, description });
+                                            }
+                                        });
+
+                                        document.getElementById('edit-package-travel-plan').value = JSON.stringify(days);
+                                    }
+
+                                    // ======================
+                                    // PACKAGE CRUD FUNCTIONS
+                                    // ======================
+
+                                    async function fetchPackages() {
+                                        try {
+                                            const response = await fetch(`/all-packages?page=${currentPage}&limit=${limit}&search=${searchQuery}`);
+                                            if (!response.ok) throw new Error(`Server error: ${response.status}`);
+
+                                            const data = await response.json();
+                                            if (!data || !data.packages) throw new Error('Invalid data format from server');
+
+                                            renderPackages(data.packages);
+
+                                            if (data.totalPages !== undefined && data.currentPage !== undefined) {
+                                                renderPagination(data.totalPages, data.currentPage);
+                                            }
+
+                                            document.getElementById('showing-entries').textContent = `Showing ${data.packages.length} of ${data.totalCount} entries`;
+                                        } catch (error) {
+                                            console.error('Error fetching packages:', error);
+                                            alert('Failed to load packages. Please try again later.');
+                                            document.getElementById('packages-list').innerHTML = '<li class="error-message">Failed to load packages</li>';
+                                        }
+                                    }
+
+                                    function renderPackages(packages) {
+                                        const packagesList = document.getElementById('packages-list');
+                                        packagesList.innerHTML = '';
+
+                                        packages.forEach(pkg => {
+                                            const packageCard = document.createElement('div');
+                                            packageCard.className = 'package-card';
+                                            packageCard.id = `package-${pkg._id}`;
+
+                                            packageCard.innerHTML = `
+      <div class="card-header">
+        <h3 class="card-title">${pkg.title || 'Untitled Package'}</h3>
+        <span class="status-badge ${pkg.isActive ? 'active' : 'inactive'}">
+          ${pkg.isActive ? 'Active' : 'Inactive'}
+        </span>
+      </div>
+      
+      <div class="card-images">
+        ${pkg.images && pkg.images.length > 0
+                                                    ? pkg.images.map(img => `
+            <img src="${img}" alt="Package image" onerror="this.src='https://via.placeholder.com/60'">
+          `).join('')
+                                                    : `<img src="https://via.placeholder.com/60" alt="No image">`
+                                                }
+      </div>
+      
+      <div class="card-body">
+        <div class="detail-row">
+          <span class="detail-label">Destination:</span>
+          <span class="detail-value">${pkg.destination || 'N/A'}</span>
+        </div>
+        <div class="detail-row">
+          <span class="detail-label">Duration:</span>
+          <span class="detail-value">${pkg.duration || 'N/A'}</span>
+        </div>
+        <div class="detail-row">
+          <span class="detail-label">Price:</span>
+          <span class="detail-value">${pkg.packagePrice ? '₹' + pkg.packagePrice : 'N/A'}</span>
+        </div>
+      </div>
+      
+      <div class="expanded-details" id="details-${pkg._id}">
+        <!-- Expanded content will go here -->
+      </div>
+      
+      <div class="card-footer">
+        <button class="details-btn" onclick="toggleDetails('${pkg._id}')">More Details</button>
+        <div class="card-actions">
+          <button class="item edit" onclick="showEditPackageModal('${pkg._id}')">
+            <i class="icon-edit-3"></i>
+          </button>
+           <button class="item toggle" onclick="togglePackage('${pkg._id}')">
+      <i class="fa fa-toggle-${pkg.isActive ? 'on' : 'off'}"></i>
+    </button>
+          <button class="item trash" onclick="deletePackage('${pkg._id}')">
+            <i class="icon-trash-2"></i>
+          </button>
+        </div>
+      </div>
+    `;
+
+                                            // Add expanded details
+                                            const expandedDetails = packageCard.querySelector(`#details-${pkg._id}`);
+                                            expandedDetails.innerHTML = `
+      <div class="detail-row">
+        <span class="detail-label">Package ID:</span>
+        <span class="detail-value">${pkg._id || 'N/A'}</span>
+      </div>
+      <div class="detail-row">
+        <span class="detail-label">Category:</span>
+        <span class="detail-value">${pkg.category?.name || 'N/A'}</span>
+      </div>
+      <div class="detail-row">
+        <span class="detail-label">Subcategory:</span>
+        <span class="detail-value">
+          ${pkg.category?.subCategories?.find(sub => sub._id.toString() === pkg.subCategory?.toString())?.name || 'N/A'}
+        </span>
+      </div>
+      <div class="detail-row">
+        <span class="detail-label">Tour Type:</span>
+        <span class="detail-value">${pkg.tourType || 'N/A'}</span>
+      </div>
+      <div class="detail-row">
+        <span class="detail-label">Group Size:</span>
+        <span class="detail-value">${pkg.groupSize || 'N/A'}</span>
+      </div>
+      <div class="detail-row">
+        <span class="detail-label">Description:</span>
+        <span class="detail-value">${pkg.packageDescription || 'N/A'}</span>
+      </div>
+      <div class="detail-row">
+        <span class="detail-label">Included:</span>
+        <span class="detail-value">
+          ${pkg.included && pkg.included.length ? pkg.included.join(', ') : 'N/A'}
+        </span>
+      </div>
+      <div class="detail-row">
+        <span class="detail-label">Travel Plan:</span>
+        <span class="detail-value">
+          ${pkg.travelPlan && pkg.travelPlan.length ? `${pkg.travelPlan.length} days` : 'N/A'}
+        </span>
+      </div>
+      <div class="detail-row">
+        <span class="detail-label">Location:</span>
+        <span class="detail-value">
+          ${pkg.locationHref ? `<iframe src="${pkg.locationHref}" width="200" height="200" style="border:0;" allowfullscreen="" loading="lazy"></iframe>` : 'N/A'}
+        </span>
+      </div>
+    `;
+
+                                            packagesList.appendChild(packageCard);
+                                        });
+                                    }
+
+                                    function toggleDetails(packageId) {
+                                        const details = document.getElementById(`details-${packageId}`);
+                                        const cardFooter = details.closest('.package-card').querySelector('.card-footer');
+                                        const btn = cardFooter.querySelector('.details-btn');
+
+                                        details.classList.toggle('active');
+                                        btn.textContent = details.classList.contains('active') ? 'Hide Details' : 'More Details';
+                                    }
+                                    async function createPackage() {
+                                        const form = document.getElementById('add-package-form');
+                                        const formData = new FormData(form);
+
+                                        // Get the selected subcategory value properly
+                                        const subCategorySelect = document.getElementById('package-subcategory');
+                                        const subCategoryValue = subCategorySelect.value;
+
+                                        // Add subcategory to formData if selected
+                                        if (subCategoryValue) {
+                                            formData.set('subCategory', subCategoryValue);
+                                        }
+
+                                        // Convert included items to proper array format
+                                        const includedText = formData.get('included');
+                                        const includedArray = includedText.split(',').map(item => item.trim());
+                                        formData.set('included', JSON.stringify(includedArray));
+
+                                        // Handle travel plan data
+                                        const travelPlanDays = [];
+                                        document.querySelectorAll('.travel-day').forEach(dayEl => {
+                                            const day = dayEl.querySelector('.day-number').value;
+                                            const description = dayEl.querySelector('.day-description').value;
+                                            if (day && description) {
+                                                travelPlanDays.push({ day, description });
+                                            }
+                                        });
+                                        formData.set('travelPlan', JSON.stringify(travelPlanDays));
+
+                                        try {
+                                            const response = await fetch('/create-package', {
+                                                method: 'POST',
+                                                body: formData
+                                            });
+
+                                            if (response.ok) {
+                                                const result = await response.json();
+                                                alert('Package created successfully!');
+                                                closeModal('add-package-modal');
+                                                form.reset();
+                                                document.getElementById('travel-plan-container').innerHTML = '';
+                                                fetchPackages();
+                                            } else {
+                                                const error = await response.json();
+                                                alert(error.message || 'Error creating package');
+                                            }
+                                        } catch (error) {
+                                            console.error('Error:', error);
+                                            alert('Error creating package');
+                                        }
+                                    }
+
+                                    async function updatePackage() {
+                                        const form = document.getElementById('edit-package-form');
+                                        const formData = new FormData(form);
+                                        const packageId = document.getElementById('edit-package-id').value;
+
+                                        // Get the selected subcategory value properly
+                                        const subCategorySelect = document.getElementById('edit-package-subcategory');
+                                        const subCategoryValue = subCategorySelect.value;
+
+                                        // Add subcategory to formData if selected
+                                        if (subCategoryValue) {
+                                            formData.set('subCategory', subCategoryValue);
+                                        }
+
+                                        // Convert included items to proper array format
+                                        const includedText = formData.get('included');
+                                        const includedArray = includedText.split(',').map(item => item.trim());
+                                        formData.set('included', JSON.stringify(includedArray));
+
+                                        // Handle travel plan data
+                                        const travelPlanDays = [];
+                                        document.querySelectorAll('#edit-travel-plan-container .travel-day').forEach(dayEl => {
+                                            const day = dayEl.querySelector('.day-number').value;
+                                            const description = dayEl.querySelector('.day-description').value;
+                                            if (day && description) {
+                                                travelPlanDays.push({ day, description });
+                                            }
+                                        });
+                                        formData.set('travelPlan', JSON.stringify(travelPlanDays));
+
+                                        try {
+                                            const response = await fetch(`/update-package/${packageId}`, {
+                                                method: 'PUT',
+                                                body: formData
+                                            });
+
+                                            if (response.ok) {
+                                                const result = await response.json();
+                                                alert('Package updated successfully!');
+                                                closeModal('edit-package-modal');
+                                                fetchPackages();
+                                            } else {
+                                                const error = await response.json();
+                                                alert(error.message || 'Error updating package');
+                                            }
+                                        } catch (error) {
+                                            console.error('Error:', error);
+                                            alert('Error updating package');
+                                        }
+                                    }
+
+                                    async function deletePackage(packageId) {
+                                        if (!confirm('Are you sure you want to delete this package?')) return;
+
+                                        try {
+                                            const response = await fetch(`/delete-package/${packageId}`, {
+                                                method: 'DELETE'
+                                            });
+
+                                            if (response.ok) {
+                                                alert('Package deleted successfully!');
+                                                fetchPackages();
+                                            } else {
+                                                const error = await response.json();
+                                                alert(error.message || 'Error deleting package');
+                                            }
+                                        } catch (error) {
+                                            console.error('Error:', error);
+                                            alert('Error deleting package');
+                                        }
+                                    }
+
+                                    async function togglePackage(packageId) {
+                                        try {
+                                            const response = await fetch(`/toggle-package-status/${packageId}`, {
+                                                method: 'PATCH'
+                                            });
+
+                                            if (response.ok) {
+                                                const data = await response.json();
+                                                alert(`Package status updated to ${data.isActive ? 'Active' : 'Inactive'}`);
+                                                fetchPackages();
+                                            } else {
+                                                const error = await response.json();
+                                                alert(error.message || 'Error updating package status');
+                                            }
+                                        } catch (error) {
+                                            console.error('Error:', error);
+                                            alert('Error updating package status');
+                                        }
+                                    }
+
+                                    // ======================
+                                    // MODAL FUNCTIONS
+                                    // ======================
+
+                                    function showAddPackageModal() {
+                                        document.getElementById('add-package-modal').style.display = 'block';
+                                        document.getElementById('travel-plan-container').innerHTML = '';
+                                        addDayInput(); // Add one empty day by default
+                                    }
+
+                                    async function showEditPackageModal(packageId) {
+                                        try {
+                                            const response = await fetch(`/admin-package/${packageId}`);
+                                            if (!response.ok) throw new Error('Failed to fetch package');
+
+                                            const pkg = await response.json();
+
+                                            // Populate form fields
+                                            document.getElementById('edit-package-id').value = pkg._id;
+                                            document.getElementById('edit-package-title').value = pkg.title;
+                                            document.getElementById('edit-package-destination').value = pkg.destination;
+                                            document.getElementById('edit-package-duration').value = pkg.duration;
+                                            document.getElementById('edit-package-tour-type').value = pkg.tourType;
+                                            document.getElementById('edit-package-group-size').value = pkg.groupSize;
+                                            document.getElementById('edit-package-price').value = pkg.packagePrice;
+                                            document.getElementById('edit-package-tour-guide').value = pkg.tourGuide;
+                                            document.getElementById('edit-package-description').value = pkg.packageDescription;
+                                            document.getElementById('edit-package-included').value = Array.isArray(pkg.included) ? pkg.included.join(', ') : pkg.included;
+                                            document.getElementById('edit-package-location').value = pkg.locationHref;
+                                            document.getElementById('edit-package-status').checked = pkg.isActive;
+
+                                            // Set category and subcategory
+                                            document.getElementById('edit-package-category').value = pkg.category?._id || pkg.category;
+                                            populateEditSubcategoryDropdown(pkg.category?._id || pkg.category);
+
+                                            setTimeout(() => {
+                                                document.getElementById('edit-package-subcategory').value = pkg.subCategory?._id || pkg.subCategory || '';
+                                            }, 100);
+
+                                            // Load travel plan
+                                            const editTravelPlanContainer = document.getElementById('edit-travel-plan-container');
+                                            editTravelPlanContainer.innerHTML = '';
+
+                                            if (pkg.travelPlan && pkg.travelPlan.length > 0) {
+                                                pkg.travelPlan.forEach(day => {
+                                                    addEditDayInput(day);
+                                                });
+                                            } else {
+                                                addEditDayInput(); // Add one empty day by default
+                                            }
+
+                                            // Load current images
+                                            const imagesContainer = document.getElementById('edit-current-images');
+                                            imagesContainer.innerHTML = '';
+                                            if (pkg.images && pkg.images.length > 0) {
+                                                pkg.images.forEach(img => {
+                                                    const imgDiv = document.createElement('div');
+                                                    imgDiv.className = 'current-image';
+                                                    imgDiv.innerHTML = `
+                    <img src="${img}" alt="Package Image" onerror="this.src='https://via.placeholder.com/150'">
+                    <button type="button" class="remove-image-btn" data-img="${img}">
+                        <i class="icon-trash-2"></i>
+                    </button>
+                `;
+                                                    imagesContainer.appendChild(imgDiv);
+                                                });
+                                            }
+
+                                            document.getElementById('edit-package-modal').style.display = 'block';
+                                        } catch (error) {
+                                            console.error('Error fetching package:', error);
+                                            alert('Failed to load package details');
+                                        }
+                                    }
+
+                                    function closeModal(modalId) {
+                                        document.getElementById(modalId).style.display = 'none';
+                                    }
+
+                                    // ======================
+                                    // CATEGORY FUNCTIONS
+                                    // ======================
+
+                                    async function fetchCategories() {
+                                        try {
+                                            const response = await fetch('/categories');
+                                            const data = await response.json();
+                                            allCategories = data.categories;
+                                            populateCategoryDropdown();
+                                        } catch (error) {
+                                            console.error('Error fetching categories:', error);
+                                        }
+                                    }
+
+                                    function populateCategoryDropdown() {
+                                        const categorySelect = document.getElementById('package-category');
+                                        const editCategorySelect = document.getElementById('edit-package-category');
+
+                                        categorySelect.innerHTML = '<option value="">Select Category</option>';
+                                        editCategorySelect.innerHTML = '<option value="">Select Category</option>';
+
+                                        allCategories.forEach(category => {
+                                            const option = document.createElement('option');
+                                            option.value = category._id;
+                                            option.textContent = category.name;
+                                            categorySelect.appendChild(option.cloneNode(true));
+                                            editCategorySelect.appendChild(option);
+                                        });
+                                    }
+
+                                    function populateSubcategoryDropdown(categoryId) {
+                                        const subcategorySelect = document.getElementById('package-subcategory');
+                                        subcategorySelect.innerHTML = '<option value="">Select Subcategory</option>';
+
+                                        if (!categoryId) return;
+
+                                        const category = allCategories.find(c => c._id === categoryId);
+                                        if (category && category.subCategories) {
+                                            category.subCategories.forEach(subcategory => {
+                                                const option = document.createElement('option');
+                                                option.value = subcategory._id;
+                                                option.textContent = subcategory.name;
+                                                subcategorySelect.appendChild(option);
+                                            });
+                                        }
+                                    }
+
+                                    function populateEditSubcategoryDropdown(categoryId) {
+                                        const subcategorySelect = document.getElementById('edit-package-subcategory');
+                                        subcategorySelect.innerHTML = '<option value="">Select Subcategory</option>';
+
+                                        if (!categoryId) return;
+
+                                        const category = allCategories.find(c => c._id === categoryId);
+                                        if (category && category.subCategories) {
+                                            category.subCategories.forEach(subcategory => {
+                                                const option = document.createElement('option');
+                                                option.value = subcategory._id;
+                                                option.textContent = subcategory.name;
+                                                subcategorySelect.appendChild(option);
+                                            });
+                                        }
+                                    }
+
+                                    // ======================
+                                    // PAGINATION FUNCTIONS
+                                    // ======================
+
+                                    function renderPagination(totalPages, currentPage) {
+                                        const paginationContainer = document.getElementById('pagination');
+                                        paginationContainer.innerHTML = '';
+
+                                        // Always show first page button
+                                        addPageButton(paginationContainer, 1, currentPage);
+
+                                        // Show previous ellipsis if needed
+                                        if (currentPage > 3) {
+                                            const ellipsis = document.createElement('li');
+                                            ellipsis.innerHTML = '<span>...</span>';
+                                            paginationContainer.appendChild(ellipsis);
+                                        }
+
+                                        // Show pages around current page
+                                        const startPage = Math.max(2, currentPage - 1);
+                                        const endPage = Math.min(totalPages - 1, currentPage + 1);
+
+                                        for (let i = startPage; i <= endPage; i++) {
+                                            addPageButton(paginationContainer, i, currentPage);
+                                        }
+
+                                        // Show next ellipsis if needed
+                                        if (currentPage < totalPages - 2) {
+                                            const ellipsis = document.createElement('li');
+                                            ellipsis.innerHTML = '<span>...</span>';
+                                            paginationContainer.appendChild(ellipsis);
+                                        }
+
+                                        // Always show last page button if there are multiple pages
+                                        if (totalPages > 1) {
+                                            addPageButton(paginationContainer, totalPages, currentPage);
+                                        }
+                                    }
+
+                                    function addPageButton(container, pageNumber, currentPage) {
+                                        const pageItem = document.createElement('li');
+                                        if (pageNumber === currentPage) {
+                                            pageItem.className = 'active';
+                                        }
+
+                                        const pageLink = document.createElement('a');
+                                        pageLink.href = '#';
+                                        pageLink.textContent = pageNumber;
+                                        pageLink.onclick = (e) => {
+                                            e.preventDefault();
+                                            currentPage = pageNumber;
+                                            fetchPackages();
+                                        };
+
+                                        pageItem.appendChild(pageLink);
+                                        container.appendChild(pageItem);
+                                    }
+                                </script>
+
+
+                                <!-- /package-list -->
+                            </div>
+                            <!-- /main-content-wrap -->
+                        </div>
+                        <!-- /main-content-wrap -->
+                        <!-- bottom-page -->
+                                                <div class="bottom-page">
+                            <div class="body-text">Copyright © 2025 <a href="">Surya Holidays</a>.
+                                Design by Trivlogic Private Limited All rights reserved</div>
+                        </div>
+                        <!-- /bottom-page -->
+                    </div>
+                    <!-- /main-content -->
+                </div>
+                <!-- /section-content-right -->
+            </div>
+            <!-- /layout-wrap -->
+        </div>
+        <!-- /#page -->
+    </div>
+    <!-- /#wrapper -->
+
+    <!-- <script>
+        function updateLimit(select) {
+            const limit = select.value;
+            const url = new URL(window.location);
+            url.searchParams.set('limit', limit);
+            window.location.href = url.toString();
+        }
+    </script> -->
+    <!-- Javascript -->
+    <script src="admin-js/jquery.min.js"></script>
+    <script src="admin-js/bootstrap.min.js"></script>
+    <script src="admin-js/bootstrap-select.min.js"></script>
+    <script src="admin-js/zoom.js"></script>
+    <script src="admin-js/switcher.js"></script>
+    <script defer src="admin-js/theme-settings.js"></script>
+    <script defer src="admin-js/main.js"></script>
+
+</body>
+
+</html>
