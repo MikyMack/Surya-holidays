@@ -218,75 +218,99 @@
     <!-- End Navbar -->
 
     <!-- Start Hero -->
-    <section style="background-image: url('<%= tourPackage.images[1] %>');"
+ <!-- Start Hero -->
+ <% if (typeof tourPackage !== 'undefined' && tourPackage) { %>
+    <section style="background-image: url('<%= tourPackage.images && tourPackage.images[1] ? tourPackage.images[1] : '' %>');"
         class="relative table w-full items-center py-36 bg-top bg-no-repeat bg-cover">
         <div class="absolute inset-0 bg-gradient-to-b from-slate-900/60 via-slate-900/80 to-slate-900"></div>
         <div class="container relative">
             <div class="grid grid-cols-1 pb-8 text-center mt-10">
-                <h3 class="text-3xl leading-normal text-color tracking-wider font-semibold text-white">
-                    <%= tourPackage.title %>
+                <h3 class="text-3xl leading-normal tracking-wider font-semibold text-white">
+                    <%= tourPackage.title || 'Package' %>
                 </h3>
-            </div><!--end grid-->
-        </div><!--end container-->
+            </div>
+        </div>
 
         <div class="absolute text-center z-10 bottom-5 start-0 end-0 mx-3">
             <ul class="tracking-[0.5px] mb-0 inline-block">
-                <li
-                    class="inline-block uppercase text-[13px] font-bold duration-500 ease-in-out text-white/50 hover:text-white">
+                <li class="inline-block uppercase text-[13px] font-bold duration-500 ease-in-out text-white/50 hover:text-white">
                     <a href="/">Home</a>
                 </li>
-                <li class="inline-block text-base text-white/50 mx-0.5 ltr:rotate-0 rtl:rotate-180"><i
-                        class="mdi mdi-chevron-right"></i></li>
-                <li
-                    class="inline-block uppercase text-[13px] font-bold duration-500 ease-in-out text-white/50 hover:text-white">
-                    <a href="/">Packages</a>
+                <li class="inline-block text-base text-white/50 mx-0.5 ltr:rotate-0 rtl:rotate-180">
+                    <i class="mdi mdi-chevron-right"></i>
                 </li>
-                <li class="inline-block text-base text-white/50 mx-0.5 ltr:rotate-0 rtl:rotate-180"><i
-                        class="mdi mdi-chevron-right"></i></li>
-                <li class="inline-block uppercase text-[13px] font-bold duration-500 ease-in-out text-white"
-                    aria-current="page">package details</li>
+                <li class="inline-block uppercase text-[13px] font-bold duration-500 ease-in-out text-white/50 hover:text-white">
+                    <a href="/packages">Packages</a>
+                </li>
+                <li class="inline-block text-base text-white/50 mx-0.5 ltr:rotate-0 rtl:rotate-180">
+                    <i class="mdi mdi-chevron-right"></i>
+                </li>
+                <li class="inline-block uppercase text-[13px] font-bold duration-500 ease-in-out text-white" aria-current="page">
+                    package details
+                </li>
             </ul>
         </div>
-    </section><!--end section-->
-    <!-- End Hero -->
+    </section>
+<% } else { %>
+    <section class="relative table w-full items-center py-36 bg-top bg-no-repeat bg-cover bg-slate-900">
+        <div class="container relative">
+            <div class="grid grid-cols-1 pb-8 text-center mt-10">
+                <h3 class="text-3xl leading-normal tracking-wider font-semibold text-white">
+                    This Package Information Will Add Soon ! 
+                </h3>
+                <p class="text-white mt-4">The requested package could not be loaded.</p>
+                <a href="/packages" class="mt-6 inline-block px-6 py-3 bg-red-500 text-white rounded hover:bg-red-600 transition mx-auto">
+                    Browse Packages
+                </a>
+            </div>
+        </div>
+    </section>
+<% } %>
 
-    <!-- Start -->
+<!-- Main Content -->
+<% if (typeof tourPackage !== 'undefined' && tourPackage) { %>
     <section class="relative md:py-24 py-16">
         <div class="container relative">
             <div class="grid md:grid-cols-12 grid-cols-1 gap-6">
                 <div class="lg:col-span-8 md:col-span-7">
                     <!-- Image Gallery -->
-                    <div class="grid grid-cols-12 gap-4">
-                        <% tourPackage.images.forEach((image, index)=> { %>
-                            <div
-                                class="<%= index === 0 || index === 3 ? 'md:col-span-8' : 'md:col-span-4' %> col-span-<%= index === 0 || index === 3 ? '7' : '5' %>">
-                                <div class="group relative overflow-hidden rounded shadow-sm dark:shadow-gray-800">
-                                    <img src="<%= image %>" class="w-full lg:h-60 md:h-44 h-48 object-cover"
-                                        alt="<%= tourPackage.title %>">
-                                    <div class="absolute inset-0 group-hover:bg-slate-900/70 duration-500 ease-in-out">
-                                    </div>
-                                    <div
-                                        class="absolute top-1/2 -translate-y-1/2 start-0 end-0 text-center opacity-0 group-hover:opacity-100 duration-500">
-                                        <a href="<%= image %>"
-                                            class="inline-flex justify-center items-center size-9 bg-red-500 text-white rounded-full lightbox">
-                                            <i data-feather="camera" class="size-4 icons align-middle"></i>
-                                        </a>
+                    <% if (tourPackage.images && tourPackage.images.length > 0) { %>
+                        <div class="grid grid-cols-12 gap-4">
+                            <% tourPackage.images.forEach((image, index)=> { %>
+                                <div class="<%= index === 0 || index === 3 ? 'md:col-span-8' : 'md:col-span-4' %> col-span-<%= index === 0 || index === 3 ? '7' : '5' %>">
+                                    <div class="group relative overflow-hidden rounded shadow-sm dark:shadow-gray-800">
+                                        <img src="<%= image %>" class="w-full lg:h-60 md:h-44 h-48 object-cover"
+                                            alt="<%= tourPackage.title %>">
+                                        <div class="absolute inset-0 group-hover:bg-slate-900/70 duration-500 ease-in-out"></div>
+                                        <div class="absolute top-1/2 -translate-y-1/2 start-0 end-0 text-center opacity-0 group-hover:opacity-100 duration-500">
+                                            <a href="<%= image %>"
+                                                class="inline-flex justify-center items-center size-9 bg-red-500 text-white rounded-full lightbox">
+                                                <i data-feather="camera" class="size-4 icons align-middle"></i>
+                                            </a>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
                             <% }) %>
-                    </div>
+                        </div>
+                    <% } else { %>
+                        <div class="w-full h-64 bg-gray-200 flex items-center justify-center rounded">
+                            <p>No images available for this package</p>
+                        </div>
+                    <% } %>
 
-                    <h5 class="text-2xl text-color font-semibold mt-5">
+                    <h5 class="text-2xl font-semibold mt-5">
                         <%= tourPackage.title %>
                     </h5>
-                    <p class="flex items-center text-color text-slate-500 font-medium mt-2">
-                        <i data-feather="map-pin" class="size-4 icons me-1"></i>
-                        <%= tourPackage.destination %>
-                            <% if (tourPackage.category) { %>
-                                | <i data-feather="tag" class="size-4 icons me-1 ms-2"></i>
-                                <%= tourPackage.category.name %>
-                                    <% } %>
+                    
+                    <p class="flex items-center text-slate-500 font-medium mt-2">
+                        <% if (tourPackage.destination) { %>
+                            <i data-feather="map-pin" class="size-4 icons me-1"></i>
+                            <%= tourPackage.destination %>
+                        <% } %>
+                        <% if (tourPackage.category && tourPackage.category.name) { %>
+                            | <i data-feather="tag" class="size-4 icons me-1 ms-2"></i>
+                            <%= tourPackage.category.name %>
+                        <% } %>
                     </p>
 
                     <!-- Package Details -->
@@ -363,54 +387,56 @@
                     </div>
 
                     <!-- Travel Plan -->
-                    <div class="mt-6">
-                        <h5 class="text-lg  text-color font-semibold">Travel Plan:</h5>
-                        <div id="accordion-collapseone" data-accordion="collapse" class="mt-6">
-                            <% tourPackage.travelPlan.forEach((plan, index) => { %>
-                                <div
-                                    class="relative shadow-sm dark:shadow-gray-800 rounded-md overflow-hidden <%= index > 0 ? 'mt-4' : '' %>">
-                                    <h2 class="text-base font-semibold" id="accordion-collapse-heading-<%= index %>">
-                                        <button type="button"
-                                            class="flex justify-between main-btn text-color items-center p-5 w-full font-medium text-start cursor-pointer"
-                                            data-accordion-target="#accordion-collapse-body-<%= index %>"
-                                            aria-expanded="<%= index === 0 ? 'true' : 'false' %>"
-                                            aria-controls="accordion-collapse-body-<%= index %>">
-                                            <span>Day <%= plan.day %></span>
-                                            <svg data-accordion-icon
-                                                class="size-4 <%= index === 0 ? 'rotate-180' : '' %> shrink-0"
-                                                fill="currentColor" viewBox="0 0 20 20">
-                                                <path fill-rule="evenodd"
-                                                    d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                                                    clip-rule="evenodd"></path>
-                                            </svg>
-                                        </button>
-                                    </h2>
-                                    <div id="accordion-collapse-body-<%= index %>"
-                                        class="<%= index === 0 ? '' : 'hidden' %>"
-                                        aria-labelledby="accordion-collapse-heading-<%= index %>">
-                                        <div class="p-5">
-                                            <p class="text-slate-500 text-color dark:text-gray-500">
-                                                <%= plan.description %>
-                                            </p>
+                    <% if (tourPackage.travelPlan && tourPackage.travelPlan.length > 0) { %>
+                        <div class="mt-6">
+                            <h5 class="text-lg text-color font-semibold">Travel Plan:</h5>
+                            <div id="accordion-collapseone" data-accordion="collapse" class="mt-6">
+                                <% tourPackage.travelPlan.forEach((plan, index) => { %>
+                                    <div class="relative bg-black shadow-sm dark:shadow-gray-800 rounded-md overflow-hidden <%= index > 0 ? 'mt-4' : '' %>">
+                                        <h2 class="text-base text-color font-semibold" id="accordion-collapse-heading-<%= index %>">
+                                            <button style="background-color: black!important;" type="button"
+                                                class="flex justify-between bg-black items-center p-5 w-full font-medium text-start cursor-pointer"
+                                                data-accordion-target="#accordion-collapse-body-<%= index %>"
+                                                aria-expanded="<%= index === 0 ? 'true' : 'false' %>"
+                                                aria-controls="accordion-collapse-body-<%= index %>">
+                                                <span class="text-color">Day <%= plan.day %></span>
+                                                <svg data-accordion-icon
+                                                    class="text-yellow-500 size-4 <%= index === 0 ? 'rotate-180' : '' %> shrink-0"
+                                                    fill="currentColor" viewBox="0 0 20 20">
+                                                    <path fill-rule="evenodd"
+                                                        d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                                                        clip-rule="evenodd"></path>
+                                                </svg>
+                                            </button>
+                                        </h2>
+                                        <div id="accordion-collapse-body-<%= index %>"
+                                            class="<%= index === 0 ? '' : 'hidden' %>"
+                                            aria-labelledby="accordion-collapse-heading-<%= index %>">
+                                            <div class="p-5">
+                                                <p class="text-slate-50 text-color dark:text-gray-500">
+                                                    <%= plan.description %>
+                                                </p>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                            <% }) %>
+                                <% }) %>
+                            </div>
                         </div>
-                    </div>
-                    
+                    <% } %>
 
                     <!-- Included Features -->
-                    <div class="mt-6">
-                        <h5 class="text-lg text-color font-semibold">What's Included:</h5>
-                        <ul class="list-disc list-inside text-color text-slate-600 mt-4">
-                            <% tourPackage.included.forEach(item=> { %>
-                                <li class="mb-2 text-color">
-                                    <%= item %>
-                                </li>
+                    <% if (tourPackage.included && tourPackage.included.length > 0) { %>
+                        <div class="mt-6">
+                            <h5 class="text-lg text-color font-semibold">What's Included:</h5>
+                            <ul class="list-disc list-inside text-slate-600 mt-4">
+                                <% tourPackage.included.forEach(item=> { %>
+                                    <li class="mb-2 text-color">
+                                        <%= item %>
+                                    </li>
                                 <% }) %>
-                        </ul>
-                    </div>
+                            </ul>
+                        </div>
+                    <% } %>
 
                     <!-- Payment Details -->
                     <div class="mt-16">
@@ -450,7 +476,7 @@
                             <div class="bg-gradient-to-br from-red-50 to-white dark:from-gray-800 dark:to-gray-900 rounded-xl shadow-lg p-6 border border-red-100 dark:border-red-900 transform hover:scale-105 transition-transform duration-300">
                                 <div class="flex items-center mb-4">
                                     <i data-feather="bank" class="w-6 h-6 icons text-red-500 mr-3"></i>
-                                    <h4 class="text-lg font-semibold text-gray-800 text-color dark:text-white">Axis Bank</h4>
+                                    <h4 class="text-lg font-semibold text-color text-gray-800 dark:text-white">Axis Bank</h4>
                                 </div>
                                 <ul class="space-y-3 text-gray-600 dark:text-gray-300">
                                     <li class="flex items-center">
@@ -480,30 +506,30 @@
 
                     <!-- Booking & Cancellation Policies -->
                     <div class="mt-16">
-                        <h3 class="text-2xl font-bold text-gray-800 dark:text-white text-color mb-6 flex items-center">
+                        <h3 class="text-2xl text-color font-bold text-gray-800 dark:text-white mb-6 flex items-center">
                             <i data-feather="file-text" class="w-8 h-8 icons text-red-500 mr-3"></i>
                             Booking & Cancellation Policies
                         </h3>
                         
                         <div class="bg-gradient-to-br from-red-50 to-white dark:from-gray-800 dark:to-gray-900 rounded-xl shadow-lg p-6 border border-red-100 dark:border-red-900">
                             <ul class="space-y-4 text-gray-600 dark:text-gray-300">
-                                <li class="flex items-start  dark:bg-gray-800 p-4 rounded-lg shadow-sm">
+                                <li class="flex items-start text-color  dark:bg-gray-800 p-4 rounded-lg shadow-sm">
                                     <span class="text-red-500 mr-3 mt-1">
                                         <i data-feather="alert-circle" class="w-5 icons h-5"></i>
                                     </span>
-                                    <span class="text-color">Advance payment will be Rs.30,000/- only and 02nd part amount should be clear before 40 days of the departure and balance amount should be settled before 20 days of the departure. The advance amount will not be refunded under any circumstances.</span>
+                                    <span>Advance payment will be Rs.30,000/- only and 02nd part amount should be clear before 40 days of the departure and balance amount should be settled before 20 days of the departure. The advance amount will not be refunded under any circumstances.</span>
                                 </li>
-                                <li class="flex items-start  dark:bg-gray-800 p-4 rounded-lg shadow-sm">
+                                <li class="flex items-start text-color  dark:bg-gray-800 p-4 rounded-lg shadow-sm">
                                     <span class="text-red-500 mr-3 mt-1">
                                         <i data-feather="clock" class="w-5 icons h-5"></i>
                                     </span>
-                                    <span class="text-color">40 days before the departure – 50% of the Tour cost</span>
+                                    <span>40 days before the departure – 50% of the Tour cost</span>
                                 </li>
-                                <li class="flex items-start  dark:bg-gray-800 p-4 rounded-lg shadow-sm">
+                                <li class="flex items-start text-color dark:bg-gray-800 p-4 rounded-lg shadow-sm">
                                     <span class="text-red-500 mr-3 mt-1">
                                         <i data-feather="alert-triangle" class="w-5 icons h-5"></i>
                                     </span>
-                                    <span class="text-color">Within 25 days to Departure - 100% of the Tour cost</span>
+                                    <span>Within 25 days to Departure - 100% of the Tour cost</span>
                                 </li>
                             </ul>
                         </div>
@@ -786,7 +812,7 @@
 
                             <div>
                                 <button type="submit"
-                                    class="py-2 px-5 main-btn inline-flex items-center justify-center tracking-wide align-middle duration-500 text-base text-center bg-red-500 text-white rounded-md w-full hover:bg-red-600 transition">
+                                    class="py-2 px-5 inline-flex items-center justify-center tracking-wide align-middle duration-500 text-base text-center bg-red-500 text-white rounded-md w-full hover:bg-red-600 transition">
                                     <span id="submitText">Book Now</span>
                                     <span id="spinner" class="hidden ml-2">
                                         <svg class="animate-spin h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg"
@@ -883,18 +909,17 @@
                             <div class="mt-3">
                                 <% if (tourPackage.locationHref) { %>
                                     <a href="<%= tourPackage.locationHref %>" target="_blank"
-                                        class="w-full h-[300px] text-color rounded-md bg-gray-200 dark:bg-gray-800 flex items-center justify-center">
+                                        class="w-full h-[300px] rounded-md bg-gray-200 dark:bg-gray-800 flex items-center justify-center">
                                         <div class="text-center">
                                             <i data-feather="map" class="size-12 icons text-red-500 mx-auto"></i>
-                                            <p class="mt-2 text-color text-slate-600 dark:text-slate-300">View on Google Maps</p>
+                                            <p class="mt-2 text-slate-600 dark:text-slate-300">View on Google Maps</p>
                                         </div>
                                     </a>
-                                    <% } else { %>
-                                        <div
-                                            class="w-full h-[300px] rounded-md bg-gray-200 dark:bg-gray-800 flex items-center justify-center">
-                                            <p class="text-slate-600 text-color dark:text-slate-300">Location not available</p>
-                                        </div>
-                                        <% } %>
+                                <% } else { %>
+                                    <div class="w-full h-[300px] rounded-md bg-gray-200 dark:bg-gray-800 flex items-center justify-center">
+                                        <p class="text-slate-600 dark:text-slate-300">Location not available</p>
+                                    </div>
+                                <% } %>
                             </div>
                         </div>
                     </div>
@@ -902,6 +927,7 @@
             </div>
         </div>
     </section>
+<% } %>
     <!-- End -->
 
     <!-- Footer Start -->
