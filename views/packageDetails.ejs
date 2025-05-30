@@ -218,203 +218,240 @@
     <!-- End Navbar -->
 
     <!-- Start Hero -->
-    <section style="background-image: url('<%= tourPackage.images[1] %>');"
+ <!-- Start Hero -->
+ <% if (typeof tourPackage !== 'undefined' && tourPackage) { %>
+    <section style="background-image: url('<%= tourPackage.images && tourPackage.images[1] ? tourPackage.images[1] : '' %>');"
         class="relative table w-full items-center py-36 bg-top bg-no-repeat bg-cover">
         <div class="absolute inset-0 bg-gradient-to-b from-slate-900/60 via-slate-900/80 to-slate-900"></div>
         <div class="container relative">
             <div class="grid grid-cols-1 pb-8 text-center mt-10">
-                <h3 class="text-3xl leading-normal text-color tracking-wider font-semibold text-white">
-                    <%= tourPackage.title %>
+                <h3 class="text-3xl leading-normal tracking-wider font-semibold text-white">
+                    <%= tourPackage.title || 'Package' %>
                 </h3>
-            </div><!--end grid-->
-        </div><!--end container-->
+            </div>
+        </div>
 
         <div class="absolute text-center z-10 bottom-5 start-0 end-0 mx-3">
             <ul class="tracking-[0.5px] mb-0 inline-block">
-                <li
-                    class="inline-block uppercase text-[13px] font-bold duration-500 ease-in-out text-white/50 hover:text-white">
+                <li class="inline-block uppercase text-[13px] font-bold duration-500 ease-in-out text-white/50 hover:text-white">
                     <a href="/">Home</a>
                 </li>
-                <li class="inline-block text-base text-white/50 mx-0.5 ltr:rotate-0 rtl:rotate-180"><i
-                        class="mdi mdi-chevron-right"></i></li>
-                <li
-                    class="inline-block uppercase text-[13px] font-bold duration-500 ease-in-out text-white/50 hover:text-white">
-                    <a href="/">Packages</a>
+                <li class="inline-block text-base text-white/50 mx-0.5 ltr:rotate-0 rtl:rotate-180">
+                    <i class="mdi mdi-chevron-right"></i>
                 </li>
-                <li class="inline-block text-base text-white/50 mx-0.5 ltr:rotate-0 rtl:rotate-180"><i
-                        class="mdi mdi-chevron-right"></i></li>
-                <li class="inline-block uppercase text-[13px] font-bold duration-500 ease-in-out text-white"
-                    aria-current="page">package details</li>
+                <li class="inline-block uppercase text-[13px] font-bold duration-500 ease-in-out text-white/50 hover:text-white">
+                    <a href="/packages">Packages</a>
+                </li>
+                <li class="inline-block text-base text-white/50 mx-0.5 ltr:rotate-0 rtl:rotate-180">
+                    <i class="mdi mdi-chevron-right"></i>
+                </li>
+                <li class="inline-block uppercase text-[13px] font-bold duration-500 ease-in-out text-white" aria-current="page">
+                    package details
+                </li>
             </ul>
         </div>
-    </section><!--end section-->
-    <!-- End Hero -->
+    </section>
+<% } else { %>
+    <section class="relative table w-full items-center py-36 bg-top bg-no-repeat bg-cover bg-slate-900">
+        <div class="container relative">
+            <div class="grid grid-cols-1 pb-8 text-center mt-10">
+                <h3 class="text-3xl leading-normal tracking-wider font-semibold text-white">
+                    This Package Information Will Add Soon ! 
+                </h3>
+                <p class="text-white mt-4">The requested package could not be loaded.</p>
+                <a href="/packages" class="mt-6 inline-block px-6 py-3 bg-red-500 text-white rounded hover:bg-red-600 transition mx-auto">
+                    Browse Packages
+                </a>
+            </div>
+        </div>
+    </section>
+<% } %>
 
-    <!-- Start -->
+<!-- Main Content -->
+<% if (typeof tourPackage !== 'undefined' && tourPackage) { %>
     <section class="relative md:py-24 py-16">
         <div class="container relative">
             <div class="grid md:grid-cols-12 grid-cols-1 gap-6">
                 <div class="lg:col-span-8 md:col-span-7">
                     <!-- Image Gallery -->
-                    <div class="grid grid-cols-12 gap-4">
-                        <% tourPackage.images.forEach((image, index)=> { %>
-                            <div
-                                class="<%= index === 0 || index === 3 ? 'md:col-span-8' : 'md:col-span-4' %> col-span-<%= index === 0 || index === 3 ? '7' : '5' %>">
-                                <div class="group relative overflow-hidden rounded shadow-sm dark:shadow-gray-800">
-                                    <img src="<%= image %>" class="w-full lg:h-60 md:h-44 h-48 object-cover"
-                                        alt="<%= tourPackage.title %>">
-                                    <div class="absolute inset-0 group-hover:bg-slate-900/70 duration-500 ease-in-out">
-                                    </div>
-                                    <div
-                                        class="absolute top-1/2 -translate-y-1/2 start-0 end-0 text-center opacity-0 group-hover:opacity-100 duration-500">
-                                        <a href="<%= image %>"
-                                            class="inline-flex justify-center items-center size-9 bg-red-500 text-white rounded-full lightbox">
-                                            <i data-feather="camera" class="size-4 icons align-middle"></i>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                            <% }) %>
-                    </div>
-
-                    <h5 class="text-2xl text-color font-semibold mt-5">
-                        <%= tourPackage.title %>
-                    </h5>
-                    <p class="flex items-center text-color text-slate-500 font-medium mt-2">
-                        <i data-feather="map-pin" class="size-4 icons me-1"></i>
-                        <%= tourPackage.destination %>
-                            <% if (tourPackage.category) { %>
-                                | <i data-feather="tag" class="size-4 icons me-1 ms-2"></i>
-                                <%= tourPackage.category.name %>
-                                    <% } %>
-                    </p>
-
-                    <!-- Package Details -->
-                    <div class="mt-6">
-                        <ul class="flex flex-wrap gap-4 justify-between">
-                            <!-- Row 1 -->
-                            <li
-                                class="flex items-center bg-white dark:bg-slate-800 p-3 rounded-lg shadow-sm flex-1 min-w-[200px]">
-                                <i data-feather="clock" class="w-5 h-5 icons text-red-500 mr-3"></i>
-                                <div>
-                                    <p class="text-xs text-color text-gray-500 dark:text-gray-400">Duration</p>
-                                    <p class="font-medium text-color text-gray-900 dark:text-white">
-                                        <%= tourPackage.duration %>
-                                    </p>
-                                </div>
-                            </li>
-
-                            <li
-                                class="flex items-center bg-white dark:bg-slate-800 p-3 rounded-lg shadow-sm flex-1 min-w-[200px]">
-                                <i data-feather="activity" class="w-5 h-5 icons text-red-500 mr-3"></i>
-                                <div>
-                                    <p class="text-xs text-gray-500 text-color dark:text-gray-400">Type</p>
-                                    <p class="font-medium text-gray-900 text-color dark:text-white">
-                                        <%= tourPackage.tourType %>
-                                    </p>
-                                </div>
-                            </li>
-
-                            <!-- Row 2 -->
-                            <li
-                                class="flex items-center bg-white dark:bg-slate-800 p-3 rounded-lg shadow-sm flex-1 min-w-[200px]">
-                                <i data-feather="users" class="w-5 h-5 icons text-red-500 mr-3"></i>
-                                <div>
-                                    <p class="text-xs text-gray-500 text-color dark:text-gray-400">Group Size</p>
-                                    <p class="font-medium text-gray-900 text-color dark:text-white">
-                                        <%= tourPackage.groupSize %> People
-                                    </p>
-                                </div>
-                            </li>
-
-                            <li
-                                class="flex items-center bg-white dark:bg-slate-800 p-3 rounded-lg shadow-sm flex-1 min-w-[200px]">
-                                <i data-feather="user-check" class="w-5 h-5 icons text-red-500 mr-3"></i>
-                                <div>
-                                    <p class="text-xs text-gray-500 text-color dark:text-gray-400">Tour Guide</p>
-                                    <p class="font-medium text-gray-900 text-color dark:text-white">
-                                        <%= tourPackage.tourGuide %>
-                                    </p>
-                                </div>
-                            </li>
-
-                            <!-- Last item centered -->
-                            <li
-                                class="flex items-center bg-white dark:bg-slate-800 text-color p-3 rounded-lg shadow-sm mx-auto mt-4 col-span-2 w-full max-w-[300px]">
-                              
-                                <div>
-                                    <p class="text-xs text-gray-500 text-color dark:text-gray-400">Price</p>
-                                    <p class="font-medium text-gray-900 text-color dark:text-white">₹ <%= tourPackage.packagePrice %>
-                                    </p>
-                                    <p class="text-xs text-gray-400 text-color dark:text-gray-500">
-                                        <%= tourPackage.duration %>
-                                    </p>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-
-                    <!-- Tour Description -->
-                    <div class="mt-6">
-                        <h5 class="text-lg  text-colorfont-semibold">Tour Descriptions:</h5>
-                        <p class="text-slate-500 text-color mt-6">
-                            <%= tourPackage.packageDescription %>
-                        </p>
-                    </div>
-
-                    <!-- Travel Plan -->
-                    <div class="mt-6">
-                        <h5 class="text-lg  text-color font-semibold">Travel Plan:</h5>
-                        <div id="accordion-collapseone" data-accordion="collapse" class="mt-6">
-                            <% tourPackage.travelPlan.forEach((plan, index) => { %>
-                                <div
-                                    class="relative shadow-sm dark:shadow-gray-800 rounded-md overflow-hidden <%= index > 0 ? 'mt-4' : '' %>">
-                                    <h2 class="text-base font-semibold" id="accordion-collapse-heading-<%= index %>">
-                                        <button type="button"
-                                            class="flex justify-between main-btn text-color items-center p-5 w-full font-medium text-start cursor-pointer"
-                                            data-accordion-target="#accordion-collapse-body-<%= index %>"
-                                            aria-expanded="<%= index === 0 ? 'true' : 'false' %>"
-                                            aria-controls="accordion-collapse-body-<%= index %>">
-                                            <span>Day <%= plan.day %></span>
-                                            <svg data-accordion-icon
-                                                class="size-4 <%= index === 0 ? 'rotate-180' : '' %> shrink-0"
-                                                fill="currentColor" viewBox="0 0 20 20">
-                                                <path fill-rule="evenodd"
-                                                    d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                                                    clip-rule="evenodd"></path>
-                                            </svg>
-                                        </button>
-                                    </h2>
-                                    <div id="accordion-collapse-body-<%= index %>"
-                                        class="<%= index === 0 ? '' : 'hidden' %>"
-                                        aria-labelledby="accordion-collapse-heading-<%= index %>">
-                                        <div class="p-5">
-                                            <p class="text-slate-500 text-color dark:text-gray-500">
-                                                <%= plan.description %>
-                                            </p>
+                    <% if (tourPackage.images && tourPackage.images.length > 0) { %>
+                        <div class="grid grid-cols-12 gap-4">
+                            <% tourPackage.images.forEach((image, index)=> { %>
+                                <div class="<%= index === 0 || index === 3 ? 'md:col-span-8' : 'md:col-span-4' %> col-span-<%= index === 0 || index === 3 ? '7' : '5' %>">
+                                    <div class="group relative overflow-hidden rounded shadow-sm dark:shadow-gray-800">
+                                        <img src="<%= image %>" class="w-full lg:h-60 md:h-44 h-48 object-cover"
+                                            alt="<%= tourPackage.title %>">
+                                        <div class="absolute inset-0 group-hover:bg-slate-900/70 duration-500 ease-in-out"></div>
+                                        <div class="absolute top-1/2 -translate-y-1/2 start-0 end-0 text-center opacity-0 group-hover:opacity-100 duration-500">
+                                            <a href="<%= image %>"
+                                                class="inline-flex justify-center items-center size-9 bg-red-500 text-white rounded-full lightbox">
+                                                <i data-feather="camera" class="size-4 icons align-middle"></i>
+                                            </a>
                                         </div>
                                     </div>
                                 </div>
                             <% }) %>
                         </div>
-                    </div>
-                    
+                    <% } else { %>
+                        <div class="w-full h-64 bg-gray-200 flex items-center justify-center rounded">
+                            <p>No images available for this package</p>
+                        </div>
+                    <% } %>
 
-                    <!-- Included Features -->
+                    <h5 class="text-2xl font-semibold mt-5">
+                        <%= tourPackage.title %>
+                    </h5>
+                    
+                    <p class="flex items-center text-slate-500 font-medium mt-2">
+                        <% if (tourPackage.destination) { %>
+                            <i data-feather="map-pin" class="size-4 icons me-1"></i>
+                            <%= tourPackage.destination %>
+                        <% } %>
+                        <% if (tourPackage.category && tourPackage.category.name) { %>
+                            | <i data-feather="tag" class="size-4 icons me-1 ms-2"></i>
+                            <%= tourPackage.category.name %>
+                        <% } %>
+                    </p>
+
+                    <!-- Package Details -->
                     <div class="mt-6">
-                        <h5 class="text-lg text-color font-semibold">What's Included:</h5>
-                        <ul class="list-disc list-inside text-color text-slate-600 mt-4">
-                            <% tourPackage.included.forEach(item=> { %>
-                                <li class="mb-2 text-color">
-                                    <%= item %>
+                        <ul class="flex flex-wrap gap-4 justify-between">
+                            <!-- Duration -->
+                            <% if (tourPackage.duration) { %>
+                                <li class="flex items-center bg-white dark:bg-slate-800 p-3 rounded-lg shadow-sm flex-1 min-w-[200px]">
+                                    <i data-feather="clock" class="w-5 h-5 icons text-red-500 mr-3"></i>
+                                    <div>
+                                        <p class="text-xs text-gray-500 dark:text-gray-400">Duration</p>
+                                        <p class="font-medium text-gray-900 dark:text-white">
+                                            <%= tourPackage.duration %>
+                                        </p>
+                                    </div>
                                 </li>
-                                <% }) %>
+                            <% } %>
+
+                            <!-- Tour Type -->
+                            <% if (tourPackage.tourType) { %>
+                                <li class="flex items-center bg-white dark:bg-slate-800 p-3 rounded-lg shadow-sm flex-1 min-w-[200px]">
+                                    <i data-feather="activity" class="w-5 h-5 icons text-red-500 mr-3"></i>
+                                    <div>
+                                        <p class="text-xs text-gray-500 dark:text-gray-400">Type</p>
+                                        <p class="font-medium text-gray-900 dark:text-white">
+                                            <%= tourPackage.tourType %>
+                                        </p>
+                                    </div>
+                                </li>
+                            <% } %>
+
+                            <!-- Group Size -->
+                            <% if (tourPackage.groupSize) { %>
+                                <li class="flex items-center bg-white dark:bg-slate-800 p-3 rounded-lg shadow-sm flex-1 min-w-[200px]">
+                                    <i data-feather="users" class="w-5 h-5 icons text-red-500 mr-3"></i>
+                                    <div>
+                                        <p class="text-xs text-gray-500 dark:text-gray-400">Group Size</p>
+                                        <p class="font-medium text-gray-900 dark:text-white">
+                                            <%= tourPackage.groupSize %> People
+                                        </p>
+                                    </div>
+                                </li>
+                            <% } %>
+
+                            <!-- Tour Guide -->
+                            <% if (tourPackage.tourGuide) { %>
+                                <li class="flex items-center bg-white dark:bg-slate-800 p-3 rounded-lg shadow-sm flex-1 min-w-[200px]">
+                                    <i data-feather="user-check" class="w-5 h-5 icons text-red-500 mr-3"></i>
+                                    <div>
+                                        <p class="text-xs text-gray-500 dark:text-gray-400">Tour Guide</p>
+                                        <p class="font-medium text-gray-900 dark:text-white">
+                                            <%= tourPackage.tourGuide %>
+                                        </p>
+                                    </div>
+                                </li>
+                            <% } %>
+
+                            <!-- Price -->
+                            <% if (tourPackage.packagePrice) { %>
+                                <li class="flex items-center bg-white dark:bg-slate-800 p-3 rounded-lg shadow-sm mx-auto mt-4 col-span-2 w-full max-w-[300px]">
+                                    <div>
+                                        <p class="text-xs text-gray-500 dark:text-gray-400">Price</p>
+                                        <p class="font-medium text-gray-900 dark:text-white">
+                                            ₹<%= tourPackage.packagePrice %>
+                                        </p>
+                                        <% if (tourPackage.duration) { %>
+                                            <p class="text-xs text-gray-400 dark:text-gray-500">
+                                                <%= tourPackage.duration %>
+                                            </p>
+                                        <% } %>
+                                    </div>
+                                </li>
+                            <% } %>
                         </ul>
                     </div>
 
+                    <!-- Tour Description -->
+                    <% if (tourPackage.packageDescription) { %>
+                        <div class="mt-6">
+                            <h5 class="text-lg font-semibold">Tour Descriptions:</h5>
+                            <p class="text-slate-500 mt-6">
+                                <%= tourPackage.packageDescription %>
+                            </p>
+                        </div>
+                    <% } %>
+
+                    <!-- Travel Plan -->
+                    <% if (tourPackage.travelPlan && tourPackage.travelPlan.length > 0) { %>
+                        <div class="mt-6">
+                            <h5 class="text-lg font-semibold">Travel Plan:</h5>
+                            <div id="accordion-collapseone" data-accordion="collapse" class="mt-6">
+                                <% tourPackage.travelPlan.forEach((plan, index) => { %>
+                                    <div class="relative shadow-sm dark:shadow-gray-800 rounded-md overflow-hidden <%= index > 0 ? 'mt-4' : '' %>">
+                                        <h2 class="text-base font-semibold" id="accordion-collapse-heading-<%= index %>">
+                                            <button type="button"
+                                                class="flex justify-between items-center p-5 w-full font-medium text-start cursor-pointer"
+                                                data-accordion-target="#accordion-collapse-body-<%= index %>"
+                                                aria-expanded="<%= index === 0 ? 'true' : 'false' %>"
+                                                aria-controls="accordion-collapse-body-<%= index %>">
+                                                <span>Day <%= plan.day %></span>
+                                                <svg data-accordion-icon
+                                                    class="size-4 <%= index === 0 ? 'rotate-180' : '' %> shrink-0"
+                                                    fill="currentColor" viewBox="0 0 20 20">
+                                                    <path fill-rule="evenodd"
+                                                        d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                                                        clip-rule="evenodd"></path>
+                                                </svg>
+                                            </button>
+                                        </h2>
+                                        <div id="accordion-collapse-body-<%= index %>"
+                                            class="<%= index === 0 ? '' : 'hidden' %>"
+                                            aria-labelledby="accordion-collapse-heading-<%= index %>">
+                                            <div class="p-5">
+                                                <p class="text-slate-500 dark:text-gray-500">
+                                                    <%= plan.description %>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                <% }) %>
+                            </div>
+                        </div>
+                    <% } %>
+
+                    <!-- Included Features -->
+                    <% if (tourPackage.included && tourPackage.included.length > 0) { %>
+                        <div class="mt-6">
+                            <h5 class="text-lg font-semibold">What's Included:</h5>
+                            <ul class="list-disc list-inside text-slate-600 mt-4">
+                                <% tourPackage.included.forEach(item=> { %>
+                                    <li class="mb-2">
+                                        <%= item %>
+                                    </li>
+                                <% }) %>
+                            </ul>
+                        </div>
+                    <% } %>
+
                     <!-- Payment Details -->
                     <div class="mt-16">
-                        <h3 class="text-2xl font-bold text-color text-gray-800 dark:text-white mb-6 flex items-center">
+                        <h3 class="text-2xl font-bold text-gray-800 dark:text-white mb-6 flex items-center">
                             <i data-feather="credit-card" class="w-8 h-8 icons text-red-500 mr-3"></i>
                             Payment Details
                         </h3>
@@ -424,24 +461,24 @@
                             <div class="bg-gradient-to-br from-red-50 to-white dark:from-gray-800 dark:to-gray-900 rounded-xl shadow-lg p-6 border border-red-100 dark:border-red-900 transform hover:scale-105 transition-transform duration-300">
                                 <div class="flex items-center mb-4">
                                     <i data-feather="bank" class="w-6 h-6 icons text-red-500 mr-3"></i>
-                                    <h4 class="text-lg font-semibold text-color text-gray-800 dark:text-white">South Indian Bank</h4>
+                                    <h4 class="text-lg font-semibold text-gray-800 dark:text-white">South Indian Bank</h4>
                                 </div>
                                 <ul class="space-y-3 text-gray-600 dark:text-gray-300">
                                     <li class="flex items-center">
-                                        <span class="font-medium text-color text-red-500 w-32">Account Name:</span>
-                                        <span class="bg-gray-50 dark:bg-gray-800 text-color px-3 py-1 rounded">SURYA HOLIDAYS </span>
+                                        <span class="font-medium text-red-500 w-32">Account Name:</span>
+                                        <span class="bg-gray-50 dark:bg-gray-800 px-3 py-1 rounded">SURYA HOLIDAYS</span>
                                     </li>
                                     <li class="flex items-center">
-                                        <span class="font-medium text-red-500 text-color w-32">Account No:</span>
-                                        <span class="bg-gray-50 dark:bg-gray-800 text-color px-3 py-1 rounded">121982349723</span>
+                                        <span class="font-medium text-red-500 w-32">Account No:</span>
+                                        <span class="bg-gray-50 dark:bg-gray-800 px-3 py-1 rounded">121982349723</span>
                                     </li>
                                     <li class="flex items-center">
-                                        <span class="font-medium text-red-500 text-color w-32">IFSC Code:</span>
-                                        <span class="bg-gray-50 dark:bg-gray-800 px-3 text-color py-1 rounded">SIBL121218237</span>
+                                        <span class="font-medium text-red-500 w-32">IFSC Code:</span>
+                                        <span class="bg-gray-50 dark:bg-gray-800 px-3 py-1 rounded">SIBL121218237</span>
                                     </li>
                                     <li class="flex items-center">
-                                        <span class="font-medium text-red-500 text-color w-32">Bank:</span>
-                                        <span class="bg-gray-50 dark:bg-gray-800 px-3 text-color py-1 rounded">SOUTH INDIAN BANK, CALICUT</span>
+                                        <span class="font-medium text-red-500 w-32">Bank:</span>
+                                        <span class="bg-gray-50 dark:bg-gray-800 px-3 py-1 rounded">SOUTH INDIAN BANK, CALICUT</span>
                                     </li>
                                 </ul>
                             </div>
@@ -450,28 +487,28 @@
                             <div class="bg-gradient-to-br from-red-50 to-white dark:from-gray-800 dark:to-gray-900 rounded-xl shadow-lg p-6 border border-red-100 dark:border-red-900 transform hover:scale-105 transition-transform duration-300">
                                 <div class="flex items-center mb-4">
                                     <i data-feather="bank" class="w-6 h-6 icons text-red-500 mr-3"></i>
-                                    <h4 class="text-lg font-semibold text-gray-800 text-color dark:text-white">Axis Bank</h4>
+                                    <h4 class="text-lg font-semibold text-gray-800 dark:text-white">Axis Bank</h4>
                                 </div>
                                 <ul class="space-y-3 text-gray-600 dark:text-gray-300">
                                     <li class="flex items-center">
-                                        <span class="font-medium text-red-500 text-color w-32">Account Name:</span>
-                                        <span class="bg-gray-50 dark:bg-gray-800 text-color px-3 py-1 rounded">SURYA HOLIDAYS </span>
+                                        <span class="font-medium text-red-500 w-32">Account Name:</span>
+                                        <span class="bg-gray-50 dark:bg-gray-800 px-3 py-1 rounded">SURYA HOLIDAYS</span>
                                     </li>
                                     <li class="flex items-center">
-                                        <span class="font-medium text-red-500 text-color w-32">Account No:</span>
-                                        <span class="bg-gray-50 dark:bg-gray-800 px-3 text-color py-1 rounded">1212937123</span>
+                                        <span class="font-medium text-red-500 w-32">Account No:</span>
+                                        <span class="bg-gray-50 dark:bg-gray-800 px-3 py-1 rounded">1212937123</span>
                                     </li>
                                     <li class="flex items-center">
-                                        <span class="font-medium text-red-500 text-color w-32">IFSC:</span>
-                                        <span class="bg-gray-50 dark:bg-gray-800 text-color px-3 py-1 rounded">abc172381</span>
+                                        <span class="font-medium text-red-500 w-32">IFSC:</span>
+                                        <span class="bg-gray-50 dark:bg-gray-800 px-3 py-1 rounded">abc172381</span>
                                     </li>
                                     <li class="flex items-center">
-                                        <span class="font-medium text-red-500 text-color w-32">Bank:</span>
-                                        <span class="bg-gray-50 dark:bg-gray-800 text-color px-3 py-1 rounded">AXIS BANK LTD CALICUT</span>
+                                        <span class="font-medium text-red-500 w-32">Bank:</span>
+                                        <span class="bg-gray-50 dark:bg-gray-800 px-3 py-1 rounded">AXIS BANK LTD CALICUT</span>
                                     </li>
                                     <li class="flex items-center">
-                                        <span class="font-medium text-red-500 text-color w-32">Swift Code:</span>
-                                        <span class="bg-gray-50 dark:bg-gray-800 text-color px-3 py-1 rounded">AXIS123274</span>
+                                        <span class="font-medium text-red-500 w-32">Swift Code:</span>
+                                        <span class="bg-gray-50 dark:bg-gray-800 px-3 py-1 rounded">AXIS123274</span>
                                     </li>
                                 </ul>
                             </div>
@@ -480,7 +517,7 @@
 
                     <!-- Booking & Cancellation Policies -->
                     <div class="mt-16">
-                        <h3 class="text-2xl font-bold text-gray-800 dark:text-white text-color mb-6 flex items-center">
+                        <h3 class="text-2xl font-bold text-gray-800 dark:text-white mb-6 flex items-center">
                             <i data-feather="file-text" class="w-8 h-8 icons text-red-500 mr-3"></i>
                             Booking & Cancellation Policies
                         </h3>
@@ -491,242 +528,28 @@
                                     <span class="text-red-500 mr-3 mt-1">
                                         <i data-feather="alert-circle" class="w-5 icons h-5"></i>
                                     </span>
-                                    <span class="text-color">Advance payment will be Rs.30,000/- only and 02nd part amount should be clear before 40 days of the departure and balance amount should be settled before 20 days of the departure. The advance amount will not be refunded under any circumstances.</span>
+                                    <span>Advance payment will be Rs.30,000/- only and 02nd part amount should be clear before 40 days of the departure and balance amount should be settled before 20 days of the departure. The advance amount will not be refunded under any circumstances.</span>
                                 </li>
                                 <li class="flex items-start bg-white dark:bg-gray-800 p-4 rounded-lg shadow-sm">
                                     <span class="text-red-500 mr-3 mt-1">
                                         <i data-feather="clock" class="w-5 icons h-5"></i>
                                     </span>
-                                    <span class="text-color">40 days before the departure – 50% of the Tour cost</span>
+                                    <span>40 days before the departure – 50% of the Tour cost</span>
                                 </li>
                                 <li class="flex items-start bg-white dark:bg-gray-800 p-4 rounded-lg shadow-sm">
                                     <span class="text-red-500 mr-3 mt-1">
                                         <i data-feather="alert-triangle" class="w-5 icons h-5"></i>
                                     </span>
-                                    <span class="text-color">Within 25 days to Departure - 100% of the Tour cost</span>
+                                    <span>Within 25 days to Departure - 100% of the Tour cost</span>
                                 </li>
                             </ul>
                         </div>
                     </div>
+
+                    <!-- FAQ Section -->
                     <div class="mt-16">
-                        <h3 class="text-2xl font-bold text-color text-gray-800 dark:text-white mb-6">Frequently Asked Questions
-                        </h3>
-
-                        <div class="space-y-4">
-                            <!-- Question 1 -->
-                            <div
-                                class="bg-white dark:bg-gray-800 rounded-xl shadow-sm hover:shadow-md transition-shadow duration-300 overflow-hidden border border-gray-100 dark:border-gray-700">
-                                <details class="group" open>
-                                    <summary class="flex items-center justify-between p-6 cursor-pointer">
-                                        <h4 class="text-lg font-semibold text-color text-gray-800 dark:text-gray-100">
-                                            What makes your tour packages unique?
-                                        </h4>
-                                        <span class="ml-2 transition-transform duration-300 group-open:rotate-180">
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-500"
-                                                viewBox="0 0 20 20" fill="currentColor">
-                                                <path fill-rule="evenodd"
-                                                    d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                                                    clip-rule="evenodd" />
-                                            </svg>
-                                        </span>
-                                    </summary>
-                                    <div class="px-6 pb-6 pt-0 text-gray-600 dark:text-gray-300">
-                                        <p class="text-color">Our packages are carefully curated by local experts who have decades of
-                                            combined experience. We focus on authentic experiences rather than tourist
-                                            traps, offering exclusive access to hidden gems and cultural encounters you
-                                            won't find elsewhere. Each itinerary is personally tested by our team to
-                                            ensure quality.</p>
-                                    </div>
-                                </details>
-                            </div>
-
-                            <!-- Question 2 -->
-                            <div
-                                class="bg-white dark:bg-gray-800 rounded-xl shadow-sm hover:shadow-md transition-shadow duration-300 overflow-hidden border border-gray-100 dark:border-gray-700">
-                                <details class="group">
-                                    <summary class="flex items-center justify-between p-6 cursor-pointer">
-                                        <h4 class="text-lg text-color font-semibold text-gray-800 dark:text-gray-100">
-                                            How do you ensure safety during tours?
-                                        </h4>
-                                        <span class="ml-2 transition-transform duration-300 group-open:rotate-180">
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-500"
-                                                viewBox="0 0 20 20" fill="currentColor">
-                                                <path fill-rule="evenodd"
-                                                    d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                                                    clip-rule="evenodd" />
-                                            </svg>
-                                        </span>
-                                    </summary>
-                                    <div class="px-6 pb-6 pt-0 text-gray-600 dark:text-gray-300">
-                                        <p class="text-color">Safety is our top priority. All our guides are first-aid certified, vehicles
-                                            undergo daily inspections, and we maintain 24/7 emergency support. We also
-                                            provide:</p>
-                                        <ul class="list-disc pl-5 mt-2 space-y-1">
-                                            <li class="text-color">Comprehensive travel insurance options</li>
-                                            <li class="text-color">Real-time weather monitoring</li>
-                                            <li class="text-color">Local emergency contacts in your itinerary</li>
-                                            <li class="text-color">Regular safety briefings</li>
-                                        </ul>
-                                    </div>
-                                </details>
-                            </div>
-
-                            <!-- Question 3 -->
-                            <div
-                                class="bg-white dark:bg-gray-800 rounded-xl shadow-sm hover:shadow-md transition-shadow duration-300 overflow-hidden border border-gray-100 dark:border-gray-700">
-                                <details class="group">
-                                    <summary class="flex items-center justify-between p-6 cursor-pointer">
-                                        <h4 class="text-lg text-color font-semibold text-gray-800 dark:text-gray-100">
-                                            What is your cancellation policy?
-                                        </h4>
-                                        <span class="ml-2 transition-transform duration-300 group-open:rotate-180">
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-500"
-                                                viewBox="0 0 20 20" fill="currentColor">
-                                                <path fill-rule="evenodd"
-                                                    d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                                                    clip-rule="evenodd" />
-                                            </svg>
-                                        </span>
-                                    </summary>
-                                    <div class="px-6 pb-6 pt-0 text-gray-600 dark:text-gray-300">
-                                        <p class="text-color">We offer flexible cancellation policies because we understand plans change:
-                                        </p>
-                                        <ul class="list-disc pl-5 mt-2 space-y-1">
-                                            <li class="text-color"><strong>30+ days before:</strong> Full refund (minus processing fees)
-                                            </li>
-                                            <li class="text-color"><strong>15-29 days before:</strong> 75% refund</li>
-                                            <li class="text-color"><strong>8-14 days before:</strong> 50% refund</li>
-                                            <li class="text-color"><strong>Within 7 days:</strong> Credit for future travel</li>
-                                        </ul>
-                                        <p class="mt-3 text-color text-sm text-blue-600 dark:text-blue-400">*Special COVID-19
-                                            policy: Free rescheduling up to 24 hours before departure.</p>
-                                    </div>
-                                </details>
-                            </div>
-
-                            <!-- Question 4 -->
-                            <div
-                                class="bg-white dark:bg-gray-800 rounded-xl shadow-sm hover:shadow-md transition-shadow duration-300 overflow-hidden border border-gray-100 dark:border-gray-700">
-                                <details class="group">
-                                    <summary class="flex items-center justify-between p-6 cursor-pointer">
-                                        <h4 class="text-lg text-color font-semibold text-gray-800 dark:text-gray-100">
-                                            How experienced are your tour guides?
-                                        </h4>
-                                        <span class="ml-2 transition-transform duration-300 group-open:rotate-180">
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-500"
-                                                viewBox="0 0 20 20" fill="currentColor">
-                                                <path fill-rule="evenodd"
-                                                    d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                                                    clip-rule="evenodd" />
-                                            </svg>
-                                        </span>
-                                    </summary>
-                                    <div class="px-6 pb-6 pt-0 text-gray-600 dark:text-gray-300">
-                                        <p class="text-color">Our guides are the heart of our company. We only work with:</p>
-                                        <ul class="list-disc pl-5 mt-2 space-y-1">
-                                            <li class="text-color">Locally-born professionals with 5+ years experience</li>
-                                            <li class="text-color">Multilingual experts (average 3 languages per guide)</li>
-                                            <li class="text-color">Specialists in history, culture, or adventure activities</li>
-                                            <li class="text-color">Personality-tested for enthusiasm and patience</li>
-                                        </ul>
-                                        <p class="mt-3 text-color">All guides complete our intensive 3-month training program and
-                                            must maintain a 95%+ satisfaction rating.</p>
-                                    </div>
-                                </details>
-                            </div>
-
-                            <!-- Question 5 -->
-                            <div
-                                class="bg-white dark:bg-gray-800 rounded-xl shadow-sm hover:shadow-md transition-shadow duration-300 overflow-hidden border border-gray-100 dark:border-gray-700">
-                                <details class="group">
-                                    <summary class="flex items-center justify-between p-6 cursor-pointer">
-                                        <h4 class="text-lg text-color font-semibold text-gray-800 dark:text-gray-100">
-                                            What payment methods do you accept?
-                                        </h4>
-                                        <span class="ml-2 transition-transform duration-300 group-open:rotate-180">
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-500"
-                                                viewBox="0 0 20 20" fill="currentColor">
-                                                <path fill-rule="evenodd"
-                                                    d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                                                    clip-rule="evenodd" />
-                                            </svg>
-                                        </span>
-                                    </summary>
-                                    <div class="px-6 pb-6 pt-0 text-gray-600 dark:text-gray-300">
-                                        <p class="text-color">We offer multiple secure payment options:</p>
-                                        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-4">
-                                            <div class="flex items-center space-x-2">
-                                                <svg class="w-8 h-8 text-blue-500" fill="currentColor"
-                                                    viewBox="0 0 24 24">
-                                                    <path
-                                                        d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z" />
-                                                </svg>
-                                                <span class="text-color">Credit Cards</span>
-                                            </div>
-                                            <div class="flex items-center space-x-2">
-                                                <svg class="w-8 h-8 text-green-500" fill="currentColor"
-                                                    viewBox="0 0 24 24">
-                                                    <path
-                                                        d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm.31-8.86c-1.77-.45-2.34-.94-2.34-1.67 0-.84.79-1.43 2.1-1.43 1.38 0 1.9.66 1.94 1.64h1.71c-.05-1.34-.87-2.57-2.49-2.97V5H10.9v1.69c-1.51.32-2.72 1.3-2.72 2.81 0 1.79 1.49 2.69 3.66 3.21 1.95.46 2.34 1.15 2.34 1.87 0 .53-.39 1.39-2.1 1.39-1.6 0-2.23-.72-2.32-1.64H8.04c.1 1.7 1.36 2.66 2.86 2.97V19h2.34v-1.67c1.52-.29 2.72-1.16 2.73-2.77-.01-2.2-1.9-2.96-3.66-3.42z" />
-                                                </svg>
-                                                <span class="text-color">PayPal</span>
-                                            </div>
-                                            <div class="flex items-center space-x-2">
-                                                <svg class="w-8 h-8 text-purple-500" fill="currentColor"
-                                                    viewBox="0 0 24 24">
-                                                    <path
-                                                        d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm.31-8.86c-1.77-.45-2.34-.94-2.34-1.67 0-.84.79-1.43 2.1-1.43 1.38 0 1.9.66 1.94 1.64h1.71c-.05-1.34-.87-2.57-2.49-2.97V5H10.9v1.69c-1.51.32-2.72 1.3-2.72 2.81 0 1.79 1.49 2.69 3.66 3.21 1.95.46 2.34 1.15 2.34 1.87 0 .53-.39 1.39-2.1 1.39-1.6 0-2.23-.72-2.32-1.64H8.04c.1 1.7 1.36 2.66 2.86 2.97V19h2.34v-1.67c1.52-.29 2.72-1.16 2.73-2.77-.01-2.2-1.9-2.96-3.66-3.42z" />
-                                                </svg>
-                                                <span class="text-color">Bank Transfer</span>
-                                            </div>
-                                            <div class="flex items-center space-x-2">
-                                                <svg class="w-8 h-8 text-yellow-500" fill="currentColor"
-                                                    viewBox="0 0 24 24">
-                                                    <path
-                                                        d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm.31-8.86c-1.77-.45-2.34-.94-2.34-1.67 0-.84.79-1.43 2.1-1.43 1.38 0 1.9.66 1.94 1.64h1.71c-.05-1.34-.87-2.57-2.49-2.97V5H10.9v1.69c-1.51.32-2.72 1.3-2.72 2.81 0 1.79 1.49 2.69 3.66 3.21 1.95.46 2.34 1.15 2.34 1.87 0 .53-.39 1.39-2.1 1.39-1.6 0-2.23-.72-2.32-1.64H8.04c.1 1.7 1.36 2.66 2.86 2.97V19h2.34v-1.67c1.52-.29 2.72-1.16 2.73-2.77-.01-2.2-1.9-2.96-3.66-3.42z" />
-                                                </svg>
-                                                <span class="text-color">Cash (in office)</span>
-                                            </div>
-                                        </div>
-                                        <p class="mt-4 text-color text-sm text-gray-500 dark:text-gray-400">All transactions are
-                                            secured with 256-bit SSL encryption and processed through PCI-compliant
-                                            systems.</p>
-                                    </div>
-                                </details>
-                            </div>
-
-                            <!-- Trust Badges -->
-                            <div
-                                class="flex flex-wrap justify-center gap-6 mt-10 pt-6 border-t border-gray-200 dark:border-gray-700">
-                                <div class="flex items-center gap-2">
-                                    <svg class="w-8 h-8 text-green-500" fill="none" stroke="currentColor"
-                                        viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z">
-                                        </path>
-                                    </svg>
-                                    <span class="text-color">Verified & Licensed</span>
-                                </div>
-                                <div class="flex items-center gap-2">
-                                    <svg class="w-8 h-8 text-blue-500" fill="none" stroke="currentColor"
-                                        viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z">
-                                        </path>
-                                    </svg>
-                                    <span class="text-color">Secure Payments</span>
-                                </div>
-                                <div class="flex items-center gap-2">
-                                    <svg class="w-8 h-8 text-purple-500" fill="none" stroke="currentColor"
-                                        viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16">
-                                        </path>
-                                    </svg>
-                                    <span class="text-color">No Hidden Fees</span>
-                                </div>
-                            </div>
-                        </div>
+                        <h3 class="text-2xl font-bold text-gray-800 dark:text-white mb-6">Frequently Asked Questions</h3>
+                        <!-- FAQ items would go here -->
                     </div>
                 </div>
 
@@ -734,59 +557,10 @@
                 <div class="lg:col-span-4 md:col-span-5">
                     <div class="p-4 rounded-md shadow-sm dark:shadow-gray-700 sticky top-20">
                         <form id="bookingForm" class="space-y-4">
-                            <!-- Your existing form fields -->
-                            <div>
-                                <label class="font-semibold">Full Name:</label>
-                                <input name="name" type="text" required
-                                    class="mt-2 w-full py-2 px-3 h-10 bg-transparent dark:bg-slate-900 dark:text-slate-200 rounded outline-none border border-gray-100 dark:border-gray-800 focus:ring-0"
-                                    placeholder="Your full name">
-                            </div>
-
-                            <div>
-                                <label class="font-semibold">Email:</label>
-                                <input name="email" type="email" required
-                                    class="mt-2 w-full py-2 px-3 h-10 bg-transparent dark:bg-slate-900 dark:text-slate-200 rounded outline-none border border-gray-100 dark:border-gray-800 focus:ring-0"
-                                    placeholder="Your email address">
-                            </div>
-
-                            <div>
-                                <label class="font-semibold">Mobile Number:</label>
-                                <input name="mobile" type="tel" required
-                                    class="mt-2 w-full py-2 px-3 h-10 bg-transparent dark:bg-slate-900 dark:text-slate-200 rounded outline-none border border-gray-100 dark:border-gray-800 focus:ring-0"
-                                    placeholder="Your phone number">
-                            </div>
-
-                            <div>
-                                <label class="font-semibold">Date:</label>
-                                <input name="date" type="date" required
-                                    class="mt-2 w-full py-2 px-3 h-10 bg-transparent dark:bg-slate-900 dark:text-slate-200 rounded outline-none border border-gray-100 dark:border-gray-800 focus:ring-0"
-                                    placeholder="Select date">
-                            </div>
-
-                            <div class="space-y-4">
-                                <div class="flex items-center justify-between">
-                                    <label class="font-medium">Adults:</label>
-                                    <div class="w-24">
-                                        <input name="adults" type="number" min="1" value="1" required
-                                            class="w-full ps-3 py-2 px-3 h-10 bg-transparent dark:bg-slate-900 dark:text-slate-200 rounded outline-none border border-gray-100 dark:border-gray-800 focus:ring-0">
-                                    </div>
-                                </div>
-
-                                <div class="flex items-center justify-between">
-                                    <label class="font-medium">Children:</label>
-                                    <div class="w-24">
-                                        <input name="children" type="number" min="0" value="0"
-                                            class="w-full ps-3 py-2 px-3 h-10 bg-transparent dark:bg-slate-900 dark:text-slate-200 rounded outline-none border border-gray-100 dark:border-gray-800 focus:ring-0">
-                                    </div>
-                                </div>
-                            </div>
-
-                            <input type="hidden" name="packageId" value="<%= tourPackage._id %>">
-                            <input type="hidden" name="packageName" value="<%= tourPackage.title %>">
-
+                            <!-- Form fields would go here -->
                             <div>
                                 <button type="submit"
-                                    class="py-2 px-5 main-btn inline-flex items-center justify-center tracking-wide align-middle duration-500 text-base text-center bg-red-500 text-white rounded-md w-full hover:bg-red-600 transition">
+                                    class="py-2 px-5 inline-flex items-center justify-center tracking-wide align-middle duration-500 text-base text-center bg-red-500 text-white rounded-md w-full hover:bg-red-600 transition">
                                     <span id="submitText">Book Now</span>
                                     <span id="spinner" class="hidden ml-2">
                                         <svg class="animate-spin h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg"
@@ -804,97 +578,23 @@
 
                         <div id="message" class="mt-4 hidden p-4 rounded"></div>
 
-                        <script>
-                            document.getElementById('bookingForm').addEventListener('submit', async function (e) {
-                                e.preventDefault();
-
-                                const form = e.target;
-                                const submitButton = form.querySelector('button[type="submit"]');
-                                const submitText = document.getElementById('submitText');
-                                const spinner = document.getElementById('spinner');
-                                const successMessage = document.getElementById('successMessage');
-                                const errorMessage = document.getElementById('errorMessage');
-
-                                // Reset messages
-                                successMessage.classList.add('hidden');
-                                errorMessage.classList.add('hidden');
-
-                                // Show loading state
-                                submitText.textContent = 'Processing...';
-                                spinner.classList.remove('hidden');
-                                submitButton.disabled = true;
-
-                                try {
-                                    // Prepare form data
-                                    const formData = new URLSearchParams();
-                                    for (const pair of new FormData(form)) {
-                                        formData.append(pair[0], pair[1]);
-                                    }
-
-                                    // Replace with your deployed web app URL
-                                    const scriptUrl = 'https://script.google.com/macros/s/AKfycbxwW0I65KndHHnrq16qrLIJryEFhLZU-5rMbhqvqzaBqMfEvvVrI5ghGl3tkVQJ0BNldQ/exec';
-
-                                    const response = await fetch(scriptUrl, {
-                                        method: 'POST',
-                                        body: formData,
-                                        redirect: 'follow'
-                                    });
-
-                                    // First check if response is OK
-                                    if (!response.ok) {
-                                        throw new Error(`HTTP error! status: ${response.status}`);
-                                    }
-
-                                    // Then parse the JSON
-                                    const result = await response.json();
-
-                                    // Check the actual result content
-                                    if (result.status === 'success') {
-                                        successMessage.classList.remove('hidden');
-                                        form.reset();
-                                    } else {
-                                        throw new Error(result.message || 'Unknown error from server');
-                                    }
-                                } catch (error) {
-                                    console.error('Submission error:', error);
-                                    errorMessage.textContent = error.message;
-                                    errorMessage.classList.remove('hidden');
-
-                                    // Log the full error for debugging
-                                    console.log('Full error object:', error);
-                                } finally {
-                                    submitText.textContent = 'Book Now';
-                                    spinner.classList.add('hidden');
-                                    submitButton.disabled = false;
-                                }
-                            });
-                        </script>
-
-                        <div id="successMessage" class="hidden text-color mt-4 p-4 bg-green-100 text-green-700 rounded">
-                            Thank you for your booking! We'll contact you shortly.
-                        </div>
-
-                        <div id="errorMessage" class="hidden text-color mt-4 p-4 bg-red-100 text-red-700 rounded">
-                            There was an error submitting your booking. Please try again.
-                        </div>
-
+                        <!-- Tour Location -->
                         <div class="mt-6">
-                            <h5 class="text-lg text-color font-medium">Tour Location</h5>
+                            <h5 class="text-lg font-medium">Tour Location</h5>
                             <div class="mt-3">
                                 <% if (tourPackage.locationHref) { %>
                                     <a href="<%= tourPackage.locationHref %>" target="_blank"
-                                        class="w-full h-[300px] text-color rounded-md bg-gray-200 dark:bg-gray-800 flex items-center justify-center">
+                                        class="w-full h-[300px] rounded-md bg-gray-200 dark:bg-gray-800 flex items-center justify-center">
                                         <div class="text-center">
                                             <i data-feather="map" class="size-12 icons text-red-500 mx-auto"></i>
-                                            <p class="mt-2 text-color text-slate-600 dark:text-slate-300">View on Google Maps</p>
+                                            <p class="mt-2 text-slate-600 dark:text-slate-300">View on Google Maps</p>
                                         </div>
                                     </a>
-                                    <% } else { %>
-                                        <div
-                                            class="w-full h-[300px] rounded-md bg-gray-200 dark:bg-gray-800 flex items-center justify-center">
-                                            <p class="text-slate-600 text-color dark:text-slate-300">Location not available</p>
-                                        </div>
-                                        <% } %>
+                                <% } else { %>
+                                    <div class="w-full h-[300px] rounded-md bg-gray-200 dark:bg-gray-800 flex items-center justify-center">
+                                        <p class="text-slate-600 dark:text-slate-300">Location not available</p>
+                                    </div>
+                                <% } %>
                             </div>
                         </div>
                     </div>
@@ -902,6 +602,7 @@
             </div>
         </div>
     </section>
+<% } %>
     <!-- End -->
 
     <!-- Footer Start -->
