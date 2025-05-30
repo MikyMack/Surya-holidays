@@ -577,7 +577,7 @@
 
             <div class="grid lg:grid-cols-4 md:grid-cols-2 grid-cols-2 mt-6 gap-6" id="packages-container">
                 <% packages.slice(0, 12).forEach(pkg=> { %>
-                    <div class="group rounded-md shadow-sm dark:shadow-gray-700 package-item"
+                    <div class="group card-shadow rounded-md shadow-sm dark:shadow-gray-700 package-item"
                         data-category="<%= pkg.category?._id || 'uncategorized' %>">
                         <div class="relative overflow-hidden rounded-md shadow-sm dark:shadow-gray-700 mx-2 mt-2">
                             <img src="<%= pkg.images[0] || '/images/listing/default.jpg' %>"
@@ -794,7 +794,7 @@
 
                     <div class="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 mt-6 gap-6">
                         <% blogs.slice(0, 3).forEach(blog=> { %>
-                            <div class="group relative overflow-hidden">
+                            <div class="group p-3 card-shadow relative overflow-hidden">
                                 <div class="relative overflow-hidden rounded-md shadow-sm dark:shadow-gray-800">
                                     <img id="blog-image" src="<%= blog.imageUrl %>"
                                         class="group-hover:scale-110 group-hover:rotate-3 duration-500 w-full md:w-[300px]"
@@ -952,7 +952,7 @@
 
                             <div class="lg:col-span-3 md:col-span-4">
                                 <h5 class="tracking-[1px] text-gray-100 font-semibold">Enquiry</h5>
-                                <p class="mt-6">Stay connected with Joanna Holidays for booking Or enquiries reach out
+                                <p class="mt-6">Stay connected with Suriya Holidays for booking Or enquiries reach out
                                     to us anytime</p>
                                 <form onsubmit="event.preventDefault(); sendToWhatsApp();">
                                     <div class="grid grid-cols-1">
