@@ -256,16 +256,16 @@
                     </div>
 
                     <div  class="lg:col-span-4  md:col-span-6">
-                        <div style="background-color: white!important;" class="sticky top-20">
-                            <h5 class="text-lg font-medium bg-gray-50 text-black  dark:bg-slate-800 shadow-sm dark:shadow-gray-800 rounded-md p-2 text-center">Author</h5>
+                        <div  class="sticky p-3 card-shadow top-20">
+                            <h5 class="text-lg text-color font-medium   dark:bg-slate-800 shadow-sm dark:shadow-gray-800 rounded-md p-2 text-center">Author</h5>
                             <div class="text-center mt-8">
                                 <img src="/images/dummy.jpg" class="h-20 w-20 mx-auto rounded-full shadow-sm mb-4" alt="">
 
-                                <a href="#" class="text-lg font-medium text-black  hover:text-yellow-500 transition-all duration-500 ease-in-out h5"><%= blog.author %></a>
-                                <p class="text-slate-400 text-black  text-color">Content Writer</p>
+                                <a href="#" class="text-lg font-medium  text-color  hover:text-yellow-500 transition-all duration-500 ease-in-out h5"><%= blog.author %></a>
+                                <p class="text-slate-400   text-color">Content Writer</p>
                             </div>
 
-                            <h5 class="text-lg font-medium  bg-gray-50 dark:bg-slate-800 text-black shadow-sm dark:shadow-gray-800 rounded-md p-2 text-center mt-8">Social sites</h5>
+                            <h5 class="text-lg font-medium  bg-gray-50 dark:bg-slate-800  shadow-sm dark:shadow-gray-800 rounded-md p-2 text-center mt-8">Social sites</h5>
                             <ul class="list-none text-color text-center mt-8 space-x-0.5">
                                 <li class="inline fticons"><a href="https://www.facebook.com/share/1AcZeG4cVA/" class="size-8 inline-flex fticons items-center justify-center tracking-wide align-middle text-base border border-gray-100 dark:border-gray-800 rounded-md text-slate-400 hover:border-red-500 hover:text-white hover:bg-red-500"><i data-feather="facebook" class="size-4 text-color"></i></a></li>
                                 <li class="inline fticons"><a href="https://www.instagram.com/suryaholidays_official?igsh=MWttM2lndHhkMWxqdg==" class="size-8 inline-flex fticons items-center justify-center tracking-wide align-middle text-base border border-gray-100 dark:border-gray-800 rounded-md text-slate-400 hover:border-red-500 hover:text-white hover:bg-red-500"><i data-feather="instagram" class="size-4 text-color"></i></a></li>
@@ -286,7 +286,7 @@
 
                 <div class="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 mt-6 gap-6">
                     <% relatedBlogs.forEach(function(relatedBlog) { %>
-                        <div class="group relative bg-black overflow-hidden">
+                        <div class="group card-shadow p-3 relative bg-black overflow-hidden">
                             <div class="relative overflow-hidden rounded-md shadow-sm dark:shadow-gray-800">
                                 <img src="<%= relatedBlog.imageUrl %>" class="group-hover:scale-110 group-hover:rotate-3 duration-500 w-full md:w-[300px]" alt="related-Blogs" style="height: 300px; object-fit: cover;">
                                 <div class="absolute top-0 start-0 p-4 opacity-0 group-hover:opacity-100 duration-500">
@@ -421,7 +421,7 @@
 
                             <div class="lg:col-span-3 md:col-span-4">
                                 <h5 class="tracking-[1px] text-gray-100 font-semibold">Enquiry</h5>
-                                <p class="mt-6">Stay connected with Joanna Holidays for booking Or enquiries reach out
+                                <p class="mt-6">Stay connected with Suriya Holidays for booking Or enquiries reach out
                                     to us anytime</p>
                                 <form onsubmit="event.preventDefault(); sendToWhatsApp();">
                                     <div class="grid grid-cols-1">
