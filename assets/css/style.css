@@ -281,8 +281,8 @@ body{
 	top: 3px;
 	width: 40px;
 	height: 40px;
-	background-color: white;
-	border-radius: 50%;
+	background-color: rgb(53, 53, 53);
+	border-radius: 10%;
 	z-index: 1;
 }
 
@@ -384,4 +384,8 @@ body{
 .topbar{
 	background-color: black!important;
 	color: white!important;
+}
+
+.menu_isActive{
+	color: #fef4a4 !important;
 }

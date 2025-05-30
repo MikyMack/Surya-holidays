@@ -26,8 +26,9 @@
     <!-- Main Css -->
     <link href="/libs/%40mdi/font/css/materialdesignicons.min.css" rel="stylesheet" type="text/css">
     <link href="/css/tailwind.min.css" rel="stylesheet" type="text/css">
-    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
-    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css"/>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
+    <link rel="stylesheet" type="text/css"
+        href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css" />
 
     <style>
         .package-item {
@@ -116,38 +117,50 @@
         .banner-slider {
             margin: 0 auto;
         }
+
         .banner-slide {
             padding: 0 10px;
         }
+
         .banner-image img {
             width: 100%;
             height: auto;
             border-radius: 8px;
         }
+
         /* Custom arrow styles */
-        .slick-prev, .slick-next {
+        .slick-prev,
+        .slick-next {
             width: 40px;
             height: 40px;
             z-index: 1;
         }
+
         .slick-prev {
             left: 15px;
         }
+
         .slick-next {
             right: 15px;
         }
-        .slick-prev:before, .slick-next:before {
+
+        .slick-prev:before,
+        .slick-next:before {
             font-size: 40px;
             color: #fff;
             opacity: 0.7;
         }
-        .slick-prev:hover:before, .slick-next:hover:before {
+
+        .slick-prev:hover:before,
+        .slick-next:hover:before {
             opacity: 1;
         }
+
         /* Dots styling */
         .slick-dots {
             bottom: 20px;
         }
+
         .slick-dots li button:before {
             font-size: 12px;
             color: #fff;
@@ -202,7 +215,8 @@
                                             class="size-4 social-icon  align-middle" title="whatsapp"></i></a></li>
                                 <li class="inline-flex ms-2 mb-0"><a href="tel:
                                         +919048002234" class="text-slate-300 hover:text-red-500"><i
-                                            data-feather="phone" class="size-4 social-icon  align-middle" title="phone"></i></a></li>
+                                            data-feather="phone" class="size-4 social-icon  align-middle"
+                                            title="phone"></i></a></li>
                             </ul><!--end icon-->
                         </li>
                     </ul>
@@ -246,7 +260,7 @@
                 <!-- Navigation Menu-->
                 <ul class="navigation-menu nav-right !justify-end nav-light">
                     <li class=" parent-menu-item">
-                        <a  href="/">Home</a><span class="menu-arrow"></span>
+                        <a class="menu_isActive" href="/">Home</a><span class="menu-arrow"></span>
 
                     </li>
 
@@ -256,46 +270,46 @@
                         <span class="menu-arrow hidden md:inline-block"></span>
                         <!-- Hide submenu completely on mobile -->
                         <ul class="submenu hidden md:block">
-                            <% categories.forEach(category => { 
-                              const hasSubCategories = category.subCategories && category.subCategories.length > 0;
-                              const hasDirectPackages = category.directPackages && category.directPackages.length > 0;
-                            %>
-                          
-                              <% if (hasSubCategories || hasDirectPackages) { %>
-                                <li class="parent-menu-item has-submenu">
-                                  <a href="/packages?category=<%= category._id %>">
-                                    <%= category.name %>
-                                  </a>
-                                  <span class="submenu-arrow hidden md:inline-block"></span>
-                                  <ul class="sub-submenu hidden md:block">
-                                    <% category.subCategories.forEach(subCategory => { %>
-                                      <li>
-                                        <a href="/package-details?subCategory=<%= subCategory._id %>">
-                                          <%= subCategory.name %>
+                            <% categories.forEach(category=> {
+                                const hasSubCategories = category.subCategories && category.subCategories.length > 0;
+                                const hasDirectPackages = category.directPackages && category.directPackages.length > 0;
+                                %>
+
+                                <% if (hasSubCategories || hasDirectPackages) { %>
+                                    <li class="parent-menu-item has-submenu">
+                                        <a href="/packages?category=<%= category._id %>">
+                                            <%= category.name %>
                                         </a>
-                                      </li>
-                                    <% }) %>
-                          
-                                    <% category.directPackages.forEach(pkg => { %>
-                                      <li class="side-sub">
-                                        <a href="/package/<%= pkg._id %>">
-                                          <%= pkg.destination %>
-                                        </a>
-                                      </li>
-                                    <% }) %>
-                                  </ul>
-                                </li>
-                              <% } else { %>
-                                <li>
-                                  <a href="/packages?category=<%= category._id %>">
-                                    <%= category.name %>
-                                  </a>
-                                </li>
-                              <% } %>
-                          
-                            <% }) %>
-                          </ul>
-                          
+                                        <span class="submenu-arrow hidden md:inline-block"></span>
+                                        <ul class="sub-submenu hidden md:block">
+                                            <% category.subCategories.forEach(subCategory=> { %>
+                                                <li>
+                                                    <a href="/package-details?subCategory=<%= subCategory._id %>">
+                                                        <%= subCategory.name %>
+                                                    </a>
+                                                </li>
+                                                <% }) %>
+
+                                                    <% category.directPackages.forEach(pkg=> { %>
+                                                        <li class="side-sub">
+                                                            <a href="/package/<%= pkg._id %>">
+                                                                <%= pkg.destination %>
+                                                            </a>
+                                                        </li>
+                                                        <% }) %>
+                                        </ul>
+                                    </li>
+                                    <% } else { %>
+                                        <li>
+                                            <a href="/packages?category=<%= category._id %>">
+                                                <%= category.name %>
+                                            </a>
+                                        </li>
+                                        <% } %>
+
+                                            <% }) %>
+                        </ul>
+
                     </li>
 
                     <li class=" parent-parent-menu-item">
@@ -322,14 +336,15 @@
     <!-- Hero Start -->
     <section style="background-image: url('/images/bg/banner.jpg'); " class="relative py-36  bg-cover jarallax"
         data-jarallax data-speed="0.5">
-        <div  class="absolute inset-0 bg-slate-900/40"></div>
+        <div class="absolute inset-0 bg-slate-900/40"></div>
         <div class="container  relative">
             <div class="grid lg:grid-cols-12 md:grid-cols-2 mt-10 items-center gap-6">
                 <div class="lg:col-span-7">
                     <h5 class="text-3xl !font-dancing text-white">Find Your Ideal Stay</h5>
                     <h4 class="font-bold text-white lg:leading-normal leading-normal text-4xl lg:text-6xl mb-6 mt-5">
-                       Ready for  <br> Takeoff?</h4>
-                    <p class="text-white/70 text-xl max-w-xl">Ready to travel? We plan unforgettable trips to the best places, all tailored to your budget and preferences!</p>
+                        Ready for <br> Takeoff?</h4>
+                    <p class="text-white/70 text-xl max-w-xl">Ready to travel? We plan unforgettable trips to the best
+                        places, all tailored to your budget and preferences!</p>
 
                     <div class="mt-6">
                         <a href="/packages"
@@ -341,11 +356,11 @@
 
                 <div class="lg:col-span-5">
                     <div
-                        class="bg-white dark:bg-slate-900 rounded-xl shadow-sm dark:shadow-gray-800 p-6 z-10 relative lg:ms-10">
+                        class="bg-white dark:bg-slate-900 rounded-xl shadow-sm  p-6 z-10 relative lg:ms-10">
                         <h4 class="mb-5 text-2xl font-semibold">Search Your Destinations</h4>
 
                         <form action="/packages" method="GET"
-                            class="bg-white dark:bg-slate-800 p-6 rounded-lg shadow-md">
+                            class="bg-white dark:bg-slate-800 p-6 rounded-lg ">
                             <div class="grid grid-cols-1 gap-4">
                                 <!-- Dummy Date Field -->
                                 <div>
@@ -437,10 +452,12 @@
     <section class="relative md:py-24 py-16">
         <div class="container relative">
             <div class="grid grid-cols-1 pb-8 text-center">
-                <h3 class="mb-6 md:text-3xl text-2xl md:leading-normal leading-normal titles font-semibold">Top Destinations
+                <h3 class="mb-6 md:text-3xl text-2xl md:leading-normal leading-normal titles font-semibold">Top
+                    Destinations
                 </h3>
 
-                <p class="text-slate-400 max-w-xl disc mx-auto">Planning a trip? We'll organize it with the best destinations  all within your budget!</p>
+                <p class="text-slate-400 max-w-xl disc mx-auto">Planning a trip? We'll organize it with the best
+                    destinations all within your budget!</p>
             </div><!--end grid-->
 
             <div class="grid grid-cols-1 relative mt-4">
@@ -462,13 +479,13 @@
                                         <%= category.name %>
                                     </a>
                                     <p class="text-sm disc text-gray-500">
-                                        <% if (category.locationCount > 0) { %>
-                                          <%= category.locationCount %> Locations Available
-                                        <% } else { %>
-                                          Currently Unavailable
-                                        <% } %>
-                                      </p>
-                                      
+                                        <% if (category.locationCount> 0) { %>
+                                            <%= category.locationCount %> Locations Available
+                                                <% } else { %>
+                                                    Currently Unavailable
+                                                    <% } %>
+                                    </p>
+
                                 </div>
                             </div>
                         </div><!--end slide-->
@@ -476,128 +493,184 @@
                 </div>
             </div>
         </div><!--end container-->
-       
 
-                <div class="container relative md:mt-16 mt-16">
-                    <div class="grid grid-cols-1 pb-8 text-center">
-                        <h3 class="mb-6 md:text-3xl text-2xl titles md:leading-normal leading-normal font-semibold">Tours
-                            Packages</h3>
-                        <p class="text-slate-400 disc max-w-xl mx-auto">Experience unforgettable journeys with tour packages designed just for you!
-
-</p>
-
-                        <!-- Add category tabs here -->
-                        <div class="flex flex-wrap justify-center gap-2 mt-6">
-                            <button onclick="filterPackages('all')"
-                                class="px-4 py-2 rounded-full main-btn text-color text-white font-medium transition-all duration-300 hover:bg-red-600 active:bg-red-700 focus:outline-none focus:ring focus:ring-red-300 category-btn cursor-pointer"
-                                data-category="all">
-                                All Packages
-                            </button>
-                            <% categories.forEach(category=> { %>
-                                <button onclick="filterPackages('<%= category._id %>')"
-                                    class="px-4 py-2 rounded-full main-btn text-white font-medium transition-all duration-300 hover:bg-gray-300 text-color active:bg-gray-400 focus:outline-none focus:ring focus:ring-gray-300 category-btn cursor-pointer"
-                                    data-category="<%= category._id %>">
-                                    <%= category.name %>
-                                </button>
-                                <% }) %>
-                        </div>
+        <div class="container relative md:mt-16 mt-16">
+            <div class="grid grid-cols-1 pb-8 text-center">
+              <h3 class="mb-6 md:text-3xl text-2xl md:leading-normal leading-normal titles font-semibold">
+                Kerala Tourist Destinations
+              </h3>
+              <p class="text-slate-400 max-w-xl disc mx-auto">
+                Discover the enchanting beauty of God's own country through our curated Kerala destinations
+              </p>
+            </div>
+          
+            <% if (keralaCategories && keralaCategories.subCategories && keralaCategories.subCategories.length > 0) { %>
+              <div class="kerala-grid grid lg:grid-cols-4 gap-4 mt-8">
+                <% keralaCategories.subCategories.forEach(subCategory => { %>
+                  <% if (subCategory.isActive) { %>
+                    <div class="group rounded-lg shadow-md hover:shadow-xl transition-all duration-300">
+                      <!-- Fixed height for uniform image size -->
+                      <div class="relative overflow-hidden rounded-t-lg h-40 md:h-52 lg:h-60">
+                        <img src="<%= subCategory.imageUrl %>" alt="<%= subCategory.name %>"
+                             class="kerala-image w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500">
+                      </div>
+                      <div class="p-3">
+                        <a href="/packages?category=<%= keralaCategories._id %>&subCategory=<%= subCategory._id %>" style="color: #efc465;" class="text-lg font-semibold text-gray-800 mb-2">
+                          <%= subCategory.name %>
+                        </a>
+                      </div>
                     </div>
+                  <% } %>
+                <% }); %>
+              </div>
+            <% } else { %>
+              <div class="text-center py-8">
+                <p class="text-gray-500">No active Kerala destinations available at the moment.</p>
+              </div>
+            <% } %>
+          </div>
+          
+          <!-- Force 3-column grid on mobile -->
+          <style>
+          @media (max-width: 1023px) {
+            .kerala-grid {
+              display: grid;
+              grid-template-columns: repeat(3, 1fr);
+              gap: 1rem;
+            }
+          }
+          @media (max-width:768px){
+            .kerala-image{
+                height: 100px;
+                width: 150px;
+            }
+          }    
+          </style>
+          
+            
 
-                    <div class="grid lg:grid-cols-4 md:grid-cols-2 grid-cols-2 mt-6 gap-6" id="packages-container">
-                        <% packages.slice(0, 12).forEach(pkg=> { %>
-                            <div class="group rounded-md shadow-sm dark:shadow-gray-700 package-item"
-                                data-category="<%= pkg.category?._id || 'uncategorized' %>">
-                                <div
-                                    class="relative overflow-hidden rounded-md shadow-sm dark:shadow-gray-700 mx-2 mt-2">
-                                    <img src="<%= pkg.images[0] || '/images/listing/default.jpg' %>"
-                                        class="scale-125 group-hover:scale-100 duration-500 h-48 w-full object-cover"
-                                        alt="<%= pkg.title %>">
+        <div class="container relative md:mt-16 mt-16">
+            <div class="grid grid-cols-1 pb-8 text-center">
+                <h3 class="mb-6 md:text-3xl text-2xl titles md:leading-normal leading-normal font-semibold">Tours
+                    Packages</h3>
+                <p class="text-slate-400 disc max-w-xl mx-auto">Experience unforgettable journeys with tour packages
+                    designed just for you!
 
+                </p>
+
+                <!-- Add category tabs here -->
+                <div class="flex flex-wrap justify-center gap-2 mt-6">
+                    <button onclick="filterPackages('all')"
+                        class="px-4 py-2 rounded-full main-btn text-color text-white font-medium transition-all duration-300 hover:bg-red-600 active:bg-red-700 focus:outline-none focus:ring focus:ring-red-300 category-btn cursor-pointer"
+                        data-category="all">
+                        All Packages
+                    </button>
+                    <% categories.forEach(category=> { %>
+                        <button onclick="filterPackages('<%= category._id %>')"
+                            class="px-4 py-2 rounded-full main-btn text-white font-medium transition-all duration-300 hover:bg-gray-300 text-color active:bg-gray-400 focus:outline-none focus:ring focus:ring-gray-300 category-btn cursor-pointer"
+                            data-category="<%= category._id %>">
+                            <%= category.name %>
+                        </button>
+                        <% }) %>
+                </div>
+            </div>
+
+            <div class="grid lg:grid-cols-4 md:grid-cols-2 grid-cols-2 mt-6 gap-6" id="packages-container">
+                <% packages.slice(0, 12).forEach(pkg=> { %>
+                    <div class="group rounded-md shadow-sm dark:shadow-gray-700 package-item"
+                        data-category="<%= pkg.category?._id || 'uncategorized' %>">
+                        <div class="relative overflow-hidden rounded-md shadow-sm dark:shadow-gray-700 mx-2 mt-2">
+                            <img src="<%= pkg.images[0] || '/images/listing/default.jpg' %>"
+                                class="scale-125 group-hover:scale-100 duration-500 h-48 w-full object-cover"
+                                alt="<%= pkg.title %>">
+
+                            <% if (pkg.discount> 0) { %>
+                                <div class="absolute top-0 start-0 p-4">
+                                    <span class="main-btn text-white text-[12px] px-2.5 py-1 font-medium rounded-md">
+                                        <%= pkg.discount %>% Off
+                                    </span>
+                                </div>
+                                <% } %>
+                        </div>
+
+                        <div class="p-3">
+                            <p class="flex items-center titles font-medium mb-2">
+                                <i data-feather="map-pin" class="titles size-4 me-1"></i>
+                                <%= pkg.destination %>
+                            </p>
+
+                            <a href="/package/<%= pkg._id %>"
+                                class="text-lg font-medium titles hover:text-gold-600 duration-500 ease-in-out">
+                                <%= pkg.title %>
+                            </a>
+
+                            <p class="text-sm disc mt-1">
+                                <i class="mdi mdi-clock-outline icons me-1"></i>
+                                <%= pkg.duration %>
+                            </p>
+
+                            <div
+                                class="mt-3 pt-3 flex justify-between items-center border-t border-slate-100 dark:border-gray-800">
+                                <div>
+                                    <h5 class="text-lg font-medium icons">
+                                        ₹<%= pkg.packagePrice.toLocaleString() %>
+                                    </h5>
                                     <% if (pkg.discount> 0) { %>
-                                        <div class="absolute top-0 start-0 p-4">
-                                            <span
-                                                class="main-btn text-white text-[12px] px-2.5 py-1 font-medium rounded-md">
-                                                <%= pkg.discount %>% Off
-                                            </span>
-                                        </div>
+                                        <span class="text-sm line-through icons">
+                                            ₹<%= Math.round(pkg.packagePrice * 100/(100-pkg.discount)).toLocaleString()
+                                                %>
+                                        </span>
                                         <% } %>
                                 </div>
+                                <a href="/package/<%= pkg._id %>" class="titles hover:text-gold-600">
+                                    Explore Now <i class="mdi titles mdi-arrow-right"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <% }) %>
+            </div>
+            <div id="no-packages-message" class="hidden col-span-full text-center py-12">
+                <div class="mx-auto max-w-md">
+                    <i data-feather="package" class="size-12 icons mx-auto"></i>
+                    <h4 class="text-xl titles font-semibold mt-4">Currently Unavailable</h4>
+                    <p class="disc mt-2">We don't have any packages in this location at the moment.
+                    </p>
+                </div>
+            </div>
+            <div class="flex justify-center mt-4">
+                <a href="/packages"
+                    class="px-4 py-2 rounded-full main-btn text-white font-medium transition-all duration-300 hover:bg-yellow-600 active:bg-red-700 focus:outline-none focus:ring focus:ring-red-300">
+                    See More Packages
+                </a>
+            </div>
+        </div>
+        <% if (banners && banners.length> 0) { %>
 
-                                <div class="p-3">
-                                    <p class="flex items-center titles font-medium mb-2">
-                                        <i data-feather="map-pin" class="titles size-4 me-1"></i>
-                                        <%= pkg.destination %>
-                                    </p>
-
-                                    <a href="/package/<%= pkg._id %>"
-                                        class="text-lg font-medium titles hover:text-gold-600 duration-500 ease-in-out">
-                                        <%= pkg.title %>
-                                    </a>
-
-                                    <p class="text-sm disc mt-1">
-                                        <i class="mdi mdi-clock-outline icons me-1"></i>
-                                        <%= pkg.duration %>
-                                    </p>
-
-                                    <div
-                                        class="mt-3 pt-3 flex justify-between items-center border-t border-slate-100 dark:border-gray-800">
-                                        <div>
-                                            <h5 class="text-lg font-medium icons">
-                                                ₹<%= pkg.packagePrice.toLocaleString() %>
-                                            </h5>
-                                            <% if (pkg.discount> 0) { %>
-                                                <span class="text-sm line-through icons">
-                                                    ₹<%= Math.round(pkg.packagePrice *
-                                                        100/(100-pkg.discount)).toLocaleString() %>
-                                                </span>
-                                                <% } %>
-                                        </div>
-                                        <a href="/package/<%= pkg._id %>" class="titles hover:text-gold-600">
-                                            Explore Now <i class="mdi titles mdi-arrow-right"></i>
-                                        </a>
-                                    </div>
+            <div class="container mt-16">
+                <div class="banner-slider">
+                    <% banners.forEach((banner)=> { %>
+                        <% banner.images.forEach((image)=> { %>
+                            <div class="banner-slide">
+                                <div class="banner-image">
+                                    <img src="<%= image.url %>" class="w-full h-auto rounded-lg shadow-md"
+                                        alt="<%= banner.title %>">
                                 </div>
                             </div>
                             <% }) %>
-                    </div>
-                    <div id="no-packages-message" class="hidden col-span-full text-center py-12">
-                        <div class="mx-auto max-w-md">
-                            <i data-feather="package" class="size-12 icons mx-auto"></i>
-                            <h4 class="text-xl titles font-semibold mt-4">Currently Unavailable</h4>
-                            <p class="disc mt-2">We don't have any packages in this location at the moment.
-                            </p>
-                        </div>
-                    </div>
-                    <div class="flex justify-center mt-4">
-                        <a href="/packages"
-                            class="px-4 py-2 rounded-full main-btn text-white font-medium transition-all duration-300 hover:bg-yellow-600 active:bg-red-700 focus:outline-none focus:ring focus:ring-red-300">
-                            See More Packages
-                        </a>
-                    </div>
-                </div>
-                <% if (banners && banners.length > 0) { %>
-      
-                    <div class="container mt-16">
-                        <div class="banner-slider">
-                            <% banners.forEach((banner) => { %>
-                                <% banner.images.forEach((image) => { %>
-                                    <div class="banner-slide">
-                                        <div class="banner-image">
-                                            <img src="<%= image.url %>" class="w-full h-auto rounded-lg shadow-md" alt="<%= banner.title %>">
-                                        </div>
-                                    </div>
                                 <% }) %>
-                            <% }) %>
-                        </div>
-                    </div>
-                <% } %>
+                </div>
+            </div>
+            <% } %>
                 <div class="container relative md:mt-24 mt-16">
                     <div class="grid grid-cols-1 pb-6 text-center">
-                        <h3 class="mb-6 md:text-3xl text-2xl md:leading-normal leading-normal titles font-semibold">Hear From
+                        <h3 class="mb-6 md:text-3xl text-2xl md:leading-normal leading-normal titles font-semibold">Hear
+                            From
                             Our Happy
                             Travelers 🌍✈️</h3>
 
-                        <p class="text-slate-400 max-w-xl disc mx-auto">Discover what our happy travelers have to say about
+                        <p class="text-slate-400 max-w-xl disc mx-auto">Discover what our happy travelers have to say
+                            about
                             their
                             unforgettable journeys with us!</p>
                     </div><!--end grid-->
@@ -678,11 +751,20 @@
 
                         <div class="md:col-span-7">
                             <div class="lg:ms-8">
-                                <h3 class="mb-6 md:text-3xl text-2xl titles md:leading-normal leading-normal font-semibold">
+                                <h3
+                                    class="mb-6 md:text-3xl text-2xl titles md:leading-normal leading-normal font-semibold">
                                     <br> About
-                                    Us :</h3>
+                                    Us :
+                                </h3>
 
-                                <p class="disc max-w-xl text-justify mb-6">Surya Holidays is an eminent & expert tour operator in Kerala having more than 15 years of experience  in tours & allied services. We focus on providing quality services to our clients ensuring their full hearted satisfaction and happiness .As your best travel partners , we guarantee  cent percent utility of time and money for all your tours and travels with us. Our services comprise of Local and International Tours. Leisure Tours, Corporate Tours, Incentive Tours , House Boats Hotel Booking ,Honeymoon ,Student Tour & Pilgrimages</p>
+                                <p class="disc max-w-xl text-justify mb-6">Surya Holidays is an eminent & expert tour
+                                    operator in Kerala having more than 15 years of experience in tours & allied
+                                    services. We focus on providing quality services to our clients ensuring their full
+                                    hearted satisfaction and happiness .As your best travel partners , we guarantee cent
+                                    percent utility of time and money for all your tours and travels with us. Our
+                                    services comprise of Local and International Tours. Leisure Tours, Corporate Tours,
+                                    Incentive Tours , House Boats Hotel Booking ,Honeymoon ,Student Tour & Pilgrimages
+                                </p>
 
                                 <a href="/about"
                                     class="py-2 px-5 inline-block main-btn tracking-wide align-middle duration-500 text-base text-center bg-red-500 text-white rounded-md">Read
@@ -695,13 +777,15 @@
                         </div>
                     </div>
                 </div><!--end container-->
-               
+
                 <div class="container relative md:mt-24 mt-16">
                     <div class="grid grid-cols-1 pb-6 text-center">
-                        <h3 class="mb-6 md:text-3xl titles text-2xl md:leading-normal leading-normal font-semibold">Travel
+                        <h3 class="mb-6 md:text-3xl titles text-2xl md:leading-normal leading-normal font-semibold">
+                            Travel
                             Blogs</h3>
 
-                        <p class="text-slate-400 disc max-w-xl mx-auto">Discover Expert Travel Tips, Inspiring Stories, and Destination Guides to Plan Your Perfect Journey.</p>
+                        <p class="text-slate-400 disc max-w-xl mx-auto">Discover Expert Travel Tips, Inspiring Stories,
+                            and Destination Guides to Plan Your Perfect Journey.</p>
                     </div><!--end grid-->
 
                     <div class="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 mt-6 gap-6">
@@ -885,254 +969,255 @@
 
                                 <script>
                                     function sendToWhatsApp() {
-                                        const message = document.getElementById('enquiryMessage').value;
-                                        const whatsappNumber = '+919048002234';
-                                        const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
+                                        const message = document.getElementById(' enquiryMessage').value; const
+                                            whatsappNumber = '+919048002234'; const
+                                                whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
                                         window.open(whatsappUrl, '_blank');
-                                    }
-                                </script>
-                            </div><!--end col-->
-                        </div><!--end grid-->
+                                    } </script>
+                                </div><!--end col-->
+                            </div><!--end grid-->
                     </div><!--end col-->
                 </div>
-            </div><!--end grid-->
-        </div><!--end container-->
+                </div><!--end grid-->
+                </div><!--end container-->
 
-        <div class="py-5 px-0  border-t border-gray-800 dark:border-gray-700">
-            <div class="container">
-                <div class="flex flex-wrap items-center justify-between gap-4">
-                    <!-- Copyright text -->
-                    <div class="text-gray-400 dark:text-gray-300 footer-copyright-text  text-sm">
-                        © <span id="currentYear"></span> <span style="color:#efc465;">Surya Holidays</span>. All rights
-                        reserved. | Designed and developed by <span style="color: #efc465;">Trivlogic Private Limited</span>
-                    </div>
+                <div class="py-5 px-0  border-t border-gray-800 dark:border-gray-700">
+                    <div class="container">
+                        <div class="flex flex-wrap items-center justify-between gap-4">
+                            <!-- Copyright text -->
+                            <div class="text-gray-400 dark:text-gray-300 footer-copyright-text  text-sm">
+                                © <span id="currentYear"></span> <span style="color:#efc465;">Surya Holidays</span>. All
+                                rights
+                                reserved. | Designed and developed by <span style="color: #efc465;">Trivlogic Private
+                                    Limited</span>
+                            </div>
 
-                    <!-- Legal links -->
-                    <div class="flex items-center gap-4">
-                        <a href="#"
-                            class="text-gray-400 dark:text-gray-300 hover:text-gray-500 dark:hover:text-gray-400 text-sm transition-colors duration-300 flex items-center">
-                            <i class="mdi mdi-chevron-right text-xs mr-1"></i> Privacy Policy
-                        </a>
-                        <a href="#"
-                            class="text-gray-400 dark:text-gray-300 hover:text-gray-500 dark:hover:text-gray-400 text-sm transition-colors duration-300 flex items-center">
-                            <i class="mdi mdi-chevron-right text-xs mr-1"></i> Terms & Conditions
-                        </a>
-                    </div>
-                </div>
-            </div>
-            <script>
-                document.getElementById(' currentYear').textContent = new Date().getFullYear(); </script>
-                                </div>
-                                </footer><!--end footer-->
-                                <!-- Footer End -->
-
-
-
-
-                                <!-- Back to top -->
-                                <a href="#" onclick="topFunction()" id="back-to-top"
-                                    class="back-to-top fixed hidden text-lg rounded-md z-10 bottom-5 end-5 size-8 text-center bg-red-500/10 hover:bg-red-500 text-red-500 hover:text-white justify-center items-center"><i
-                                        class="mdi mdi-arrow-up"></i></a>
-                                <!-- Back to top -->
-                                <a href="https://wa.me/+919048002234" class="whatsapp-float" target="_blank">
-                                    <img src="/images/whatsapp-gif.gif" alt="WhatsApp">
+                            <!-- Legal links -->
+                            <div class="flex items-center gap-4">
+                                <a href="#"
+                                    class="text-gray-400 dark:text-gray-300 hover:text-gray-500 dark:hover:text-gray-400 text-sm transition-colors duration-300 flex items-center">
+                                    <i class="mdi mdi-chevron-right text-xs mr-1"></i> Privacy Policy
                                 </a>
-                                <!-- mobile navbar -->
-                                <nav class="custom-nav__bottom-bar">
-                                    <!-- Home -->
-                                    <a href="/" class="custom-nav__menu-item custom-nav__active " id="homeNavItem">
-                                        <svg class="custom-nav__icon" viewBox="0 0 24 24">
-                                            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
-                                            <polyline points="9 22 9 12 15 12 15 22"></polyline>
-                                        </svg>
-                                        <span class="custom-nav__label">Home</span>
-                                    </a>
-
-                                    <!-- About Us -->
-                                    <a href="/about" class="custom-nav__menu-item" id="aboutNavItem">
-                                        <svg class="custom-nav__icon" viewBox="0 0 24 24">
-                                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-                                            <circle cx="12" cy="7" r="4"></circle>
-                                        </svg>
-                                        <span class="custom-nav__label">About Us</span>
-                                    </a>
-
-                                    <!-- Services -->
-                                    <a href="/packages" class="custom-nav__menu-item" id="servicesNavItem">
-                                        <svg class="custom-nav__icon" viewBox="0 0 24 24">
-                                            <rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect>
-                                            <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
-                                        </svg>
-                                        <span class="custom-nav__label">Packages</span>
-                                    </a>
-
-                                    <!-- Blog -->
-                                    <a href="/blogs" class="custom-nav__menu-item" id="blogNavItem">
-                                        <svg class="custom-nav__icon" viewBox="0 0 24 24">
-                                            <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
-                                            <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z">
-                                            </path>
-                                        </svg>
-                                        <span class="custom-nav__label">Blog</span>
-                                    </a>
-
-                                    <!-- Gallery -->
-                                    <a href="/gallery" class="custom-nav__menu-item " id="galleryNavItem">
-                                        <svg class="custom-nav__icon" viewBox="0 0 24 24">
-                                            <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
-                                            <circle cx="8.5" cy="8.5" r="1.5"></circle>
-                                            <polyline points="21 15 16 10 5 21"></polyline>
-                                        </svg>
-                                        <span class="custom-nav__label">Gallery</span>
-                                    </a>
-
-                                    <!-- Contact -->
-                                    <a href="/contact" class="custom-nav__menu-item" id="contactNavItem">
-                                        <svg class="custom-nav__icon" viewBox="0 0 24 24">
-                                            <path
-                                                d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z">
-                                            </path>
-                                        </svg>
-                                        <span class="custom-nav__label">Contact</span>
-                                    </a>
-                                </nav>
-
-                                <script>
-                                    function filterPackages(categoryId) {
-                                        // Update active button styling
-                                        document.querySelectorAll('.category-btn').forEach(btn => {
-                                            if (btn.dataset.category === categoryId) {
-                                                btn.classList.remove('bg-gray-200', 'text-gray-800');
-                                                btn.classList.add('bg-red-500', 'text-white');
-                                            } else {
-                                                btn.classList.remove('bg-red-500', 'text-white');
-                                                btn.classList.add('bg-gray-200', 'text-gray-800');
-                                            }
-                                        });
-
-                                        // Filter packages
-                                        const packageItems = document.querySelectorAll('.package-item');
-                                        let visibleCount = 0;
-
-                                        packageItems.forEach(item => {
-                                            if (categoryId === 'all' || item.dataset.category === categoryId) {
-                                                item.style.display = 'block';
-                                                visibleCount++;
-                                            } else {
-                                                item.style.display = 'none';
-                                            }
-                                        });
-
-                                        // Show/hide no packages message
-                                        const noPackagesMessage = document.getElementById('no-packages-message');
-                                        const packagesContainer = document.getElementById('packages-container');
-
-                                        if (visibleCount === 0) {
-                                            noPackagesMessage.classList.remove('hidden');
-                                            packagesContainer.classList.add('hidden');
-                                        } else {
-                                            noPackagesMessage.classList.add('hidden');
-                                            packagesContainer.classList.remove('hidden');
-                                        }
-                                    }
-
-                                    // Initialize with 'all' category selected
-                                    document.addEventListener('DOMContentLoaded', function () {
-                                        filterPackages('all');
-                                        feather.replace(); // Initialize feather icons
-                                    });
-                                </script>
-                                <script>
-                                    // Add this if you need mobile-friendly dropdowns
-                                    document.addEventListener('DOMContentLoaded', function () {
-                                        const menuItems = document.querySelectorAll('.has-submenu > a, .parent-menu-item > a');
-
-                                        menuItems.forEach(item => {
-                                            item.addEventListener('click', function (e) {
-                                                if (window.innerWidth <= 768) { // Mobile view
-                                                    e.preventDefault();
-                                                    const submenu = this.nextElementSibling.nextElementSibling;
-                                                    submenu.style.display = submenu.style.display === 'block' ? 'none' : 'block';
-                                                }
-                                            });
-                                        });
-                                    });
-                                </script>
+                                <a href="#"
+                                    class="text-gray-400 dark:text-gray-300 hover:text-gray-500 dark:hover:text-gray-400 text-sm transition-colors duration-300 flex items-center">
+                                    <i class="mdi mdi-chevron-right text-xs mr-1"></i> Terms & Conditions
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <script>
+                        document.getElementById(' currentYear').textContent = new Date().getFullYear(); </script>
+                </div>
+                </footer><!--end footer-->
+                <!-- Footer End -->
 
 
-                                <script>
-                                    document.addEventListener('DOMContentLoaded', function () {
-                                        const categorySelect = document.getElementById('search-category');
-                                        const subcategorySelect = document.getElementById('search-subcategory');
 
-                                        // Create a mapping of categories to their subcategories
-                                        const categoryMap = {};
+
+                <!-- Back to top -->
+                <a href="#" onclick="topFunction()" id="back-to-top"
+                    class="back-to-top fixed hidden text-lg rounded-md z-10 bottom-5 end-5 size-8 text-center bg-red-500/10 hover:bg-red-500 text-red-500 hover:text-white justify-center items-center"><i
+                        class="mdi mdi-arrow-up"></i></a>
+                <!-- Back to top -->
+                <a href="https://wa.me/+919048002234" class="whatsapp-float" target="_blank">
+                    <img src="/images/whatsapp-gif.gif" alt="WhatsApp">
+                </a>
+                <!-- mobile navbar -->
+                <nav class="custom-nav__bottom-bar">
+                    <!-- Home -->
+                    <a href="/" class="custom-nav__menu-item custom-nav__active " id="homeNavItem">
+                        <svg class="custom-nav__icon" viewBox="0 0 24 24">
+                            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                            <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                        </svg>
+                        <span class="custom-nav__label">Home</span>
+                    </a>
+
+                    <!-- About Us -->
+                    <a href="/about" class="custom-nav__menu-item" id="aboutNavItem">
+                        <svg class="custom-nav__icon" viewBox="0 0 24 24">
+                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                            <circle cx="12" cy="7" r="4"></circle>
+                        </svg>
+                        <span class="custom-nav__label">About Us</span>
+                    </a>
+
+                    <!-- Services -->
+                    <a href="/packages" class="custom-nav__menu-item" id="servicesNavItem">
+                        <svg class="custom-nav__icon" viewBox="0 0 24 24">
+                            <rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect>
+                            <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
+                        </svg>
+                        <span class="custom-nav__label">Packages</span>
+                    </a>
+
+                    <!-- Blog -->
+                    <a href="/blogs" class="custom-nav__menu-item" id="blogNavItem">
+                        <svg class="custom-nav__icon" viewBox="0 0 24 24">
+                            <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+                            <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z">
+                            </path>
+                        </svg>
+                        <span class="custom-nav__label">Blog</span>
+                    </a>
+
+                    <!-- Gallery -->
+                    <a href="/gallery" class="custom-nav__menu-item " id="galleryNavItem">
+                        <svg class="custom-nav__icon" viewBox="0 0 24 24">
+                            <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                            <circle cx="8.5" cy="8.5" r="1.5"></circle>
+                            <polyline points="21 15 16 10 5 21"></polyline>
+                        </svg>
+                        <span class="custom-nav__label">Gallery</span>
+                    </a>
+
+                    <!-- Contact -->
+                    <a href="/contact" class="custom-nav__menu-item" id="contactNavItem">
+                        <svg class="custom-nav__icon" viewBox="0 0 24 24">
+                            <path
+                                d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z">
+                            </path>
+                        </svg>
+                        <span class="custom-nav__label">Contact</span>
+                    </a>
+                </nav>
+
+                <script>
+                    function filterPackages(categoryId) {
+                        // Update active button styling
+                        document.querySelectorAll('.category-btn').forEach(btn => {
+                            if (btn.dataset.category === categoryId) {
+                                btn.classList.remove('bg-gray-200', 'text-gray-800');
+                                btn.classList.add('bg-red-500', 'text-white');
+                            } else {
+                                btn.classList.remove('bg-red-500', 'text-white');
+                                btn.classList.add('bg-gray-200', 'text-gray-800');
+                            }
+                        });
+
+                        // Filter packages
+                        const packageItems = document.querySelectorAll('.package-item');
+                        let visibleCount = 0;
+
+                        packageItems.forEach(item => {
+                            if (categoryId === 'all' || item.dataset.category === categoryId) {
+                                item.style.display = 'block';
+                                visibleCount++;
+                            } else {
+                                item.style.display = 'none';
+                            }
+                        });
+
+                        // Show/hide no packages message
+                        const noPackagesMessage = document.getElementById('no-packages-message');
+                        const packagesContainer = document.getElementById('packages-container');
+
+                        if (visibleCount === 0) {
+                            noPackagesMessage.classList.remove('hidden');
+                            packagesContainer.classList.add('hidden');
+                        } else {
+                            noPackagesMessage.classList.add('hidden');
+                            packagesContainer.classList.remove('hidden');
+                        }
+                    }
+
+                    // Initialize with 'all' category selected
+                    document.addEventListener('DOMContentLoaded', function () {
+                        filterPackages('all');
+                        feather.replace(); // Initialize feather icons
+                    });
+                </script>
+                <script>
+                    // Add this if you need mobile-friendly dropdowns
+                    document.addEventListener('DOMContentLoaded', function () {
+                        const menuItems = document.querySelectorAll('.has-submenu > a, .parent-menu-item > a');
+
+                        menuItems.forEach(item => {
+                            item.addEventListener('click', function (e) {
+                                if (window.innerWidth <= 768) { // Mobile view
+                                    e.preventDefault();
+                                    const submenu = this.nextElementSibling.nextElementSibling;
+                                    submenu.style.display = submenu.style.display === 'block' ? 'none' : 'block';
+                                }
+                            });
+                        });
+                    });
+                </script>
+
+
+                <script>
+                    document.addEventListener('DOMContentLoaded', function () {
+                        const categorySelect = document.getElementById('search-category');
+                        const subcategorySelect = document.getElementById('search-subcategory');
+
+                        // Create a mapping of categories to their subcategories
+                        const categoryMap = {};
                                         <% categories.forEach(category => { %>
-                                            categoryMap['<%= category._id %>'] =[];
+                            categoryMap['<%= category._id %>'] =[];
                                             <% if (category.subCategories && category.subCategories.length > 0) { %>
                                                 <% category.subCategories.forEach(subCategory => { %>
                                                     <% if (subCategory.isActive) { %>
-                                                    categoryMap['<%= category._id %>'].push({
-                                                        id: '<%= subCategory._id %>',
-                                                        name: '<%= subCategory.name.replace(/\'/g, "\\'") %>'
+                                    categoryMap['<%= category._id %>'].push({
+                                        id: '<%= subCategory._id %>',
+                                        name: '<%= subCategory.name.replace(/\'/g, "\\'") %>'
                                                         });
                                                     <% } %>
                                                 <% }); %>
                                             <% } %>
                                         <% }); %>
 
-                                            // When category changes, update subcategories
-                                            categorySelect.addEventListener('change', function () {
-                                                const categoryId = this.value;
-                                                subcategorySelect.innerHTML = '<option value="">All Subcategories</option>';
+                            // When category changes, update subcategories
+                            categorySelect.addEventListener('change', function () {
+                                const categoryId = this.value;
+                                subcategorySelect.innerHTML = '<option value="">All Subcategories</option>';
 
-                                                if (categoryId && categoryMap[categoryId] && categoryMap[categoryId].length > 0) {
-                                                    subcategorySelect.disabled = false;
-                                                    categoryMap[categoryId].forEach(subCat => {
-                                                        const option = new Option(subCat.name, subCat.id);
-                                                        subcategorySelect.add(option);
-                                                    });
-                                                } else {
-                                                    subcategorySelect.disabled = true;
-                                                    subcategorySelect.innerHTML = '<option value="">No subcategories available</option>';
-                                                }
-                                            });
-
-                                        // Initialize with current category if present
-                                        if (categorySelect.value) {
-                                            categorySelect.dispatchEvent(new Event('change'));
-                                        }
+                                if (categoryId && categoryMap[categoryId] && categoryMap[categoryId].length > 0) {
+                                    subcategorySelect.disabled = false;
+                                    categoryMap[categoryId].forEach(subCat => {
+                                        const option = new Option(subCat.name, subCat.id);
+                                        subcategorySelect.add(option);
                                     });
-                                </script>
+                                } else {
+                                    subcategorySelect.disabled = true;
+                                    subcategorySelect.innerHTML = '<option value="">No subcategories available</option>';
+                                }
+                            });
 
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        $('.banner-slider').slick({
-            dots: true,
-            infinite: true,
-            speed: 500,
-            slidesToShow: 1,
-            slidesToScroll: 1,
-            autoplay: true,
-            autoplaySpeed: 3000,
-            arrows: true,
-            pauseOnHover: true,
-            adaptiveHeight: true
-        });
-    });
-</script>
-                                <!-- JAVASCRIPTS -->
-                                <script src="/libs/tobii/js/tobii.min.js"></script>
-                                <script src="/libs/tiny-slider/min/tiny-slider.js"></script>
-                                <script src="/libs/jarallax/jarallax.min.js"></script>
-                                <script src="/libs/js-datepicker/datepicker.min.js"></script>
-                                <script src="/libs/feather-icons/feather.min.js"></script>
-                                <script src="/js/plugins.init.js"></script>
-                                <script src="/js/app.js"></script>
-                                <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-                                <script src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
-                            
-                                <!-- JAVASCRIPTS -->
+                        // Initialize with current category if present
+                        if (categorySelect.value) {
+                            categorySelect.dispatchEvent(new Event('change'));
+                        }
+                    });
+                </script>
+
+                <script>
+                    document.addEventListener('DOMContentLoaded', function () {
+                        $('.banner-slider').slick({
+                            dots: true,
+                            infinite: true,
+                            speed: 500,
+                            slidesToShow: 1,
+                            slidesToScroll: 1,
+                            autoplay: true,
+                            autoplaySpeed: 3000,
+                            arrows: true,
+                            pauseOnHover: true,
+                            adaptiveHeight: true
+                        });
+                    });
+                </script>
+                <!-- JAVASCRIPTS -->
+                <script src="/libs/tobii/js/tobii.min.js"></script>
+                <script src="/libs/tiny-slider/min/tiny-slider.js"></script>
+                <script src="/libs/jarallax/jarallax.min.js"></script>
+                <script src="/libs/js-datepicker/datepicker.min.js"></script>
+                <script src="/libs/feather-icons/feather.min.js"></script>
+                <script src="/js/plugins.init.js"></script>
+                <script src="/js/app.js"></script>
+                <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+                <script src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+
+                <!-- JAVASCRIPTS -->
 </body>
 
 </html>

@@ -15,7 +15,7 @@ const SubcategorySchema = new mongoose.Schema({
         type: Boolean, 
         default: true 
     }
-}, { _id: true }); // Explicitly keep _id for subcategories
+}, { _id: true }); 
 
 // Category Schema
 const CategorySchema = new mongoose.Schema({
@@ -33,7 +33,7 @@ const CategorySchema = new mongoose.Schema({
         type: Boolean, 
         default: true 
     },
-    subCategories: [SubcategorySchema] // Embedded subcategories
+    subCategories: [SubcategorySchema] 
 }, { 
     timestamps: true,
     toObject: { virtuals: true },

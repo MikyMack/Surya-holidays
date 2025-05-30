@@ -12,8 +12,14 @@ router.get('/', async (req, res) => {
     try {
         // Fetch active banners data
         const banners = await Banner.find({ isActive: true }).sort({ createdAt: -1 });
-        // Fetch categories
+        
+        // Fetch all categories
         const categories = await Category.find({ isActive: true })
+            .select('name imageUrl subCategories')
+            .lean();
+
+        // Fetch Kerala category specifically
+        const keralaCategory = await Category.findOne({ name: 'Kerala', isActive: true })
             .select('name imageUrl subCategories')
             .lean();
 
@@ -32,7 +38,6 @@ router.get('/', async (req, res) => {
 
         // Fetch blogs
         const blogs = await Blog.find().sort({ createdAt: -1 }).limit(3);
-
         const testimonials = await Testimonial.find().sort({ createdAt: -1 }).limit(10);
 
         // Group packages under their respective categories
@@ -40,19 +45,30 @@ router.get('/', async (req, res) => {
             const categoryPackages = packages.filter(pkg => 
                 pkg.category?._id.toString() === category._id.toString()
             );
-        
             const directPackages = categoryPackages.filter(pkg => !pkg.subCategory);
-        
+            
             return {
                 ...category,
                 subCategories: category.subCategories.filter(sub => sub.isActive),
                 packages: categoryPackages,
-                directPackages: directPackages, // ✅ for dropdown logic
-                locationCount: categoryPackages.length // ✅ keep this if you use it
+                directPackages: directPackages,
+                locationCount: categoryPackages.length
             };
         });
-        
-        
+
+        // Process Kerala category packages
+        const keralaPackages = packages.filter(pkg => 
+            pkg.category?.name === 'Kerala'
+        );
+        const keralaDirectPackages = keralaPackages.filter(pkg => !pkg.subCategory);
+
+        const keralaCategoryData = keralaCategory ? {
+            ...keralaCategory,
+            subCategories: keralaCategory.subCategories.filter(sub => sub.isActive),
+            packages: keralaPackages,
+            directPackages: keralaDirectPackages,
+            locationCount: keralaPackages.length
+        } : null;
 
         // Processed package list with short description
         const processedPackages = packages.map(pkg => ({
@@ -71,11 +87,12 @@ router.get('/', async (req, res) => {
             title: 'Home Page',
             banners: banners,
             categories: categoryMap,
+            keralaCategories: keralaCategoryData,
             packages: processedPackages,
             featuredPackages: processedPackages.slice(0, 3),
             blogs: blogs,
             testimonials: testimonials,
-            discount: Math.random() > 0.9 ? Math.floor(Math.random() * 15) + 10 : 0 ,
+            discount: Math.random() > 0.9 ? Math.floor(Math.random() * 15) + 10 : 0,
             query: req.query
         });
 
