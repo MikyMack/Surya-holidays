@@ -389,3 +389,307 @@ body{
 .menu_isActive{
 	color: #fef4a4 !important;
 }
+
+/* Kerala Grid - Responsive Card Layout */
+
+.kerala-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    margin-top: 2rem;
+}
+
+
+/* Tablet View (641px-1024px) - 2 columns */
+@media (min-width: 641px) {
+    .kerala-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.75rem;
+    }
+}
+
+/* Small Desktop (1025px-1279px) - 3 columns */
+@media (min-width: 1025px) {
+    .kerala-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 2rem;
+    }
+}
+
+/* Large Desktop (1280px+) - 4 columns */
+@media (min-width: 1280px) {
+    .kerala-grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+/* Enhanced Card Styles */
+.kerala-grid .group {
+    background: linear-gradient(135deg, rgba(255,255,255,0.9), rgba(255,255,255,0.8));
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255,255,255,0.3);
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    position: relative;
+    transform: translateY(0);
+}
+
+/* Floating Animation Effect */
+.kerala-grid .group::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: linear-gradient(45deg, #efc465, #d4a853, #efc465);
+    border-radius: 20px;
+    z-index: -1;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+}
+
+.kerala-grid .group:hover::before {
+    opacity: 1;
+}
+
+.kerala-grid .group:hover {
+    transform: translateY(-10px) scale(1.03);
+    box-shadow: 0 25px 50px rgba(0,0,0,0.2);
+}
+
+/* Image Container */
+.kerala-grid .group > div:first-child {
+    position: relative;
+    overflow: hidden;
+    border-radius: 16px 16px 0 0;
+    height: 180px;
+}
+
+/* Responsive Image Heights */
+@media (min-width: 376px) {
+    .kerala-grid .group > div:first-child {
+        height: 200px;
+    }
+}
+
+@media (min-width: 641px) {
+    .kerala-grid .group > div:first-child {
+        height: 220px;
+    }
+}
+
+@media (min-width: 1025px) {
+    .kerala-grid .group > div:first-child {
+        height: 240px;
+    }
+}
+
+/* Image Overlay Effects */
+.kerala-grid .group > div:first-child::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(45deg, rgba(130, 129, 129, 0.8), rgba(59, 59, 59, 0.6));
+    opacity: 0;
+    transition: opacity 0.4s ease;
+}
+
+.kerala-grid .group:hover > div:first-child::after {
+    opacity: 1;
+}
+
+/* Explore Icon */
+.kerala-grid .group > div:first-child::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 2rem;
+    opacity: 0;
+    z-index: 2;
+    transition: all 0.4s ease;
+    color: white;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+}
+
+.kerala-grid .group:hover > div:first-child::before {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1.2);
+}
+
+/* Image Styles */
+.kerala-image {
+    transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    filter: brightness(1) contrast(1);
+    width: 100%!important;
+    height: 100%!important;
+    object-fit: cover;
+}
+
+.kerala-grid .group:hover .kerala-image {
+    transform: scale(1.2) rotate(3deg);
+    filter: brightness(1.1) contrast(1.2);
+}
+
+/* Content Area */
+.kerala-grid .group .p-3 {
+    padding: 1.25rem;
+    background: linear-gradient(135deg, rgba(255,255,255,0.95), rgba(255,255,255,0.9));
+    backdrop-filter: blur(15px);
+    position: relative;
+}
+
+.kerala-grid .group .p-3::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 20px;
+    right: 20px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(239, 196, 101, 0.3), transparent);
+}
+
+/* Link Styles */
+.kerala-grid .group .p-3 a {
+    display: inline-block;
+    color: #2d3748 !important;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1.125rem;
+    transition: all 0.3s ease;
+    position: relative;
+    padding-bottom: 0.5rem;
+}
+
+.kerala-grid .group .p-3 a::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: linear-gradient(135deg, #f2c31c, #fad018);
+    transition: width 0.4s ease;
+}
+.text-black{
+    color: black!important;
+}
+
+.kerala-grid .group:hover .p-3 a {
+    color: #efc465 !important;
+    transform: translateY(-2px);
+}
+
+.kerala-grid .group:hover .p-3 a::after {
+    width: 100%;
+}
+
+/* Shine Effect */
+.kerala-grid .group::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(187, 162, 20, 0.3), transparent);
+    transition: left 0.8s;
+}
+
+.kerala-grid .group:hover::after {
+    left: 100%;
+}
+
+/* Loading Animation */
+.kerala-grid .group {
+    animation: fadeInUp 0.6s ease-out backwards;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(40px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Animation Delays */
+.kerala-grid .group:nth-child(1) { animation-delay: 0.1s; }
+.kerala-grid .group:nth-child(2) { animation-delay: 0.2s; }
+.kerala-grid .group:nth-child(3) { animation-delay: 0.3s; }
+.kerala-grid .group:nth-child(4) { animation-delay: 0.4s; }
+.kerala-grid .group:nth-child(5) { animation-delay: 0.5s; }
+.kerala-grid .group:nth-child(6) { animation-delay: 0.6s; }
+
+/* Empty State */
+
+
+/* Mobile Optimizations */
+@media (max-width: 640px) {
+
+        .kerala-grid {
+        grid-template-columns: repeat(2, 1fr)!important;
+        gap: 1.5rem;
+    }
+    .kerala-grid .group:hover {
+        transform: translateY(-5px) scale(1.02);
+    }
+    
+    .kerala-grid .group .p-3 {
+        padding: 1rem;
+    }
+    
+    .kerala-grid .group .p-3 a {
+        font-size: 1rem;
+    }
+}
+@media (max-width: 809px) {
+
+    
+    .kerala-grid .group:hover {
+        transform: translateY(-5px) scale(1.02);
+    }
+    
+    .kerala-grid .group .p-3 {
+        padding: 1rem;
+    }
+  .kerala-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1.75rem;
+    }
+    
+    .kerala-grid .group .p-3 a {
+        font-size: 1rem;
+    }
+}
+
+/* Extra Small Screens */
+@media (max-width: 400px) {
+    .kerala-grid {
+        gap: 1rem;
+    }
+    .kerala-grid {
+        grid-template-columns: repeat(2, 1fr)!important;
+        gap: 1.5rem;
+    }
+    .kerala-grid .group > div:first-child {
+        height: 160px;
+    }
+    
+    .kerala-grid .group .p-3 a {
+        font-size: 0.95rem;
+    }
+	.con-icon{
+   width: 100%!important;
+	}
+}
