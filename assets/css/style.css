@@ -578,6 +578,9 @@ body{
     background: linear-gradient(135deg, #f2c31c, #fad018);
     transition: width 0.4s ease;
 }
+.text-black{
+    color: black!important;
+}
 
 .kerala-grid .group:hover .p-3 a {
     color: #efc465 !important;
