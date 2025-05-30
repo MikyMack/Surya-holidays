@@ -245,7 +245,7 @@
                 <% if (packages.length > 0) { %>
                     <div class="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-6">
                         <% packages.forEach(pkg => { %>
-                        <div class="group rounded-md shadow-sm dark:shadow-gray-700">
+                        <div class="group card-shadow rounded-md shadow-sm dark:shadow-gray-700">
                             <div class="relative overflow-hidden rounded-t-md shadow-sm dark:shadow-gray-700 mx-3 mt-3">
                                 <img src="<%= pkg.images[0] || '/images/listing/default.jpg' %>" class="scale-125 group-hover:scale-100 duration-500 h-48 w-full object-cover" alt="<%= pkg.title %>">
                                 <% if (pkg.discount > 0) { %>
@@ -264,7 +264,7 @@
                                 </p>
                                 
                                 <div class="mt-4 pt-4 flex justify-between items-center border-t border-slate-100 dark:border-gray-800">
-                                    <h5 class="text-lg font-medium text-yellow-600">₹ <%= pkg.packagePrice.toLocaleString() %></h5>
+                                    <h5 class="text-lg  font-medium text-yellow-500">₹ <%= pkg.packagePrice.toLocaleString() %></h5>
                                     <a href="/package/<%= pkg._id %>" class="text-color hover:text-yellow-600">Explore Now <i class="mdi text-color mdi-arrow-right"></i></a>
                                 </div>
                             </div>
@@ -416,7 +416,7 @@
 
                             <div class="lg:col-span-3 md:col-span-4">
                                 <h5 class="tracking-[1px] text-gray-100 font-semibold">Enquiry</h5>
-                                <p class="mt-6">Stay connected with Joanna Holidays for booking Or enquiries reach out
+                                <p class="mt-6">Stay connected with Suriya Holidays for booking Or enquiries reach out
                                     to us anytime</p>
                                 <form onsubmit="event.preventDefault(); sendToWhatsApp();">
                                     <div class="grid grid-cols-1">
