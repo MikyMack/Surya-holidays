@@ -959,183 +959,347 @@
 
                                 <script>
                                     // Global variables
-                                    let currentPage = 1;
-                                    let limit = 10;
-                                    let searchQuery = '';
-                                    let allCategories = [];
-                                    let travelPlanDays = [];
+    let currentPage = 1;
+    let limit = 10;
+    let searchQuery = '';
+    let allCategories = [];
 
-                                    // DOM Content Loaded
-                                    document.addEventListener('DOMContentLoaded', function () {
-                                        // Initialize
-                                        fetchCategories();
-                                        fetchPackages();
+    // DOM Content Loaded
+    document.addEventListener('DOMContentLoaded', function () {
+        // Initialize
+        fetchCategories();
+        fetchPackages();
 
-                                        // Event listeners
-                                        document.getElementById('limit-select').addEventListener('change', function () {
-                                            limit = parseInt(this.value);
-                                            currentPage = 1;
-                                            fetchPackages();
-                                        });
+        // Event listeners
+        document.getElementById('limit-select').addEventListener('change', function () {
+            limit = parseInt(this.value);
+            currentPage = 1;
+            fetchPackages();
+        });
 
-                                        document.getElementById('search-btn').addEventListener('click', function () {
-                                            searchQuery = document.getElementById('search-input').value;
-                                            currentPage = 1;
-                                            fetchPackages();
-                                        });
+        document.getElementById('search-btn').addEventListener('click', function () {
+            searchQuery = document.getElementById('search-input').value;
+            currentPage = 1;
+            fetchPackages();
+        });
 
-                                        document.getElementById('add-package-btn').addEventListener('click', function () {
-                                            showAddPackageModal();
-                                        });
+        document.getElementById('add-package-btn').addEventListener('click', function () {
+            showAddPackageModal();
+        });
 
-                                        document.getElementById('add-package-form').addEventListener('submit', function (e) {
-                                            e.preventDefault();
-                                            createPackage();
-                                        });
+        document.getElementById('add-package-form').addEventListener('submit', function (e) {
+            e.preventDefault();
+            createPackage();
+        });
 
-                                        document.getElementById('edit-package-form').addEventListener('submit', function (e) {
-                                            e.preventDefault();
-                                            updatePackage();
-                                        });
+        document.getElementById('edit-package-form').addEventListener('submit', function (e) {
+            e.preventDefault();
+            updatePackage();
+        });
 
-                                        // Travel Plan Builder
-                                        document.getElementById('add-day-btn').addEventListener('click', addDayInput);
-                                        document.getElementById('edit-add-day-btn').addEventListener('click', addEditDayInput);
+        // Travel Plan Builder
+        document.getElementById('add-day-btn').addEventListener('click', addDayInput);
+        document.getElementById('edit-add-day-btn').addEventListener('click', addEditDayInput);
 
-                                        // Category change listeners
-                                        document.getElementById('package-categories').addEventListener('change', function () {
-                                            populateSubcategoryDropdown(Array.from(this.selectedOptions).map(opt => opt.value));
-                                        });
+        // Category change listeners
+        document.getElementById('package-categories').addEventListener('change', function () {
+            populateSubcategoryDropdown(Array.from(this.selectedOptions).map(opt => opt.value));
+        });
 
-                                        document.getElementById('edit-package-categories').addEventListener('change', function () {
-                                            populateEditSubcategoryDropdown(Array.from(this.selectedOptions).map(opt => opt.value));
-                                        });
-                                    });
+        document.getElementById('edit-package-categories').addEventListener('change', function () {
+            populateEditSubcategoryDropdown(Array.from(this.selectedOptions).map(opt => opt.value));
+        });
+    });
 
-                                    // ======================
-                                    // TRAVEL PLAN FUNCTIONS
-                                    // ======================
+    // ======================
+    // TRAVEL PLAN FUNCTIONS (FIXED)
+    // ======================
 
-                                    function addDayInput(dayData = { day: '', description: '' }) {
-                                        const container = document.getElementById('travel-plan-container');
-                                        const dayId = Date.now();
+    function addDayInput(dayData = { day: '', description: '' }) {
+        const container = document.getElementById('travel-plan-container');
+        if (!container) {
+            console.error('Travel plan container not found');
+            return;
+        }
 
-                                        const dayElement = document.createElement('div');
-                                        dayElement.className = 'travel-day';
-                                        dayElement.dataset.id = dayId;
+        const dayId = Date.now();
+        const dayElement = document.createElement('div');
+        dayElement.className = 'travel-day';
+        dayElement.dataset.id = dayId;
 
-                                        dayElement.innerHTML = `
-                                        <div class="form-row">
-                                            <div class="form-group">
-                                                <label>Day</label>
-                                                <input type="text" class="day-number" value="${dayData.day || ''}" 
-                                                       placeholder="Day 1" required>
-                                            </div>
-                                            <div class="form-group">
-                                                <label>Description</label>
-                                                <textarea class="day-description" rows="3" required>${dayData.description || ''}</textarea>
-                                            </div>
-                                            <button type="button" class="remove-day-btn" title="Remove day">
-                                                <i class="icon-trash-2"></i>
-                                            </button>
-                                        </div>
-                                    `;
+        dayElement.innerHTML = `
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Day</label>
+                    <input type="text" class="day-number" value="${dayData.day || ''}" 
+                           placeholder="Day 1" required>
+                </div>
+                <div class="form-group">
+                    <label>Description</label>
+                    <textarea class="day-description" rows="3" required>${dayData.description || ''}</textarea>
+                </div>
+                <button type="button" class="remove-day-btn" title="Remove day">
+                    <i class="icon-trash-2"></i>
+                </button>
+            </div>
+        `;
 
-                                        container.appendChild(dayElement);
+        container.appendChild(dayElement);
 
-                                        dayElement.querySelector('.remove-day-btn').addEventListener('click', () => {
-                                            dayElement.remove();
-                                            updateTravelPlanInput();
-                                        });
+        // Add event listeners with null checks
+        const removeBtn = dayElement.querySelector('.remove-day-btn');
+        if (removeBtn) {
+            removeBtn.addEventListener('click', () => {
+                dayElement.remove();
+                updateTravelPlanInput();
+            });
+        }
 
-                                        const inputs = dayElement.querySelectorAll('input, textarea');
-                                        inputs.forEach(input => {
-                                            input.addEventListener('input', updateTravelPlanInput);
-                                        });
+        // Add input event listeners directly to the specific elements
+        const dayInput = dayElement.querySelector('.day-number');
+        const descInput = dayElement.querySelector('.day-description');
+        
+        if (dayInput && descInput) {
+            dayInput.addEventListener('input', updateTravelPlanInput);
+            descInput.addEventListener('input', updateTravelPlanInput);
+        }
 
-                                        if (container.children.length === 0) {
-                                            addDayInput();
-                                        }
-                                    }
+        // Initialize with one day if empty
+        if (container.children.length === 0) {
+            addDayInput();
+        }
+    }
 
-                                    function addEditDayInput(dayData = { day: '', description: '' }) {
-                                        const container = document.getElementById('edit-travel-plan-container');
-                                        const dayId = Date.now();
+    function updateTravelPlanInput() {
+        const days = [];
+        const dayElements = document.querySelectorAll('#travel-plan-container .travel-day');
 
-                                        const dayElement = document.createElement('div');
-                                        dayElement.className = 'travel-day';
-                                        dayElement.dataset.id = dayId;
+        dayElements.forEach(dayEl => {
+            const dayInput = dayEl.querySelector('.day-number');
+            const descInput = dayEl.querySelector('.day-description');
 
-                                        dayElement.innerHTML = `
-                                        <div class="form-row">
-                                            <div class="form-group">
-                                                <label>Day</label>
-                                                <input type="text" class="day-number" value="${dayData.day || ''}" 
-                                                       placeholder="Day 1" required>
-                                            </div>
-                                            <div class="form-group">
-                                                <label>Description</label>
-                                                <textarea class="day-description" rows="3" required>${dayData.description || ''}</textarea>
-                                            </div>
-                                            <button type="button" class="remove-day-btn" title="Remove day">
-                                                <i class="icon-trash-2"></i>
-                                            </button>
-                                        </div>
-                                    `;
+            // Only proceed if both inputs exist
+            if (dayInput && descInput) {
+                const day = dayInput.value.trim();
+                const description = descInput.value.trim();
+                
+                if (day && description) {
+                    days.push({ day, description });
+                }
+            }
+        });
 
-                                        container.appendChild(dayElement);
+        // Update the hidden input
+        const travelPlanInput = document.getElementById('package-travel-plan');
+        if (travelPlanInput) {
+            travelPlanInput.value = JSON.stringify(days);
+        }
+    }
 
-                                        dayElement.querySelector('.remove-day-btn').addEventListener('click', () => {
-                                            dayElement.remove();
-                                            updateEditTravelPlanInput();
-                                        });
+    // Similar fixes for edit functions
+    function addEditDayInput(dayData = { day: '', description: '' }) {
+        const container = document.getElementById('edit-travel-plan-container');
+        if (!container) return;
 
-                                        const inputs = dayElement.querySelectorAll('input, textarea');
-                                        inputs.forEach(input => {
-                                            input.addEventListener('input', updateEditTravelPlanInput);
-                                        });
+        const dayId = Date.now();
+        const dayElement = document.createElement('div');
+        dayElement.className = 'travel-day';
+        dayElement.dataset.id = dayId;
 
-                                        if (container.children.length === 0) {
-                                            addEditDayInput();
-                                        }
-                                    }
+        dayElement.innerHTML = `
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Day</label>
+                    <input type="text" class="day-number" value="${dayData.day || ''}" 
+                           placeholder="Day 1" required>
+                </div>
+                <div class="form-group">
+                    <label>Description</label>
+                    <textarea class="day-description" rows="3" required>${dayData.description || ''}</textarea>
+                </div>
+                <button type="button" class="remove-day-btn" title="Remove day">
+                    <i class="icon-trash-2"></i>
+                </button>
+            </div>
+        `;
 
-                                    function updateTravelPlanInput() {
-                                        const days = [];
-                                        const dayElements = document.querySelectorAll('.travel-day');
+        container.appendChild(dayElement);
 
-                                        dayElements.forEach(dayEl => {
-                                            const day = dayEl.querySelector('.day-number').value;
-                                            const description = dayEl.querySelector('.day-description').value;
+        // Add event listeners with null checks
+        const removeBtn = dayElement.querySelector('.remove-day-btn');
+        if (removeBtn) {
+            removeBtn.addEventListener('click', () => {
+                dayElement.remove();
+                updateEditTravelPlanInput();
+            });
+        }
 
-                                            if (day && description) {
-                                                days.push({ day, description });
-                                            }
-                                        });
+        const dayInput = dayElement.querySelector('.day-number');
+        const descInput = dayElement.querySelector('.day-description');
+        
+        if (dayInput && descInput) {
+            dayInput.addEventListener('input', updateEditTravelPlanInput);
+            descInput.addEventListener('input', updateEditTravelPlanInput);
+        }
+    }
 
-                                        travelPlanDays = days;
-                                        document.getElementById('package-travel-plan').value = JSON.stringify(days);
-                                    }
+    function updateEditTravelPlanInput() {
+        const days = [];
+        const dayElements = document.querySelectorAll('#edit-travel-plan-container .travel-day');
 
-                                    function updateEditTravelPlanInput() {
-                                        const days = [];
-                                        const dayElements = document.querySelectorAll('#edit-travel-plan-container .travel-day');
+        dayElements.forEach(dayEl => {
+            const dayInput = dayEl.querySelector('.day-number');
+            const descInput = dayEl.querySelector('.day-description');
 
-                                        dayElements.forEach(dayEl => {
-                                            const day = dayEl.querySelector('.day-number').value;
-                                            const description = dayEl.querySelector('.day-description').value;
+            if (dayInput && descInput) {
+                const day = dayInput.value.trim();
+                const description = descInput.value.trim();
+                
+                if (day && description) {
+                    days.push({ day, description });
+                }
+            }
+        });
 
-                                            if (day && description) {
-                                                days.push({ day, description });
-                                            }
-                                        });
+        const travelPlanInput = document.getElementById('edit-package-travel-plan');
+        if (travelPlanInput) {
+            travelPlanInput.value = JSON.stringify(days);
+        }
+    }
 
-                                        document.getElementById('edit-package-travel-plan').value = JSON.stringify(days);
-                                    }
+    // ======================
+    // PACKAGE CRUD FUNCTIONS (FIXED)
+    // ======================
 
-                                    // ======================
-                                    // PACKAGE CRUD FUNCTIONS
-                                    // ======================
+    async function createPackage() {
+        const form = document.getElementById('add-package-form');
+        if (!form) {
+            alert('Form not found');
+            return;
+        }
+
+        const formData = new FormData(form);
+
+        // Get selected categories and subcategories with null checks
+        const categorySelect = document.getElementById('package-categories');
+        const subCategorySelect = document.getElementById('package-subcategories');
+
+        if (!categorySelect || !subCategorySelect) {
+            alert('Category selectors not found');
+            return;
+        }
+
+        const selectedCategories = Array.from(categorySelect.selectedOptions).map(opt => opt.value);
+        const selectedSubCategories = Array.from(subCategorySelect.selectedOptions).map(opt => opt.value);
+
+        // Add categories and subcategories as JSON strings
+        formData.set('categories', JSON.stringify(selectedCategories));
+        if (selectedSubCategories.length > 0) {
+            formData.set('subCategories', JSON.stringify(selectedSubCategories));
+        }
+
+        // Convert included items to proper array format with null check
+        const includedText = formData.get('included') || '';
+        const includedArray = includedText.split(',').map(item => item.trim());
+        formData.set('included', JSON.stringify(includedArray));
+
+        // Get travel plan from hidden input (already JSON string)
+        const travelPlanInput = document.getElementById('package-travel-plan');
+        if (!travelPlanInput || !travelPlanInput.value) {
+            alert('Please add at least one day to the travel plan');
+            return;
+        }
+
+        // Validate images
+        const imageInput = document.getElementById('package-images');
+        if (!imageInput.files || imageInput.files.length < 2 || imageInput.files.length > 5) {
+            alert('Please select between 2 to 5 images');
+            return;
+        }
+
+        try {
+            const response = await fetch('/create-package', {
+                method: 'POST',
+                body: formData
+            });
+
+            if (response.ok) {
+                const result = await response.json();
+                alert('Package created successfully!');
+                closeModal('add-package-modal');
+                form.reset();
+                document.getElementById('travel-plan-container').innerHTML = '';
+                fetchPackages();
+            } else {
+                const error = await response.json();
+                alert(error.message || 'Error creating package');
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            alert('Error creating package');
+        }
+    }
+
+    async function updatePackage() {
+        const form = document.getElementById('edit-package-form');
+        if (!form) {
+            alert('Form not found');
+            return;
+        }
+
+        const formData = new FormData(form);
+        const packageId = document.getElementById('edit-package-id').value;
+
+        // Get selected categories and subcategories
+        const categorySelect = document.getElementById('edit-package-categories');
+        const subCategorySelect = document.getElementById('edit-package-subcategories');
+
+        if (!categorySelect || !subCategorySelect) {
+            alert('Category selectors not found');
+            return;
+        }
+
+        const selectedCategories = Array.from(categorySelect.selectedOptions).map(opt => opt.value);
+        const selectedSubCategories = Array.from(subCategorySelect.selectedOptions).map(opt => opt.value);
+
+        // Add categories and subcategories to formData
+        formData.set('categories', JSON.stringify(selectedCategories));
+        if (selectedSubCategories.length > 0) {
+            formData.set('subCategories', JSON.stringify(selectedSubCategories));
+        }
+
+        // Convert included items to proper array format
+        const includedText = formData.get('included') || '';
+        const includedArray = includedText.split(',').map(item => item.trim());
+        formData.set('included', JSON.stringify(includedArray));
+
+        // Get travel plan from hidden input
+        const travelPlanInput = document.getElementById('edit-package-travel-plan');
+        if (!travelPlanInput || !travelPlanInput.value) {
+            alert('Please add at least one day to the travel plan');
+            return;
+        }
+
+        try {
+            const response = await fetch(`/update-package/${packageId}`, {
+                method: 'PUT',
+                body: formData
+            });
+
+            if (response.ok) {
+                const result = await response.json();
+                alert('Package updated successfully!');
+                closeModal('edit-package-modal');
+                fetchPackages();
+            } else {
+                const error = await response.json();
+                alert(error.message || 'Error updating package');
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            alert('Error updating package');
+        }
+    }
 
                                     async function fetchPackages() {
                                         try {
@@ -1327,11 +1491,21 @@
 
                                     async function createPackage() {
                                         const form = document.getElementById('add-package-form');
+                                        if (!form) {
+                                            alert('Form not found');
+                                            return;
+                                        }
+
                                         const formData = new FormData(form);
 
-                                        // Get selected categories and subcategories as arrays
+                                        // Get selected categories and subcategories with null checks
                                         const categorySelect = document.getElementById('package-categories');
                                         const subCategorySelect = document.getElementById('package-subcategories');
+
+                                        if (!categorySelect || !subCategorySelect) {
+                                            alert('Category selectors not found');
+                                            return;
+                                        }
 
                                         const selectedCategories = Array.from(categorySelect.selectedOptions).map(opt => opt.value);
                                         const selectedSubCategories = Array.from(subCategorySelect.selectedOptions).map(opt => opt.value);
@@ -1342,20 +1516,29 @@
                                             formData.set('subCategories', JSON.stringify(selectedSubCategories));
                                         }
 
-                                        // Convert included items to proper array format
-                                        const includedText = formData.get('included');
+                                        // Convert included items to proper array format with null check
+                                        const includedText = formData.get('included') || '';
                                         const includedArray = includedText.split(',').map(item => item.trim());
                                         formData.set('included', JSON.stringify(includedArray));
 
-                                        // Handle travel plan data
+                                        // Handle travel plan data with robust null checks
                                         const travelPlanDays = [];
-                                        document.querySelectorAll('.travel-day').forEach(dayEl => {
-                                            const day = dayEl.querySelector('.day-number').value;
-                                            const description = dayEl.querySelector('.day-description').value;
-                                            if (day && description) {
-                                                travelPlanDays.push({ day, description });
+                                        const dayElements = document.querySelectorAll('#travel-plan-container .travel-day');
+
+                                        dayElements.forEach(dayEl => {
+                                            const dayInput = dayEl.querySelector('.day-number');
+                                            const descInput = dayEl.querySelector('.day-description');
+
+                                            // Only proceed if both inputs exist
+                                            if (dayInput && descInput) {
+                                                const day = dayInput.value;
+                                                const description = descInput.value;
+                                                if (day && description) {
+                                                    travelPlanDays.push({ day, description });
+                                                }
                                             }
                                         });
+
                                         formData.set('travelPlan', JSON.stringify(travelPlanDays));
 
                                         try {
