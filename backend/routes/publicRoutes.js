@@ -23,14 +23,14 @@ router.get('/', async (req, res) => {
             .select('name imageUrl subCategories')
             .lean();
 
-        // Fetch packages with populated category and subCategory
+        // Fetch packages with populated categories and subCategories
         const packages = await Package.find({ isActive: true })
             .populate({
-                path: 'category',
+                path: 'categories',  // Changed from 'category' to 'categories'
                 select: 'name imageUrl'
             })
             .populate({
-                path: 'subCategory',
+                path: 'subCategories',  // Changed from 'subCategory' to 'subCategories'
                 select: 'name imageUrl',
                 match: { isActive: true }
             })
@@ -43,9 +43,9 @@ router.get('/', async (req, res) => {
         // Group packages under their respective categories
         const categoryMap = categories.map(category => {
             const categoryPackages = packages.filter(pkg => 
-                pkg.category?._id.toString() === category._id.toString()
+                pkg.categories?.some(cat => cat._id.toString() === category._id.toString())
             );
-            const directPackages = categoryPackages.filter(pkg => !pkg.subCategory);
+            const directPackages = categoryPackages.filter(pkg => !pkg.subCategories || pkg.subCategories.length === 0);
             
             return {
                 ...category,
@@ -58,9 +58,9 @@ router.get('/', async (req, res) => {
 
         // Process Kerala category packages
         const keralaPackages = packages.filter(pkg => 
-            pkg.category?.name === 'Kerala'
+            pkg.categories?.some(cat => cat.name === 'Kerala')
         );
-        const keralaDirectPackages = keralaPackages.filter(pkg => !pkg.subCategory);
+        const keralaDirectPackages = keralaPackages.filter(pkg => !pkg.subCategories || pkg.subCategories.length === 0);
 
         const keralaCategoryData = keralaCategory ? {
             ...keralaCategory,
@@ -73,10 +73,10 @@ router.get('/', async (req, res) => {
         // Processed package list with short description
         const processedPackages = packages.map(pkg => ({
             ...pkg,
-            categoryName: pkg.category?.name || 'Deleted Category',
-            categoryImage: pkg.category?.imageUrl || '',
-            subCategoryName: pkg.subCategory?.name || null,
-            subCategoryImage: pkg.subCategory?.imageUrl || null,
+            categoryName: pkg.categories?.[0]?.name || 'Deleted Category',
+            categoryImage: pkg.categories?.[0]?.imageUrl || '',
+            subCategoryName: pkg.subCategories?.[0]?.name || null,
+            subCategoryImage: pkg.subCategories?.[0]?.imageUrl || null,
             shortDescription: pkg.packageDescription
                 ? pkg.packageDescription.split(' ').slice(0, 20).join(' ') + 
                   (pkg.packageDescription.split(' ').length > 20 ? '...' : '')
@@ -229,8 +229,8 @@ router.get('/packages', async (req, res) => {
         }
 
         const packages = await Package.find(query)
-            .populate('category', 'name')
-            .populate('subCategory', 'name')
+            .populate('categories', 'name')
+            .populate('subCategories', 'name')
             .skip((page - 1) * limit)
             .limit(parseInt(limit));
 
@@ -267,8 +267,8 @@ router.get('/packages', async (req, res) => {
 router.get('/package/:id', async (req, res) => {
     try {
         const tourPackage = await Package.findById(req.params.id)
-            .populate('category', 'name')
-            .populate('subCategory', 'name');
+            .populate('categories', 'name')
+            .populate('subCategories', 'name');
 
         if (!tourPackage) {
             return res.status(404).render('comming-soon', {

@@ -3,26 +3,15 @@ const mongoose = require('mongoose');
 const PackageSchema = new mongoose.Schema({
     title: { type: String, required: true },
     destination: { type: String, required: true },
-    category: { 
+    categories: [{ 
         type: mongoose.Schema.Types.ObjectId, 
         ref: 'Category', 
         required: true 
-    },
-    subCategory: { 
+    }],
+    subCategories: [{ 
         type: mongoose.Schema.Types.ObjectId,
-        required: false,
-        validate: {
-            validator: async function(value) {
-                if (!value) return true;
-                const category = await mongoose.model('Category').findOne({
-                    _id: this.category,
-                    'subCategories._id': value
-                });
-                return !!category;
-            },
-            message: 'Subcategory does not belong to the selected category'
-        }
-    },
+        required: false
+    }],
     duration: { type: String, required: true },
     tourType: { type: String, required: true },
     groupSize: { type: Number, required: true },
@@ -41,6 +30,38 @@ const PackageSchema = new mongoose.Schema({
     }],
     isActive: { type: Boolean, default: true }
 }, { timestamps: true });
+
+PackageSchema.pre('validate', async function(next) {
+    if (this.subCategories && this.subCategories.length > 0) {
+        try {
+            // Get all categories that contain these subcategories
+            const categories = await mongoose.model('Category').find({
+                'subCategories._id': { $in: this.subCategories }
+            });
+            
+            // Get all valid subcategory IDs from these categories
+            const validSubCategories = categories.flatMap(cat => 
+                cat.subCategories.map(sub => sub._id.toString())
+            );
+            
+            // Check if all subcategories belong to the selected categories
+            const allValid = this.subCategories.every(subId => {
+                const subIdStr = subId.toString();
+                return validSubCategories.includes(subIdStr) && 
+                       this.categories.some(catId => 
+                           categories.some(cat => cat._id.equals(catId))
+                       );
+            });
+            
+            if (!allValid) {
+                this.invalidate('subCategories', 'One or more subcategories do not belong to the selected categories');
+            }
+        } catch (err) {
+            this.invalidate('subCategories', 'Error validating subcategories');
+        }
+    }
+    next();
+});
 
 
 module.exports = mongoose.model('Package', PackageSchema);
