@@ -513,7 +513,7 @@
                                             <div class="form-group">
                                                 <label for="subCategoryImage">Subcategory Image</label>
                                                 <input type="file" id="subCategoryImage" name="image" accept="image/*"
-                                                    required>
+                                                    >
                                             </div>
                                             <button type="submit" class="tf-button style-1">Save</button>
                                         </form>
@@ -622,7 +622,7 @@
             <div class="subcategory-list flex flex-column gap10">
                 ${activeSubCategories.map(subcategory => `
                     <div class="subcategory-item flex align-center gap10" data-subcategory-name="${subcategory.name}" style="opacity: ${subcategory.isActive ? '1' : '0.6'}">
-                        <img src="${subcategory.imageUrl}" alt="${subcategory.name}" width="30" height="30">
+                        ${subcategory.imageUrl ? `<img src="${subcategory.imageUrl}" alt="${subcategory.name}" width="30" height="30">` : ''}
                         <span class="body-text">${subcategory.name}</span>
                     </div>
                 `).join('')}
@@ -698,7 +698,6 @@
         }
 
         function showEditCategoryModal(categoryId) {
-            
             const category = allCategories.find(c => c._id === categoryId);
             if (!category) {
                 console.error('Category not found');
@@ -718,8 +717,6 @@
             // Set form values
             document.getElementById('editCategoryId').value = categoryId;
             document.getElementById('editCategoryName').value = category.name;
-
-            
 
             // Show modal
             modal.style.display = 'block';
@@ -746,15 +743,13 @@
                 return;
             }
 
-             // Clear any previous file selection
-             form.reset();
+            // Clear any previous file selection
+            form.reset();
 
             // Set form values
             document.getElementById('editParentCategoryId').value = categoryId;
             document.getElementById('editSubCategoryId').value = subcategoryId;
             document.getElementById('editSubCategoryName').value = subcategory.name;
-
-           
 
             // Show modal
             modal.style.display = 'block';
@@ -803,25 +798,15 @@
         document.getElementById('addSubCategoryForm').addEventListener('submit', async function (e) {
             e.preventDefault();
 
-            // Get the file input element
-            const imageInput = document.getElementById('subCategoryImage');
-
-            // Check if the element exists
-            if (!imageInput) {
-                console.error('subCategoryImage input not found');
-                alert('Form configuration error - please contact support');
-                return;
-            }
-
-            // Check if a file was selected
-            if (!imageInput.files || imageInput.files.length === 0) {
-                alert('Please select an image for the subcategory');
-                return;
-            }
-
             const formData = new FormData();
             formData.append('name', document.getElementById('subCategoryName').value);
-            formData.append('image', imageInput.files[0]);
+            
+            // Only append image if one was selected
+            const imageInput = document.getElementById('subCategoryImage');
+            if (imageInput && imageInput.files && imageInput.files.length > 0) {
+                formData.append('image', imageInput.files[0]);
+            }
+
             const categoryId = document.getElementById('parentCategory').value;
 
             try {

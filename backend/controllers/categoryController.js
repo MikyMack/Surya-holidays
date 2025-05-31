@@ -165,10 +165,6 @@ exports.addSubCategory = async (req, res) => {
         const { categoryId } = req.params;
         const { name } = req.body;
         const imageUrl = req.file ? req.file.path : null;
-        
-        if (!imageUrl) {
-            return res.status(400).json({ message: 'Image is required' });
-        }
 
         const category = await Category.findById(categoryId);
         if (!category) {
