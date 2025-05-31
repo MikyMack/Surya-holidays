@@ -161,11 +161,11 @@ router.get('/gallery', async (req, res) => {
 
         const packages = await Package.find({ isActive: true })
             .populate({
-                path: 'category',
+                path: 'categories',
                 select: 'name imageUrl'
             })
             .populate({
-                path: 'subCategory',
+                path: 'subCategories',
                 select: 'name imageUrl',
                 match: { isActive: true }
             })
@@ -214,45 +214,74 @@ router.get('/packages', async (req, res) => {
         
         // Build query based on filters
         if (category) {
-            query.category = category;
+            query.categories = category;
         }
+        
         if (subCategory) {
-            query.subCategory = subCategory;
+            query.subCategories = subCategory;
         }
-        if (search && search.length >= 3) {  // Only search if 3+ characters
+        
+        if (search && search.length >= 3) {
             query.$or = [
-                { name: { $regex: search, $options: 'i' } },
-                { description: { $regex: search, $options: 'i' } },
-                { 'category.name': { $regex: search, $options: 'i' } },
-                { 'subCategory.name': { $regex: search, $options: 'i' } }
+                { title: { $regex: search, $options: 'i' } },
+                { destination: { $regex: search, $options: 'i' } },
+                { packageDescription: { $regex: search, $options: 'i' } }
             ];
         }
 
+        // Get packages with basic category info
         const packages = await Package.find(query)
             .populate('categories', 'name')
-            .populate('subCategories', 'name')
             .skip((page - 1) * limit)
-            .limit(parseInt(limit));
+            .limit(parseInt(limit))
+            .lean();
+
+        // Get full subcategory details for each package
+        const packagesWithSubCategories = await Promise.all(
+            packages.map(async (pkg) => {
+                const categoriesWithSubs = await Category.find({
+                    _id: { $in: pkg.categories.map(c => c._id) },
+                    'subCategories._id': { $in: pkg.subCategories }
+                }).select('subCategories');
+                
+                const packageSubCategories = [];
+                categoriesWithSubs.forEach(cat => {
+                    cat.subCategories.forEach(subCat => {
+                        if (pkg.subCategories.some(id => id.equals(subCat._id))) {
+                            packageSubCategories.push(subCat);
+                        }
+                    });
+                });
+                
+                return {
+                    ...pkg,
+                    subCategories: packageSubCategories
+                };
+            })
+        );
 
         const totalPackages = await Package.countDocuments(query);
 
+        // Get all active categories with their subcategories for filters
         const categories = await Category.find({ isActive: true })
-            .populate({
-                path: 'subCategories',
-                match: { isActive: true }
-            });
+            .select('name subCategories')
+            .lean();
 
-        // Get the selected category name
-        const selectedCategoryData = category ? await Category.findById(category).select('name') : null;
+        // Get the selected category name if a category filter is applied
+        let selectedCategoryName = null;
+        if (category) {
+            const selectedCat = await Category.findById(category).select('name').lean();
+            selectedCategoryName = selectedCat ? selectedCat.name : null;
+        }
 
         res.render('packages', {
             title: 'Tour Packages',
-            packages,
+            packages: packagesWithSubCategories,
             categories,
             currentCategory: category,
             currentSubCategory: subCategory,
             searchTerm: search,
-            selectedCategory: selectedCategoryData ? selectedCategoryData.name : null,
+            selectedCategory: selectedCategoryName, // Add this line
             currentPage: parseInt(page),
             totalPages: Math.ceil(totalPackages / limit),
             query: req.query 
@@ -267,8 +296,10 @@ router.get('/packages', async (req, res) => {
 router.get('/package/:id', async (req, res) => {
     try {
         const tourPackage = await Package.findById(req.params.id)
-            .populate('categories', 'name')
-            .populate('subCategories', 'name');
+            .populate({
+                path: 'categories',
+                select: 'name subCategories'
+            });
 
         if (!tourPackage) {
             return res.status(404).render('comming-soon', {
@@ -276,14 +307,30 @@ router.get('/package/:id', async (req, res) => {
             });
         }
 
-        const categories = await Category.find({ isActive: true })
-            .select('name imageUrl subCategories')
-            .lean();
+        const packageSubCategories = [];
+        const subCategoryIds = tourPackage.subCategories.map(id => id.toString());
+        
+        tourPackage.categories.forEach(category => {
+            category.subCategories.forEach(subCat => {
+                if (subCategoryIds.includes(subCat._id.toString())) {
+                    packageSubCategories.push({
+                        _id: subCat._id,
+                        name: subCat.name,
+                        imageUrl: subCat.imageUrl
+                    });
+                }
+            });
+        });
+
+        const packageData = {
+            ...tourPackage.toObject(),
+            subCategories: packageSubCategories
+        };
 
         res.render('packageDetails', {
             title: tourPackage.title,
-            tourPackage,
-            categories
+            tourPackage: packageData,
+            categories: await Category.find({ isActive: true }).lean()
         });
     } catch (error) {
         console.error(error);

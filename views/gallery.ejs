@@ -147,7 +147,7 @@
                                                 <% category.subCategories.forEach(subCategory=> { %>
                                                     <% if (subCategory.isActive) { %>
                                                         <li>
-                                                            <a href="/package-details?subCategory=<%= subCategory._id %>">
+                                                            <a href="/packages?subCategory=<%= subCategory._id %>">
                                                                 <%= subCategory.name %>
                                                             </a>
                                                         </li>
