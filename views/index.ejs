@@ -198,7 +198,8 @@
                     <ul class="list-none w-[50%] top-info">
                         <li class="inline-flex items-center">
                             <i data-feather="mail" class="text-red-500 icons size-4"></i>
-                            <a href="mailto:suryaholidaysccj24@gmail.com" class="ms-2 text-slate-300 hover:text-slate-200">
+                            <a href="mailto:suryaholidaysccj24@gmail.com"
+                                class="ms-2 text-slate-300 hover:text-slate-200">
                                 suryaholidaysccj24@gmail.com</a>
                         </li>
                         <li class="inline-flex items-center ms-2">
@@ -355,12 +356,10 @@
                 </div>
 
                 <div class="lg:col-span-5">
-                    <div
-                        class="bg-white dark:bg-slate-900 rounded-xl shadow-sm  p-6 z-10 relative lg:ms-10">
+                    <div class="bg-white dark:bg-slate-900 rounded-xl shadow-sm  p-6 z-10 relative lg:ms-10">
                         <h4 class="mb-5 text-2xl font-semibold">Search Your Destinations</h4>
 
-                        <form action="/packages" method="GET"
-                            class="bg-white dark:bg-slate-800 p-2 rounded-lg ">
+                        <form action="/packages" method="GET" class="bg-white dark:bg-slate-800 p-2 rounded-lg ">
                             <div class="grid grid-cols-1 gap-4">
                                 <!-- Dummy Date Field -->
                                 <div>
@@ -376,7 +375,8 @@
                                 <!-- Category Dropdown -->
                                 <div>
                                     <label
-                                        class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Main Destinations</label>
+                                        class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Main
+                                        Destinations</label>
                                     <div class="relative">
                                         <select name="category" id="search-category"
                                             class="w-full rounded-md border border-slate-300 dark:border-slate-700 py-2 px-3 bg-white dark:bg-slate-900 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent appearance-none cursor-pointer">
@@ -393,7 +393,8 @@
 
                                 <!-- Subcategory Dropdown -->
                                 <div>
-                                    <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Sub Destinations</label>
+                                    <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Sub
+                                        Destinations</label>
                                     <div class="relative">
                                         <select name="subCategory" id="search-subcategory"
                                             class="w-full rounded-md border border-slate-300 dark:border-slate-700 py-2 px-3 bg-white dark:bg-slate-900 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent appearance-none cursor-pointer"
@@ -495,58 +496,60 @@
 
         <div class="container relative md:mt-16 mt-16">
             <div class="grid grid-cols-1 pb-8 text-center">
-              <h3 class="mb-6 md:text-3xl text-2xl md:leading-normal leading-normal titles font-semibold">
-                Kerala Tourist Destinations
-              </h3>
-              <p class="text-slate-400 max-w-xl disc mx-auto">
-                Discover the enchanting beauty of God's own country through our curated Kerala destinations
-              </p>
+                <h3 class="mb-6 md:text-3xl text-2xl md:leading-normal leading-normal titles font-semibold">
+                    Kerala Tourist Destinations
+                </h3>
+                <p class="text-slate-400 max-w-xl disc mx-auto">
+                    Discover the enchanting beauty of God's own country through our curated Kerala destinations
+                </p>
             </div>
-          
-            <% if (keralaCategories && keralaCategories.subCategories && keralaCategories.subCategories.length > 0) { %>
-              <div class="kerala-grid ">
-                <% keralaCategories.subCategories.forEach(subCategory => { %>
-                  <% if (subCategory.isActive) { %>
-                    <div class="group rounded-lg shadow-md hover:shadow-xl transition-all duration-300">
-                      <!-- Fixed height for uniform image size -->
-                      <div class="relative overflow-hidden rounded-t-lg h-40 md:h-52 lg:h-60">
-                        <img src="<%= subCategory.imageUrl %>" alt="<%= subCategory.name %>"
-                             class="kerala-image w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500">
-                      </div>
-                      <div class="p-3">
-                        <a href="/packages?category=<%= keralaCategories._id %>&subCategory=<%= subCategory._id %>" style="color: #efc465;" class="text-lg font-semibold text-gray-800 mb-2">
-                          <%= subCategory.name %>
-                        </a>
-                      </div>
+
+            <% if (keralaCategories && keralaCategories.subCategories && keralaCategories.subCategories.length> 0) { %>
+                <div class="kerala-grid ">
+                    <% keralaCategories.subCategories.forEach(subCategory=> { %>
+                        <% if (subCategory.isActive) { %>
+                            <div class="group rounded-lg shadow-md hover:shadow-xl transition-all duration-300">
+                                <!-- Fixed height for uniform image size -->
+                                <div class="relative overflow-hidden rounded-t-lg h-40 md:h-52 lg:h-60">
+                                    <img src="<%= subCategory.imageUrl %>" alt="<%= subCategory.name %>"
+                                        class="kerala-image w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500">
+                                </div>
+                                <div class="p-3">
+                                    <a href="/packages?category=<%= keralaCategories._id %>&subCategory=<%= subCategory._id %>"
+                                        style="color: #efc465;" class="text-lg font-semibold text-gray-800 mb-2">
+                                        <%= subCategory.name %>
+                                    </a>
+                                </div>
+                            </div>
+                            <% } %>
+                                <% }); %>
+                </div>
+                <% } else { %>
+                    <div class="text-center py-8">
+                        <p class="text-gray-500">No active Kerala destinations available at the moment.</p>
                     </div>
-                  <% } %>
-                <% }); %>
-              </div>
-            <% } else { %>
-              <div class="text-center py-8">
-                <p class="text-gray-500">No active Kerala destinations available at the moment.</p>
-              </div>
-            <% } %>
-          </div>
-          
-          <!-- Force 3-column grid on mobile -->
-          <style>
-          @media (max-width: 1023px) {
-            .kerala-grid {
-              display: grid;
-              grid-template-columns: repeat(3, 1fr);
-              gap: 1rem;
+                    <% } %>
+        </div>
+
+        <!-- Force 3-column grid on mobile -->
+        <style>
+            @media (max-width: 1023px) {
+                .kerala-grid {
+                    display: grid;
+                    grid-template-columns: repeat(3, 1fr);
+                    gap: 1rem;
+                }
             }
-          }
-          @media (max-width:768px){
-            .kerala-image{
-                height: 100px;
-                width: 150px;
+
+            @media (max-width:768px) {
+                .kerala-image {
+                    height: 100px;
+                    width: 150px;
+                }
             }
-          }    
-          </style>
-          
-            
+        </style>
+
+
 
         <div class="container relative md:mt-16 mt-16">
             <div class="grid grid-cols-1 pb-8 text-center">
@@ -577,7 +580,7 @@
             <div class="grid lg:grid-cols-4 md:grid-cols-2 grid-cols-2 mt-6 gap-6" id="packages-container">
                 <% packages.slice(0, 12).forEach(pkg=> { %>
                     <div class="group card-shadow rounded-md shadow-sm dark:shadow-gray-700 package-item"
-                        data-category="<%= pkg.category?._id || 'uncategorized' %>">
+                        data-category="<%= pkg.categories.map(c => c._id).join(',') %>">
                         <div class="relative overflow-hidden rounded-md shadow-sm dark:shadow-gray-700 mx-2 mt-2">
                             <img src="<%= pkg.images[0] || '/images/listing/default.jpg' %>"
                                 class="scale-125 group-hover:scale-100 duration-500 h-48 w-full object-cover"
@@ -644,6 +647,57 @@
                 </a>
             </div>
         </div>
+            <script>
+            function filterPackages(categoryId) {
+                // Update active button styling
+                document.querySelectorAll('.category-btn').forEach(btn => {
+                    if (btn.dataset.category === categoryId) {
+                        btn.classList.remove('bg-gray-200', 'text-gray-800');
+                        btn.classList.add('bg-red-500', 'text-white');
+                    } else {
+                        btn.classList.remove('bg-red-500', 'text-white');
+                        btn.classList.add('bg-gray-200', 'text-gray-800');
+                    }
+                });
+
+                // Filter packages
+                const packageItems = document.querySelectorAll('.package-item');
+                let visibleCount = 0;
+
+                packageItems.forEach(item => {
+                    // Get all categories for this package (comma-separated in data attribute)
+                    const packageCategories = item.dataset.category.split(',');
+
+                    if (categoryId === 'all' || packageCategories.includes(categoryId)) {
+                        item.style.display = 'block';
+                        visibleCount++;
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+
+                // Show/hide no packages message
+                const noPackagesMessage = document.getElementById('no-packages-message');
+                const packagesContainer = document.getElementById('packages-container');
+
+                if (visibleCount === 0) {
+                    noPackagesMessage.classList.remove('hidden');
+                    packagesContainer.classList.add('hidden');
+                } else {
+                    noPackagesMessage.classList.add('hidden');
+                    packagesContainer.classList.remove('hidden');
+                }
+            }
+
+            // Initialize with 'all' category selected
+            document.addEventListener('DOMContentLoaded', function () {
+                filterPackages('all');
+                feather.replace();
+            }); 
+            </script>
+
+
+
         <% if (banners && banners.length> 0) { %>
 
             <div class="container mt-16">
@@ -776,9 +830,9 @@
                         </div>
                     </div>
                 </div><!--end container-->
-               <div class="container md:mt-24 mt-16">
-                <div class="elfsight-app-cdd37f1c-f9f7-44c6-8cc1-c214352389e0" data-elfsight-app-lazy></div>
-               </div>
+                <div class="container md:mt-24 mt-16">
+                    <div class="elfsight-app-cdd37f1c-f9f7-44c6-8cc1-c214352389e0" data-elfsight-app-lazy></div>
+                </div>
 
 
                 <div class="container relative md:mt-24 mt-16">
@@ -1084,51 +1138,7 @@
                     </a>
                 </nav>
 
-                <script>
-                    function filterPackages(categoryId) {
-                        // Update active button styling
-                        document.querySelectorAll('.category-btn').forEach(btn => {
-                            if (btn.dataset.category === categoryId) {
-                                btn.classList.remove('bg-gray-200', 'text-gray-800');
-                                btn.classList.add('bg-red-500', 'text-white');
-                            } else {
-                                btn.classList.remove('bg-red-500', 'text-white');
-                                btn.classList.add('bg-gray-200', 'text-gray-800');
-                            }
-                        });
 
-                        // Filter packages
-                        const packageItems = document.querySelectorAll('.package-item');
-                        let visibleCount = 0;
-
-                        packageItems.forEach(item => {
-                            if (categoryId === 'all' || item.dataset.category === categoryId) {
-                                item.style.display = 'block';
-                                visibleCount++;
-                            } else {
-                                item.style.display = 'none';
-                            }
-                        });
-
-                        // Show/hide no packages message
-                        const noPackagesMessage = document.getElementById('no-packages-message');
-                        const packagesContainer = document.getElementById('packages-container');
-
-                        if (visibleCount === 0) {
-                            noPackagesMessage.classList.remove('hidden');
-                            packagesContainer.classList.add('hidden');
-                        } else {
-                            noPackagesMessage.classList.add('hidden');
-                            packagesContainer.classList.remove('hidden');
-                        }
-                    }
-
-                    // Initialize with 'all' category selected
-                    document.addEventListener('DOMContentLoaded', function () {
-                        filterPackages('all');
-                        feather.replace(); // Initialize feather icons
-                    });
-                </script>
                 <script>
                     // Add this if you need mobile-friendly dropdowns
                     document.addEventListener('DOMContentLoaded', function () {
