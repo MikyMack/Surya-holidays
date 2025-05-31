@@ -506,7 +506,7 @@
 
             <% if (keralaCategories && keralaCategories.subCategories && keralaCategories.subCategories.length> 0) { %>
                 <div class="kerala-grid ">
-                    <% keralaCategories.subCategories.forEach(subCategory=> { %>
+                    <% keralaCategories.subCategories.slice(0, 8).forEach(subCategory=> { %>
                         <% if (subCategory.isActive) { %>
                             <div class="group rounded-lg shadow-md hover:shadow-xl transition-all duration-300">
                                 <!-- Fixed height for uniform image size -->
