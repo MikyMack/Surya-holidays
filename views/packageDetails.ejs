@@ -259,7 +259,7 @@
                     This Package Information Will Add Soon ! 
                 </h3>
                 <p class="text-white mt-4">The requested package could not be loaded.</p>
-                <a href="/packages" class="mt-6 inline-block px-6 py-3 bg-red-500 text-white rounded hover:bg-red-600 transition mx-auto">
+                <a href="/packages" class="mt-6 main-btn inline-block px-6 py-3 bg-red-500 text-white rounded hover:bg-red-600 transition mx-auto">
                     Browse Packages
                 </a>
             </div>
@@ -294,15 +294,15 @@
                         </div>
                     <% } else { %>
                         <div class="w-full h-64 bg-gray-200 flex items-center justify-center rounded">
-                            <p>No images available for this package</p>
+                            <p class="text-color">No images available for this package</p>
                         </div>
                     <% } %>
 
-                    <h5 class="text-2xl font-semibold mt-5">
+                    <h5 class="text-2xl text-color font-semibold mt-5">
                         <%= tourPackage.title %>
                     </h5>
                     
-                    <p class="flex items-center text-slate-500 font-medium mt-2">
+                    <p class="flex items-center text-color text-slate-500 font-medium mt-2">
                         <% if (tourPackage.destination) { %>
                             <i data-feather="map-pin" class="size-4 icons me-1"></i>
                             <%= tourPackage.destination %>
@@ -439,14 +439,14 @@
                     <% } %>
 
                     <!-- Payment Details -->
-                    <div class="mt-16">
+                    <!-- <div class="mt-16">
                         <h3 class="text-2xl font-bold text-color text-gray-800 dark:text-white mb-6 flex items-center">
                             <i data-feather="credit-card" class="w-8 h-8 icons text-red-500 mr-3"></i>
                             Payment Details
                         </h3>
                         
                         <div class="grid md:grid-cols-2 gap-6">
-                            <!-- South Indian Bank Details -->
+                      
                             <div class="bg-gradient-to-br from-red-50 to-white dark:from-gray-800 dark:to-gray-900 rounded-xl shadow-lg p-6 border border-red-100 dark:border-red-900 transform hover:scale-105 transition-transform duration-300">
                                 <div class="flex items-center mb-4">
                                     <i data-feather="bank" class="w-6 h-6 icons text-red-500 mr-3"></i>
@@ -472,7 +472,7 @@
                                 </ul>
                             </div>
 
-                            <!-- Axis Bank Details -->
+                  
                             <div class="bg-gradient-to-br from-red-50 to-white dark:from-gray-800 dark:to-gray-900 rounded-xl shadow-lg p-6 border border-red-100 dark:border-red-900 transform hover:scale-105 transition-transform duration-300">
                                 <div class="flex items-center mb-4">
                                     <i data-feather="bank" class="w-6 h-6 icons text-red-500 mr-3"></i>
@@ -502,7 +502,7 @@
                                 </ul>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
 
                     <!-- Booking & Cancellation Policies -->
                     <div class="mt-16">
@@ -812,7 +812,7 @@
 
                             <div>
                                 <button type="submit"
-                                    class="py-2 px-5 inline-flex items-center justify-center tracking-wide align-middle duration-500 text-base text-center bg-red-500 text-white rounded-md w-full hover:bg-red-600 transition">
+                                    class="py-2 px-5 inline-flex main-btn items-center justify-center tracking-wide align-middle duration-500 text-base text-center bg-red-500 text-white rounded-md w-full hover:bg-red-600 transition">
                                     <span id="submitText">Book Now</span>
                                     <span id="spinner" class="hidden ml-2">
                                         <svg class="animate-spin h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg"
@@ -959,7 +959,7 @@
                                             class="size-8 inline-flex items-center fticons justify-center tracking-wide align-middle text-base border border-gray-800 dark:border-gray-700 rounded-md hover:bg-red-500 hover:text-white text-slate-300"><i
                                                 data-feather="message-circle" class="size-4 align-middle"
                                                 title="whatsapp"></i></a></li>
-                                    <li class="inline"><a href="mailto:suryaholidays.com"
+                                    <li class="inline"><a href="mailto:suryaholidaysccj24@gmail.com"
                                             class="size-8 inline-flex items-center fticons justify-center tracking-wide align-middle text-base border border-gray-800 dark:border-gray-700 rounded-md hover:bg-red-500 hover:text-white text-slate-300"><i
                                                 data-feather="mail" class="size-4 align-middle" title="email"></i></a>
                                     </li>
@@ -973,19 +973,18 @@
 
                                     <div class="flex mt-4">
                                         <i data-feather="map-pin" class="size-4 icons text-red-500 me-2 mt-1"></i>
-                                        <div class="">
+                                     <div class="">
                                             <h6 class="text-gray-300">
-                                               Ground Floor, Viva Plaza, <br>  Ram Mohan Road
-                                                Calicut</h6>
+                                              KK Arcade, Room No 17/1409D,Chelavoor <br> Kozhikode,Kerala</h6>
                                         </div>
                                     </div>
 
                                     <div class="flex mt-4">
                                         <i data-feather="mail" class="size-4 icons text-red-500 me-2 mt-1"></i>
-                                        <div class="">
-                                            <a href="mailto: suryaholidays.com"
+                                       <div class="">
+                                            <a style="font-size: 14px!important;" href="mailto: suryaholidaysccj24@gmail.com"
                                                 class="text-slate-300 hover:text-slate-400 duration-500 ease-in-out">
-                                                suryaholidays.com</a>
+                                                suryaholidaysccj24@gmail.com</a>
                                         </div>
                                     </div>
 
