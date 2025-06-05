@@ -614,9 +614,9 @@
                             <div
                                 class="mt-3 pt-3 flex justify-between items-center border-t border-slate-100 dark:border-gray-800">
                                 <div>
-                                    <h5 class="text-lg font-medium icons">
+                                    <!-- <h5 class="text-lg font-medium icons">
                                         ₹<%= pkg.packagePrice.toLocaleString() %>
-                                    </h5>
+                                    </h5> -->
                                     <% if (pkg.discount> 0) { %>
                                         <span class="text-sm line-through icons">
                                             ₹<%= Math.round(pkg.packagePrice * 100/(100-pkg.discount)).toLocaleString()
