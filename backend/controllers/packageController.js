@@ -112,12 +112,13 @@ const deleteImages = async (images) => {
 
         const [packages, totalCount] = await Promise.all([
             Package.find(query)
+                .sort({ createdAt: -1 }) 
                 .skip(skip)
                 .limit(parseInt(limit))
-                .populate('categories', 'name subCategories') // Changed to plural
+                .populate('categories', 'name subCategories') 
                 .populate({
-                    path: 'subCategories', // Changed to plural
-                    select: 'name -_id' // Only get name, exclude _id
+                    path: 'subCategories', 
+                    select: 'name -_id' 
                 }),
             Package.countDocuments(query)
         ]);

@@ -384,41 +384,56 @@
                                                                 </p>
                                                             </div>
                                                         </li>
-                                                        <li class="flex items-center bg-gradient-to-r from-red-50 to-white dark:from-slate-800 dark:to-slate-700 p-4 rounded-xl shadow-md mx-auto mt-4 col-span-2 w-full max-w-[300px] border border-red-100 dark:border-slate-600">
+                                                        <li
+                                                            class="flex items-center bg-gradient-to-r from-red-50 to-white dark:from-slate-800 dark:to-slate-700 p-4 rounded-xl shadow-md mx-auto mt-4 col-span-2 w-full max-w-[300px] border border-red-100 dark:border-slate-600">
                                                             <div class="w-full">
                                                                 <!-- <div class="flex items-center justify-between mb-3">
                                                                     <p class="text-sm font-medium text-color">Price:</p>
                                                                     <p class="text-lg font-bold text-color ">₹ <%= tourPackage.packagePrice %></p>
                                                                 </div> -->
-                                                                <p class="text-xs text-color  italic mb-4">Duration: <%= tourPackage.duration %></p>
-                                                        
+                                                                <p class="text-xs text-color  italic mb-4">Duration: <%=
+                                                                        tourPackage.duration %>
+                                                                </p>
+
                                                                 <!-- Categories section -->
-                                                                <% if (tourPackage.categories && tourPackage.categories.length > 0) { %>
-                                                                    <div class="mt-3 border-t border-gray-100 dark:border-slate-600 pt-3">
-                                                                        <p class="text-sm font-medium text-color mb-2">States</p>
+                                                                <% if (tourPackage.categories &&
+                                                                    tourPackage.categories.length> 0) { %>
+                                                                    <div
+                                                                        class="mt-3 border-t border-gray-100 dark:border-slate-600 pt-3">
+                                                                        <p class="text-sm font-medium text-color mb-2">
+                                                                            States</p>
                                                                         <div class="flex flex-wrap gap-2">
-                                                                            <% tourPackage.categories.forEach(category => { %>
-                                                                                <span class="text-xs px-3 py-1.5 text-color rounded-full border border-red-100 dark:border-slate-600">
+                                                                            <% tourPackage.categories.forEach(category=>
+                                                                                { %>
+                                                                                <span
+                                                                                    class="text-xs px-3 py-1.5 text-color rounded-full border border-red-100 dark:border-slate-600">
                                                                                     <%= category.name %>
                                                                                 </span>
-                                                                            <% }); %>
+                                                                                <% }); %>
                                                                         </div>
                                                                     </div>
-                                                                <% } %>
-                                                        
-                                                                <!-- Subcategories section -->
-                                                                <% if (tourPackage.subCategories && tourPackage.subCategories.length > 0) { %>
-                                                                    <div class="mt-3 border-t border-gray-100 dark:border-slate-600 pt-3">
-                                                                        <p class="text-sm font-medium text-color mb-2">Destinations</p>
-                                                                        <div class="flex flex-wrap gap-2">
-                                                                            <% tourPackage.subCategories.forEach(subCat => { %>
-                                                                                <span class="text-xs px-3 py-1.5 text-color rounded-full border border-blue-100 dark:border-slate-600">
-                                                                                    <%= subCat.name %>
-                                                                                </span>
-                                                                            <% }); %>
-                                                                        </div>
-                                                                    </div>
-                                                                <% } %>
+                                                                    <% } %>
+
+                                                                        <!-- Subcategories section -->
+                                                                        <% if (tourPackage.subCategories &&
+                                                                            tourPackage.subCategories.length> 0) { %>
+                                                                            <div
+                                                                                class="mt-3 border-t border-gray-100 dark:border-slate-600 pt-3">
+                                                                                <p
+                                                                                    class="text-sm font-medium text-color mb-2">
+                                                                                    Destinations</p>
+                                                                                <div class="flex flex-wrap gap-2">
+                                                                                    <%
+                                                                                        tourPackage.subCategories.forEach(subCat=>
+                                                                                        { %>
+                                                                                        <span
+                                                                                            class="text-xs px-3 py-1.5 text-color rounded-full border border-blue-100 dark:border-slate-600">
+                                                                                            <%= subCat.name %>
+                                                                                        </span>
+                                                                                        <% }); %>
+                                                                                </div>
+                                                                            </div>
+                                                                            <% } %>
                                                             </div>
                                                         </li>
                                                     </ul>
@@ -989,11 +1004,20 @@
                                             </div>
 
                                             <div>
-                                                <label class="font-semibold ">Date:</label>
-                                                <input name="date" type="date" required
-                                                    class="mt-2 w-full py-2 px-3  h-10 bg-transparent dark:bg-slate-900 dark:text-slate-200 rounded outline-none border border-gray-100 dark:border-gray-800 focus:ring-0"
-                                                    placeholder="Select date">
-                                            </div>
+                                                <label class="font-semibold">Booking Date From:</label>
+                                                <input name="bookingDateFrom" type="date" required
+                                                  class="mt-2 w-full py-2 px-3 h-10 bg-transparent dark:bg-slate-900 dark:text-slate-200 rounded outline-none border border-gray-100 dark:border-gray-800 focus:ring-0"
+                                                  placeholder="From date">
+                                              </div>
+                                              
+                                              <div>
+                                                <label class="font-semibold">Booking Date To:</label>
+                                                <input name="bookingDateTo" type="date" required
+                                                  class="mt-2 w-full py-2 px-3 h-10 bg-transparent dark:bg-slate-900 dark:text-slate-200 rounded outline-none border border-gray-100 dark:border-gray-800 focus:ring-0"
+                                                  placeholder="To date">
+                                              </div>
+                                              
+
 
                                             <div class="space-y-4">
                                                 <div class="flex items-center justify-between">
@@ -1010,6 +1034,7 @@
                                                         <input name="children" type="number" min="0" value="0"
                                                             class="w-full ps-3 py-2 px-3 h-10 bg-transparent dark:bg-slate-900 dark:text-slate-200 rounded outline-none border border-gray-100 dark:border-gray-800 focus:ring-0">
                                                     </div>
+                                                    <p>Under 5 years old</p>
                                                 </div>
                                             </div>
 
@@ -1040,72 +1065,80 @@
                                         <script>
                                             document.getElementById('bookingForm').addEventListener('submit', async function (e) {
                                                 e.preventDefault();
-
+                                        
                                                 const form = e.target;
                                                 const submitButton = form.querySelector('button[type="submit"]');
                                                 const submitText = document.getElementById('submitText');
                                                 const spinner = document.getElementById('spinner');
                                                 const successMessage = document.getElementById('successMessage');
                                                 const errorMessage = document.getElementById('errorMessage');
-
+                                        
                                                 // Reset messages
-                                                successMessage.classList.add('hidden');
-                                                errorMessage.classList.add('hidden');
-
-                                                // Show loading state
+                                                successMessage?.classList.add('hidden');
+                                                errorMessage?.classList.add('hidden');
+                                        
+                                                // Show loading
                                                 submitText.textContent = 'Processing...';
                                                 spinner.classList.remove('hidden');
                                                 submitButton.disabled = true;
-
+                                        
                                                 try {
-                                                    // Prepare form data
+                                                    // Prepare form data and object
                                                     const formData = new URLSearchParams();
+                                                    const formObj = {};
                                                     for (const pair of new FormData(form)) {
                                                         formData.append(pair[0], pair[1]);
+                                                        formObj[pair[0]] = pair[1];
                                                     }
-
-                                                    // Replace with your deployed web app URL
+                                        
+                                                    // 1. Submit to Google Sheet
                                                     const scriptUrl = 'https://script.google.com/macros/s/AKfycbxTsSFLSXoMUX-bZa23K7wgsoS3c5GDdNySB2rgd8ZbqIuPHq4zqZ3amj1ul9R2Fmiq/exec';
-
                                                     const response = await fetch(scriptUrl, {
                                                         method: 'POST',
                                                         body: formData,
                                                         redirect: 'follow'
                                                     });
-
-                                                    // First check if response is OK
+                                        
                                                     if (!response.ok) {
-                                                        throw new Error(`HTTP error! status: ${response.status}`);
+                                                        throw new Error('Google Sheets submission failed');
                                                     }
-
-                                                    // Then parse the JSON
-                                                    const result = await response.json();
-
-                                                    // Check the actual result content
-                                                    if (result.status === 'success') {
-                                                        successMessage.classList.remove('hidden');
-                                                        form.reset();
-                                                    } else {
-                                                        throw new Error(result.message || 'Unknown error from server');
+                                        
+                                                    // 2. Call backend to send SMS (notify only you)
+                                                    const smsResponse = await fetch('/notify-sms', {
+                                                        method: 'POST',
+                                                        headers: {
+                                                            'Content-Type': 'application/json'
+                                                        },
+                                                        body: JSON.stringify(formObj)
+                                                    });
+                                        
+                                                    if (!smsResponse.ok) {
+                                                        throw new Error('SMS sending failed');
                                                     }
+                                        
+                                                    // 3. Success
+                                                    successMessage?.classList.remove('hidden');
+                                                    form.reset();
+                                        
                                                 } catch (error) {
-                                                    console.error('Submission error:', error);
-                                                    errorMessage.textContent = error.message;
-                                                    errorMessage.classList.remove('hidden');
-
-                                                    // Log the full error for debugging
-                                                    console.log('Full error object:', error);
-                                                } finally {
-                                                    submitText.textContent = 'Book Now';
-                                                    spinner.classList.add('hidden');
-                                                    submitButton.disabled = false;
+                                                    console.error(error);
+                                                    errorMessage?.classList.remove('hidden');
                                                 }
+                                        
+                                                // Reset submit button
+                                                submitText.textContent = 'Book Now';
+                                                spinner.classList.add('hidden');
+                                                submitButton.disabled = false;
                                             });
                                         </script>
+                                        
+
 
                                         <div id="successMessage"
                                             class="hidden  mt-4 p-4 bg-green-100 text-green-700 rounded">
-                                            Thank you for your booking! We'll contact you shortly.
+                                            Thank you for your booking!<br>
+                                            We'll contact you shortly.<br>
+                                            <span class="block mt-2 text-sm text-green-800">Will call You shortly !</span>
                                         </div>
 
                                         <div id="errorMessage" class="hidden  mt-4 p-4 bg-red-100 text-red-700 rounded">

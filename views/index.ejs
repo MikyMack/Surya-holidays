@@ -493,6 +493,45 @@
                 </div>
             </div>
         </div><!--end container-->
+        <!-- Section: Select Packages by Duration -->
+        <div class="container relative md:mt-16 mt-16">
+            <div class="grid grid-cols-1 pb-8 text-center">
+                <h3 class="mb-6 md:text-3xl text-2xl md:leading-normal leading-normal titles font-semibold">
+                    Select Packages by Duration
+                </h3>
+                <p class="text-slate-400 max-w-xl disc mx-auto">
+                    Choose your ideal trip length and explore packages tailored to your schedule!
+                </p>
+            </div>
+            <div class="flex flex-wrap justify-center gap-4 mt-6">
+                <% 
+                    const durationSet = new Set();
+                    packages.forEach(pkg => {
+                        if (pkg.duration) durationSet.add(pkg.duration.trim());
+                    });
+                    const sortedDurations = Array.from(durationSet).sort((a, b) => {
+                        const numA = parseInt(a);
+                        const numB = parseInt(b);
+                        if (!isNaN(numA) && !isNaN(numB)) {
+                            return numA - numB;
+                        }
+                        return a.localeCompare(b);
+                    });
+                %>
+                <% sortedDurations.forEach(duration => { %>
+                    <a href="/packages?duration=<%= encodeURIComponent(duration) %>" 
+                       class="inline-block px-6 py-2 rounded-full border border-red text-white font-medium transition-all duration-200 shadow-sm
+                              hover:border-yellow-400 hover:shadow-lg border-2 border-solid
+                              transition-colors transition-shadow duration-300 ease-in-out"
+                       style="box-shadow: 0 0 0 0 #efc465; transition: box-shadow 0.3s, border-color 0.3s;"
+                       onmouseover="this.style.boxShadow='0 0 0 4px #efc46555'; this.style.borderColor='#efc465';"
+                       onmouseout="this.style.boxShadow='0 0 0 0 #efc465'; this.style.borderColor='';">
+                        <%= duration %>
+                    </a>
+                <% }) %>
+            </div>
+        </div>
+
 
         <div class="container relative md:mt-16 mt-16">
             <div class="grid grid-cols-1 pb-8 text-center">

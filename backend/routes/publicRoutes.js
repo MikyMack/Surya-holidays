@@ -23,18 +23,21 @@ router.get('/', async (req, res) => {
             .select('name imageUrl subCategories')
             .lean();
 
-        // Fetch packages with populated categories and subCategories
-        const packages = await Package.find({ isActive: true })
+        // Fetch packages with populated categories and subCategories, latest created first
+        const packages = await Package.find({ isActive: true }).sort({ createdAt: -1 })
             .populate({
-                path: 'categories',  // Changed from 'category' to 'categories'
+                path: 'categories',
                 select: 'name imageUrl'
             })
             .populate({
-                path: 'subCategories',  // Changed from 'subCategory' to 'subCategories'
+                path: 'subCategories',
                 select: 'name imageUrl',
                 match: { isActive: true }
             })
             .lean();
+
+        // Sort packages by createdAt descending (latest first) just in case
+        packages.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
 
         // Fetch blogs
         const blogs = await Blog.find().sort({ createdAt: -1 }).limit(3);
@@ -45,6 +48,8 @@ router.get('/', async (req, res) => {
             const categoryPackages = packages.filter(pkg => 
                 pkg.categories?.some(cat => cat._id.toString() === category._id.toString())
             );
+            // Sort categoryPackages by createdAt descending (latest first)
+            categoryPackages.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
             const directPackages = categoryPackages.filter(pkg => !pkg.subCategories || pkg.subCategories.length === 0);
             
             return {
@@ -60,6 +65,8 @@ router.get('/', async (req, res) => {
         const keralaPackages = packages.filter(pkg => 
             pkg.categories?.some(cat => cat.name === 'Kerala')
         );
+        // Sort keralaPackages by createdAt descending (latest first)
+        keralaPackages.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
         const keralaDirectPackages = keralaPackages.filter(pkg => !pkg.subCategories || pkg.subCategories.length === 0);
 
         const keralaCategoryData = keralaCategory ? {
@@ -70,18 +77,21 @@ router.get('/', async (req, res) => {
             locationCount: keralaPackages.length
         } : null;
 
-        // Processed package list with short description
-        const processedPackages = packages.map(pkg => ({
-            ...pkg,
-            categoryName: pkg.categories?.[0]?.name || 'Deleted Category',
-            categoryImage: pkg.categories?.[0]?.imageUrl || '',
-            subCategoryName: pkg.subCategories?.[0]?.name || null,
-            subCategoryImage: pkg.subCategories?.[0]?.imageUrl || null,
-            shortDescription: pkg.packageDescription
-                ? pkg.packageDescription.split(' ').slice(0, 20).join(' ') + 
-                  (pkg.packageDescription.split(' ').length > 20 ? '...' : '')
-                : ''
-        }));
+        // Processed package list with short description, sorted latest first
+        const processedPackages = packages
+            .slice() // shallow copy
+            .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+            .map(pkg => ({
+                ...pkg,
+                categoryName: pkg.categories?.[0]?.name || 'Deleted Category',
+                categoryImage: pkg.categories?.[0]?.imageUrl || '',
+                subCategoryName: pkg.subCategories?.[0]?.name || null,
+                subCategoryImage: pkg.subCategories?.[0]?.imageUrl || null,
+                shortDescription: pkg.packageDescription
+                    ? pkg.packageDescription.split(' ').slice(0, 20).join(' ') + 
+                      (pkg.packageDescription.split(' ').length > 20 ? '...' : '')
+                    : ''
+            }));
 
         res.render('index', { 
             title: 'Home Page',
@@ -182,7 +192,7 @@ router.get('/gallery', async (req, res) => {
         }));
 
         const totalGalleryItems = await Gallery.countDocuments();
-        const gallery = await Gallery.find()
+        const gallery = await Gallery.find().sort({ createdAt: -1 })
             .skip((page - 1) * limit)
             .limit(parseInt(limit));
 
@@ -209,7 +219,7 @@ router.get('/contact', async (req, res) => {
 });
 router.get('/packages', async (req, res) => {
     try {
-        const { category, subCategory, search, page = 1, limit = 10 } = req.query;
+        const { category, subCategory, search, duration, page = 1, limit = 10 } = req.query;
         let query = { isActive: true };
         
         // Build query based on filters
@@ -219,6 +229,10 @@ router.get('/packages', async (req, res) => {
         
         if (subCategory) {
             query.subCategories = subCategory;
+        }
+
+        if (duration) {
+            query.duration = duration;
         }
         
         if (search && search.length >= 3) {
@@ -281,7 +295,7 @@ router.get('/packages', async (req, res) => {
             currentCategory: category,
             currentSubCategory: subCategory,
             searchTerm: search,
-            selectedCategory: selectedCategoryName, // Add this line
+            selectedCategory: selectedCategoryName,
             currentPage: parseInt(page),
             totalPages: Math.ceil(totalPackages / limit),
             query: req.query 

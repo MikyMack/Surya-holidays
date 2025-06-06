@@ -7,6 +7,37 @@ const bannerController = require('../controllers/bannerController');
 const testimonialController = require('../controllers/testimonialController');
 const upload = require('../utils/multer');
 // Dynamic Multer middleware function
+const axios = require('axios');
+
+// Route to send SMS after booking
+router.post('/notify-sms', async (req, res) => {
+    try {
+        const {
+            name, mobile, fromDate, toDate,
+            adults, children, packageName
+        } = req.body;
+
+        const adminPhone = '9048002234';
+        const message = `Booking alert: ${name}, ${mobile}, ${packageName}, ${fromDate} to ${toDate}`;
+
+        const response = await axios.get('https://www.fast2sms.com/dev/bulkV2', {
+            params: {
+                authorization: process.env.FAST2SMS_API_KEY,
+                message,
+                language: 'english',
+                route: 'q',
+                numbers: adminPhone,
+            }
+        });
+
+        res.json({ success: true, response: response.data });
+    } catch (err) {
+        console.error('SMS failed:', err.response?.data || err.message);
+        res.status(500).json({ success: false, error: err.response?.data || err.message });
+    }
+});
+
+
 
 
 router.get('/categories', categoryController.getAllCategories);
