@@ -645,28 +645,20 @@
                                 <%= pkg.title %>
                             </a>
 
-                            <!-- <p class="text-sm disc mt-1">
-                                <i class="mdi mdi-clock-outline icons me-1"></i>
-                                <%= pkg.duration %>
-                            </p> -->
-
-                            <div
-                                class="mt-3 pt-3 flex justify-between items-center border-t border-slate-100 dark:border-gray-800">
-                                <div>
-                                    <!-- <h5 class="text-lg font-medium icons">
-                                        ₹<%= pkg.packagePrice.toLocaleString() %>
-                                    </h5> -->
-                                      <p class="text-sm disc mt-1">
+                            <p class="text-sm disc mt-1">
                                 <i class="mdi mdi-clock-outline icons me-1"></i>
                                 <%= pkg.duration %>
                             </p>
-                                    <% if (pkg.discount> 0) { %>
-                                        <span class="text-sm line-through icons">
-                                            ₹<%= Math.round(pkg.packagePrice * 100/(100-pkg.discount)).toLocaleString()
-                                                %>
-                                        </span>
-                                        <% } %>
+
+                            <div
+                                class="mt-3 pt-3 flex justify-between items-center border-t border-slate-100 dark:border-gray-800">
+                                <% if (pkg.packagePrice > 0) { %>
+                                <div>
+                                    <h5 class="text-lg font-medium icons">
+                                        ₹<%= pkg.packagePrice.toLocaleString() %>
+                                    </h5>
                                 </div>
+                                <% } %>
                                 <a href="/package/<%= pkg._id %>" class="titles hover:text-gold-600">
                                     Explore Now <i class="mdi titles mdi-arrow-right"></i>
                                 </a>
